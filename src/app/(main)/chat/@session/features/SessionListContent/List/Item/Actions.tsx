@@ -1,26 +1,14 @@
 import { ActionIcon, Icon } from '@lobehub/ui';
 import { App, Dropdown, type MenuProps } from 'antd';
 import { createStyles } from 'antd-style';
-import isEqual from 'fast-deep-equal';
-import {
-  Check,
-  HardDriveDownload,
-  ListTree,
-  LucideCopy,
-  LucidePlus,
-  MoreVertical,
-  Pin,
-  PinOff,
-  Trash,
-} from 'lucide-react';
+import { MoreVertical, PencilLine, Trash } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { configService } from '@/services/config';
 import { useSessionStore } from '@/store/session';
 import { sessionHelpers } from '@/store/session/helpers';
-import { sessionGroupSelectors, sessionSelectors } from '@/store/session/selectors';
-import { SessionDefaultGroup } from '@/types/session';
+import { sessionSelectors } from '@/store/session/selectors';
 
 const useStyles = createStyles(({ css }) => ({
   modalRoot: css`
@@ -35,110 +23,38 @@ interface ActionProps {
   setOpen: (open: boolean) => void;
 }
 
-const Actions = memo<ActionProps>(({ group, id, openCreateGroupModal, setOpen }) => {
+const Actions = memo<ActionProps>(({ id, setOpen }) => {
   const { styles } = useStyles();
   const { t } = useTranslation('chat');
+  const router = useRouter();
 
-  const sessionCustomGroups = useSessionStore(sessionGroupSelectors.sessionGroupItems, isEqual);
-  const [pin, removeSession, pinSession, duplicateSession, updateSessionGroup] = useSessionStore(
-    (s) => {
-      const session = sessionSelectors.getSessionById(id)(s);
-      return [
-        sessionHelpers.getSessionPinned(session),
-        s.removeSession,
-        s.pinSession,
-        s.duplicateSession,
-        s.updateSessionGroupId,
-      ];
-    },
-  );
+  const [pin, removeSession] = useSessionStore((s) => {
+    const session = sessionSelectors.getSessionById(id)(s);
+    return [
+      sessionHelpers.getSessionPinned(session),
+      s.removeSession,
+      s.pinSession,
+      s.duplicateSession,
+      s.updateSessionGroupId,
+    ];
+  });
 
   const { modal, message } = App.useApp();
 
-  const isDefault = group === SessionDefaultGroup.Default;
   // const hasDivider = !isDefault || Object.keys(sessionByGroup).length > 0;
 
   const items: MenuProps['items'] = useMemo(
     () => [
       {
-        icon: <Icon icon={pin ? PinOff : Pin} />,
+        icon: <Icon icon={PencilLine} />,
         key: 'pin',
-        label: t(pin ? 'pinOff' : 'pin'),
+        label: t('rename'),
         onClick: () => {
-          pinSession(id, !pin);
-        },
-      },
-      {
-        icon: <Icon icon={LucideCopy} />,
-        key: 'duplicate',
-        label: t('duplicate', { ns: 'common' }),
-        onClick: ({ domEvent }) => {
-          domEvent.stopPropagation();
-
-          duplicateSession(id);
+          // Need to modify
         },
       },
       {
         type: 'divider',
-      },
-      {
-        children: [
-          ...sessionCustomGroups.map(({ id: groupId, name }) => ({
-            icon: group === groupId ? <Icon icon={Check} /> : <div />,
-            key: groupId,
-            label: name,
-            onClick: () => {
-              updateSessionGroup(id, groupId);
-            },
-          })),
-          {
-            icon: isDefault ? <Icon icon={Check} /> : <div />,
-            key: 'defaultList',
-            label: t('defaultList'),
-            onClick: () => {
-              updateSessionGroup(id, SessionDefaultGroup.Default);
-            },
-          },
-          {
-            type: 'divider',
-          },
-          {
-            icon: <Icon icon={LucidePlus} />,
-            key: 'createGroup',
-            label: <div>{t('sessionGroup.createGroup')}</div>,
-            onClick: ({ domEvent }) => {
-              domEvent.stopPropagation();
-              openCreateGroupModal();
-            },
-          },
-        ],
-        icon: <Icon icon={ListTree} />,
-        key: 'moveGroup',
-        label: t('sessionGroup.moveGroup'),
-      },
-      {
-        type: 'divider',
-      },
-      {
-        children: [
-          {
-            key: 'agent',
-            label: t('exportType.agent', { ns: 'common' }),
-            onClick: () => {
-              configService.exportSingleAgent(id);
-            },
-          },
-          {
-            key: 'agentWithMessage',
-            label: t('exportType.agentWithMessage', { ns: 'common' }),
-            onClick: () => {
-              configService.exportSingleSession(id);
-            },
-          },
-        ],
-        icon: <Icon icon={HardDriveDownload} />,
-        key: 'export',
-        label: t('export', { ns: 'common' }),
       },
       {
         danger: true,
@@ -152,6 +68,7 @@ const Actions = memo<ActionProps>(({ group, id, openCreateGroupModal, setOpen })
             okButtonProps: { danger: true },
             onOk: async () => {
               await removeSession(id);
+              router.replace('/chat?session=inbox');
               message.success(t('confirmRemoveSessionSuccess'));
             },
             rootClassName: styles.modalRoot,

@@ -44,6 +44,7 @@
   "pin": "Pin",
   "pinOff": "Unpin",
   "regenerate": "Regenerate",
+  "rename": "Rename",
   "roleAndArchive": "Role and Archive",
   "searchAgentPlaceholder": "Search agents and conversations...",
   "sendPlaceholder": "Type your message here...",

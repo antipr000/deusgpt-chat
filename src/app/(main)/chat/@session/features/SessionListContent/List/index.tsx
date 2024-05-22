@@ -1,6 +1,7 @@
 import { Empty } from 'antd';
 import { createStyles } from 'antd-style';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Center } from 'react-layout-kit';
@@ -30,6 +31,9 @@ const SessionList = memo<SessionListProps>(({ dataSource, groupId, showAddButton
   const { t } = useTranslation('chat');
   const isInit = useSessionStore((s) => sessionSelectors.isSessionListInit(s));
   const { showCreateSession } = useServerConfigStore(featureFlagsSelectors);
+  const params = useSearchParams();
+
+  const agent = params.get('agent') as string;
 
   const { styles } = useStyles();
 
@@ -40,7 +44,7 @@ const SessionList = memo<SessionListProps>(({ dataSource, groupId, showAddButton
   ) : !isEmpty ? (
     dataSource.map(({ id }) => (
       <LazyLoad className={styles} key={id}>
-        <Link aria-label={id} href={SESSION_CHAT_URL(id, mobile)}>
+        <Link aria-label={id} href={SESSION_CHAT_URL(id, agent, mobile)}>
           <SessionItem id={id} />
         </Link>
       </LazyLoad>

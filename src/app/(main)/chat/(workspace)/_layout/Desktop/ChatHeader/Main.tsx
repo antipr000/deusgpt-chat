@@ -62,14 +62,18 @@ const Main = memo(() => {
           title={t('agentsAndConversations')}
         />
       }
-      <Avatar
-        avatar={avatar}
-        background={backgroundColor}
-        onClick={() => openChatSettings()}
-        size={40}
-        title={title}
-      />
-      <ChatHeaderTitle desc={displayDesc} tag={<Tags />} title={displayTitle} />
+      {!isInbox && (
+        <>
+          <Avatar
+            avatar={avatar}
+            background={backgroundColor}
+            onClick={() => openChatSettings()}
+            size={40}
+            title={title}
+          />
+          <ChatHeaderTitle desc={displayDesc} tag={<Tags />} title={displayTitle} />
+        </>
+      )}
     </Flexbox>
   );
 });

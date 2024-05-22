@@ -37,7 +37,7 @@ const Header = memo(() => {
     <Flexbox className={styles.top} gap={16} padding={16}>
       <Flexbox distribution={'space-between'} horizontal>
         <Flexbox align={'center'} gap={4} horizontal>
-          <Logo className={styles.logo} size={36} type={'text'} />
+          <div style={{ fontSize: '24px', fontWeight: 'bold' }}>DeusGPT</div>
           {enableWebrtc && <SyncStatusTag />}
         </Flexbox>
         {showCreateSession && (

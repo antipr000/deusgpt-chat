@@ -40,9 +40,13 @@ export const MORE_MODEL_PROVIDER_REQUEST_URL =
 export const AGENTS_INDEX_GITHUB = 'https://github.com/lobehub/lobe-chat-agents';
 export const AGENTS_INDEX_GITHUB_ISSUE = urlJoin(AGENTS_INDEX_GITHUB, 'issues/new');
 
-export const SESSION_CHAT_URL = (id: string = INBOX_SESSION_ID, mobile?: boolean) =>
+export const SESSION_CHAT_URL = (
+  id: string = INBOX_SESSION_ID,
+  agent: string = 'gpt',
+  mobile?: boolean,
+) =>
   qs.stringifyUrl({
-    query: mobile ? { session: id, showMobileWorkspace: mobile } : { session: id },
+    query: mobile ? { agent, session: id, showMobileWorkspace: mobile } : { agent, session: id },
     url: '/chat',
   });
 
