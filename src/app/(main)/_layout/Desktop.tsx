@@ -1,16 +1,38 @@
 'use client';
 
 import { useTheme } from 'antd-style';
-import { memo } from 'react';
+import { useAtom } from 'jotai';
+import { memo, useEffect } from 'react';
 import { Flexbox } from 'react-layout-kit';
 
 import { useIsPWA } from '@/hooks/useIsPWA';
+import { idTokenAtom } from '@/store/atoms/token.atom';
+import { UserData, userAtom } from '@/store/atoms/user.atom';
 
 import { LayoutProps } from './type';
 
 const Layout = memo<LayoutProps>(({ children }) => {
   const isPWA = useIsPWA();
   const theme = useTheme();
+  const [_, setIdToken] = useAtom(idTokenAtom);
+  const [_2, setUser] = useAtom(userAtom);
+
+  const handleEvent = ({ data }: { data: { type: string; payload: any } }) => {
+    const { type, payload } = data;
+
+    if (type === 'id-token') {
+      // set state
+      const { idToken, user }: { idToken: string; user: UserData } = payload;
+      setIdToken(idToken);
+      setUser(user);
+    }
+  };
+
+  useEffect(() => {
+    window.parent.postMessage({ type: 'chat-load', payload: true }, '*');
+
+    window.addEventListener('message', handleEvent);
+  }, []);
 
   return (
     <Flexbox

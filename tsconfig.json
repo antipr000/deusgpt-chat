@@ -29,6 +29,7 @@
   },
   "exclude": ["node_modules"],
   "include": [
+    "globals.d.ts",
     "next-env.d.ts",
     "vitest.config.ts",
     "src",

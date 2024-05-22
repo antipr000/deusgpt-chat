@@ -47,9 +47,9 @@ const InboxWelcome = memo(() => {
           <FluentEmoji emoji={'👋'} size={40} type={'anim'} />
           <h1 className={styles.title}>{greeting}</h1>
         </Flexbox>
-        <Markdown className={styles.desc} variant={'chat'}>
+        {/* <Markdown className={styles.desc} variant={'chat'}>
           {t('guide.defaultMessage')}
-        </Markdown>
+        </Markdown> */}
       </Flexbox>
     </Center>
   );
