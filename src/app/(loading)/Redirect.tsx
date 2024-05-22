@@ -16,21 +16,9 @@ const checkHasConversation = async () => {
 
 const Redirect = memo(() => {
   const router = useRouter();
-  const isLogin = useUserStore(authSelectors.isLogin);
 
   useEffect(() => {
-    if (!isLogin) {
-      router.replace('/welcome');
-      return;
-    }
-
-    checkHasConversation().then((hasData) => {
-      if (hasData) {
-        router.replace('/chat');
-      } else {
-        router.replace('/welcome');
-      }
-    });
+    router.replace('/chat');
   }, []);
 
   return null;

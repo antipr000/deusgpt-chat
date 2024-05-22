@@ -1,9 +1,8 @@
 ---
-title: Configure Auth0 Identity Verification Service for LobeChat
+title: Configure Auth0 Identity Verification Service for DeusGPT Chat
 description: >-
-  Learn how to configure Auth0 Identity Verification Service for LobeChat for
-  your organization, including creating applications, adding users, and
-  configuring environment variables.
+  Learn how to configure Auth0 Identity Verification Service for DeusGPT Chat for your organization, including creating applications, adding users, and configuring environment variables.
+
 tags:
   - Auth0
   - Identity Verification
@@ -62,7 +61,7 @@ http(s)://your-domain/api/auth/callback/auth0
 
 ### Add Users
 
-Click on the "Users Management" in the left navigation bar to enter the user management interface, where you can create users for your organization to log in to LobeChat.
+Click on the "Users Management" in the left navigation bar to enter the user management interface, where you can create users for your organization to log in to DeusGPT Chat.
 
 <Image
   alt="Add Users"
@@ -72,11 +71,11 @@ Click on the "Users Management" in the left navigation bar to enter the user man
 
 ### Configure Environment Variables
 
-When deploying LobeChat, you need to configure the following environment variables:
+When deploying DeusGPT Chat, you need to configure the following environment variables:
 
 | Environment Variable | Type | Description |
 | --- | --- | --- |
-| `ENABLE_OAUTH_SSO` | Required | Enable single sign-on (SSO) for LobeChat. Set to `1` to enable single sign-on. |
+| `ENABLE_OAUTH_SSO` | Required | Enable single sign-on (SSO) for DeusGPT Chat. Set to `1` to enable single sign-on. |
 | `NEXTAUTH_SECRET` | Required | Key used to encrypt Auth.js session tokens. You can generate a key using the following command: `openssl rand -base64 32` |
 | `SSO_PROVIDERS` | Optional | Select the single sign-on provider for LoboChat. Use `auth0` for Auth0. |
 | `AUTH0_CLIENT_ID` | Required | Client ID of the Auth0 application |
@@ -92,8 +91,8 @@ When deploying LobeChat, you need to configure the following environment variabl
 </Steps>
 
 <Callout>
-  After successful deployment, users will be able to authenticate and use LobeChat using the users
-  configured in Auth0.
+  After successful deployment, users will be able to authenticate and use DeusGPT Chat using the
+  users configured in Auth0.
 </Callout>
 
 ## Advanced Configuration
@@ -120,7 +119,7 @@ If your enterprise or organization needs to support external user logins, you ca
 
 <Callout type={'warning'}>
   Configuring social login services by default allows anyone to authenticate, which may lead to
-  LobeChat being abused by external users.
+  DeusGPT Chat being abused by external users.
 </Callout>
 
 <Callout>

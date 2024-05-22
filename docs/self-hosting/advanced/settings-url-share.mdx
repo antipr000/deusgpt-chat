@@ -1,6 +1,6 @@
-# Share settings via URL 
+# Share settings via URL
 
-LobeChat support import settings from external URL to quickly set up LobeChat configuration.
+DeusGPT Chat support import settings from external URL to quickly set up DeusGPT Chat configuration.
 
 The currently supported settings are:
 
@@ -19,11 +19,11 @@ Example of settings in JSON format:
 
 ```json
 {
-    "languageModel": {
-        "openai": {
-            "apiKey": "user-key"
-        }
+  "languageModel": {
+    "openai": {
+      "apiKey": "user-key"
     }
+  }
 }
 ```
 
@@ -32,20 +32,22 @@ Example of settings in JSON format:
 ```ts
 // Generate settings to export to URL
 const settings = {
-    languageModel: {
+  languageModel: {
     openai: {
-        apiKey: 'user-key',
-        endpoint: 'https://lobehub.com/v1'
+      apiKey: 'user-key',
+      endpoint: 'https://lobehub.com/v1',
     },
-}};
+  },
+};
 // Convert settings to a JSON formatted string
 const url = `/?settings=${JSON.stringify(settings)}`;
-console.log(url); 
+console.log(url);
 // /?settings={"languageModel":{"openai":{"apiKey":"user-key","endpoint":"https://lobehub.com/v1"}}}
 ```
 
 <Callout type={'warning'}>
-    LobeChat does not verify the correctness of the settings parameters in the URL, nor provide encryption or decryption methods. Please use with caution.
+  DeusGPT Chat does not verify the correctness of the settings parameters in the URL, nor provide
+  encryption or decryption methods. Please use with caution.
 </Callout>
 
 ## Parameter schema
@@ -54,47 +56,43 @@ console.log(url);
 
 - Property name and type
 
-| Property name | Type                           |
-|---------------|--------------------------------|
-| anthropic     | GeneralModelProviderConfig      |
-| azure         | AzureOpenAIConfig               |
-| bedrock       | AWSBedrockConfig                |
-| google        | GeneralModelProviderConfig      |
-| groq          | GeneralModelProviderConfig      |
-| minimax       | GeneralModelProviderConfig      |
-| mistral       | GeneralModelProviderConfig      |
-| moonshot      | GeneralModelProviderConfig      |
-| ollama        | GeneralModelProviderConfig      |
-| openai        | GeneralModelProviderConfig      |
-| openrouter    | GeneralModelProviderConfig      |
-| perplexity    | GeneralModelProviderConfig      |
-| togetherai    | GeneralModelProviderConfig      |
-| zeroone       | GeneralModelProviderConfig      |
-| zhipu         | GeneralModelProviderConfig      |
+| Property name | Type                       |
+| ------------- | -------------------------- |
+| anthropic     | GeneralModelProviderConfig |
+| azure         | AzureOpenAIConfig          |
+| bedrock       | AWSBedrockConfig           |
+| google        | GeneralModelProviderConfig |
+| groq          | GeneralModelProviderConfig |
+| minimax       | GeneralModelProviderConfig |
+| mistral       | GeneralModelProviderConfig |
+| moonshot      | GeneralModelProviderConfig |
+| ollama        | GeneralModelProviderConfig |
+| openai        | GeneralModelProviderConfig |
+| openrouter    | GeneralModelProviderConfig |
+| perplexity    | GeneralModelProviderConfig |
+| togetherai    | GeneralModelProviderConfig |
+| zeroone       | GeneralModelProviderConfig |
+| zhipu         | GeneralModelProviderConfig |
 
 - Type `GeneralModelProviderConfig`
 
-| Property name | Type                           | Description                                                                 |
-|-----------------------|--------------------------|-----------------------------------------------------------------------------|
-| apiKey                | string                   | The API key for the model provider.                                          |
-| autoFetchModelLists   | boolean                  | Whether to automatically fetch model lists.                                  |
-| enabled               | boolean                  | Whether the model provider is enabled.                                       |
-| enabledModels         | string[] | null         | The IDs of the enabled models.                                               |
-| endpoint              | string                   | The endpoint for the model provider.                                         |
-| fetchOnClient         | boolean                  | Whether to fetch on the client.                                              |
+| Property name       | Type     | Description                                 |
+| ------------------- | -------- | ------------------------------------------- | ------------------------------ |
+| apiKey              | string   | The API key for the model provider.         |
+| autoFetchModelLists | boolean  | Whether to automatically fetch model lists. |
+| enabled             | boolean  | Whether the model provider is enabled.      |
+| enabledModels       | string[] | null                                        | The IDs of the enabled models. |
+| endpoint            | string   | The endpoint for the model provider.        |
+| fetchOnClient       | boolean  | Whether to fetch on the client.             |
 
 - Type `AzureOpenAIConfig`
-> Inherits the fields from `GeneralModelProviderConfig`
+  > Inherits the fields from `GeneralModelProviderConfig`
 
-| Property name | Type                           | Description                                                                 |
-|-----------------------|--------------------------|-----------------------------------------------------------------------------|
-| apiVersion                | string                   | The API version for Azure OpenAI.                                          |
+| Property name | Type   | Description                       |
+| ------------- | ------ | --------------------------------- |
+| apiVersion    | string | The API version for Azure OpenAI. |
 
 - Type `AWSBedrockConfig`
-> Inherits all fields from `GeneralModelProviderConfig` except `apiKey, endpoint`
+  > Inherits all fields from `GeneralModelProviderConfig` except `apiKey, endpoint`
 
-| Property name | Type                           | Description                                                                 |
-| accessKeyId           | string                   | The access key ID for AWS Bedrock.                                           |
-| region                | string                   | The region for AWS Bedrock.                                                  |
-| secretAccessKey       | string                   | The secret access key for AWS Bedrock.                                       |
-
+| Property name | Type | Description | | accessKeyId | string | The access key ID for AWS Bedrock. | | region | string | The region for AWS Bedrock. | | secretAccessKey | string | The secret access key for AWS Bedrock. |

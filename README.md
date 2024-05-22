@@ -27,7 +27,7 @@ One-click **FREE** deployment of your private OpenAI ChatGPT/Claude/Gemini/Groq/
 [![][github-license-shield]][github-license-link]<br>
 [![][sponsor-shield]][sponsor-link]
 
-**Share LobeChat Repository**
+**Share DeusGPT Chat Repository**
 
 [![][share-x-shield]][share-x-link]
 [![][share-telegram-shield]][share-telegram-link]
@@ -86,11 +86,11 @@ One-click **FREE** deployment of your private OpenAI ChatGPT/Claude/Gemini/Groq/
 We are a group of e/acc design-engineers, hoping to provide modern design components and tools for AIGC.
 By adopting the Bootstrapping approach, we aim to provide developers and users with a more open, transparent, and user-friendly product ecosystem.
 
-Whether for users or professional developers, LobeHub will be your AI Agent playground. Please be aware that LobeChat is currently under active development, and feedback is welcome for any [issues][issues-link] encountered.
+Whether for users or professional developers, DeusGPT will be your AI Agent playground. Please be aware that DeusGPT Chat is currently under active development, and feedback is welcome for any [issues][issues-link] encountered.
 
 | [![][vercel-shield-badge]][vercel-link]   | No installation or registration necessary! Visit our website to experience it firsthand.                           |
 | :---------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
-| [![][discord-shield-badge]][discord-link] | Join our Discord community! This is where you can connect with developers and other enthusiastic users of LobeHub. |
+| [![][discord-shield-badge]][discord-link] | Join our Discord community! This is where you can connect with developers and other enthusiastic users of DeusGPT. |
 
 > \[!IMPORTANT]
 >
@@ -112,9 +112,9 @@ Whether for users or professional developers, LobeHub will be your AI Agent play
 
 ### `1` [Multi-Model Service Provider Support][docs-feat-provider]
 
-In the continuous development of LobeChat, we deeply understand the importance of diversity in model service providers for meeting the needs of the community when providing AI conversation services. Therefore, we have expanded our support to multiple model service providers, rather than being limited to a single one, in order to offer users a more diverse and rich selection of conversations.
+In the continuous development of DeusGPT Chat, we deeply understand the importance of diversity in model service providers for meeting the needs of the community when providing AI conversation services. Therefore, we have expanded our support to multiple model service providers, rather than being limited to a single one, in order to offer users a more diverse and rich selection of conversations.
 
-In this way, LobeChat can more flexibly adapt to the needs of different users, while also providing developers with a wider range of choices.
+In this way, DeusGPT Chat can more flexibly adapt to the needs of different users, while also providing developers with a wider range of choices.
 
 #### Supported Model Service Providers
 
@@ -132,7 +132,7 @@ We have implemented support for the following model service providers:
 - **Minimax**: Integrated the Minimax models, including the MoE model **abab6**, offers a broader range of choices. [Learn more](https://www.minimaxi.com/)
 - **DeepSeek**: Integrated with the DeepSeek series models, an innovative AI startup from China, The product has been designed to provide a model that balances performance with price. [Learn more](https://www.deepseek.com/)
 
-At the same time, we are also planning to support more model service providers, such as Replicate and Perplexity, to further enrich our service provider library. If you would like LobeChat to support your favorite service provider, feel free to join our [community discussion](https://github.com/lobehub/lobe-chat/discussions/1284).
+At the same time, we are also planning to support more model service providers, such as Replicate and Perplexity, to further enrich our service provider library. If you would like DeusGPT Chat to support your favorite service provider, feel free to join our [community discussion](https://github.com/lobehub/lobe-chat/discussions/1284).
 
 <div align="right">
 
@@ -144,11 +144,11 @@ At the same time, we are also planning to support more model service providers, 
 
 ### `2` [Local Large Language Model (LLM) Support][docs-feat-local]
 
-To meet the specific needs of users, LobeChat also supports the use of local models based on [Ollama](https://ollama.ai), allowing users to flexibly use their own or third-party models.
+To meet the specific needs of users, DeusGPT Chat also supports the use of local models based on [Ollama](https://ollama.ai), allowing users to flexibly use their own or third-party models.
 
 > \[!TIP]
 >
-> Learn more about [📘 Using Ollama in LobeChat][docs-usage-ollama] by checking it out.
+> Learn more about [📘 Using Ollama in DeusGPT Chat][docs-usage-ollama] by checking it out.
 
 <div align="right">
 
@@ -160,7 +160,7 @@ To meet the specific needs of users, LobeChat also supports the use of local mod
 
 ### `3` [Model Visual Recognition][docs-feat-vision]
 
-LobeChat now supports OpenAI's latest [`gpt-4-vision`](https://platform.openai.com/docs/guides/vision) model with visual recognition capabilities,
+DeusGPT Chat now supports OpenAI's latest [`gpt-4-vision`](https://platform.openai.com/docs/guides/vision) model with visual recognition capabilities,
 a multimodal intelligence that can perceive visuals. Users can easily upload or drag and drop images into the dialogue box,
 and the agent will be able to recognize the content of the images and engage in intelligent conversation based on this,
 creating smarter and more diversified chat scenarios.
@@ -178,11 +178,11 @@ Whether it's sharing images in daily use or interpreting images within specific 
 
 ### `4` [TTS & STT Voice Conversation][docs-feat-tts]
 
-LobeChat supports Text-to-Speech (TTS) and Speech-to-Text (STT) technologies, enabling our application to convert text messages into clear voice outputs,
+DeusGPT Chat supports Text-to-Speech (TTS) and Speech-to-Text (STT) technologies, enabling our application to convert text messages into clear voice outputs,
 allowing users to interact with our conversational agent as if they were talking to a real person. Users can choose from a variety of voices to pair with the agent.
 
 Moreover, TTS offers an excellent solution for those who prefer auditory learning or desire to receive information while busy.
-In LobeChat, we have meticulously selected a range of high-quality voice options (OpenAI Audio, Microsoft Edge Speech) to meet the needs of users from different regions and cultural backgrounds.
+In DeusGPT Chat, we have meticulously selected a range of high-quality voice options (OpenAI Audio, Microsoft Edge Speech) to meet the needs of users from different regions and cultural backgrounds.
 Users can choose the voice that suits their personal preferences or specific scenarios, resulting in a personalized communication experience.
 
 <div align="right">
@@ -195,7 +195,7 @@ Users can choose the voice that suits their personal preferences or specific sce
 
 ### `5` [Text to Image Generation][docs-feat-t2i]
 
-With support for the latest text-to-image generation technology, LobeChat now allows users to invoke image creation tools directly within conversations with the agent. By leveraging the capabilities of AI tools such as [`DALL-E 3`](https://openai.com/dall-e-3), [`MidJourney`](https://www.midjourney.com/), and [`Pollinations`](https://pollinations.ai/), the agents are now equipped to transform your ideas into images.
+With support for the latest text-to-image generation technology, DeusGPT Chat now allows users to invoke image creation tools directly within conversations with the agent. By leveraging the capabilities of AI tools such as [`DALL-E 3`](https://openai.com/dall-e-3), [`MidJourney`](https://www.midjourney.com/), and [`Pollinations`](https://pollinations.ai/), the agents are now equipped to transform your ideas into images.
 
 This enables a more private and immersive creative process, allowing for the seamless integration of visual storytelling into your personal dialogue with the agent.
 
@@ -209,11 +209,11 @@ This enables a more private and immersive creative process, allowing for the sea
 
 ### `6` [Plugin System (Function Calling)][docs-feat-plugin]
 
-The plugin ecosystem of LobeChat is an important extension of its core functionality, greatly enhancing the practicality and flexibility of the LobeChat assistant.
+The plugin ecosystem of DeusGPT Chat is an important extension of its core functionality, greatly enhancing the practicality and flexibility of the DeusGPT Chat assistant.
 
 <video controls src="https://github.com/lobehub/lobe-chat/assets/28616219/f29475a3-f346-4196-a435-41a6373ab9e2" muted="false"></video>
 
-By utilizing plugins, LobeChat assistants can obtain and process real-time information, such as searching for web information and providing users with instant and relevant news.
+By utilizing plugins, DeusGPT Chat assistants can obtain and process real-time information, such as searching for web information and providing users with instant and relevant news.
 
 In addition, these plugins are not limited to news aggregation, but can also extend to other practical functions, such as quickly searching documents, generating images, obtaining data from various platforms like Bilibili, Steam, and interacting with various third-party services.
 
@@ -244,14 +244,14 @@ In addition, these plugins are not limited to news aggregation, but can also ext
 
 ### `7` [Agent Market (GPTs)][docs-feat-agent]
 
-In LobeChat Agent Marketplace, creators can discover a vibrant and innovative community that brings together a multitude of well-designed agents,
+In DeusGPT Chat Agent Marketplace, creators can discover a vibrant and innovative community that brings together a multitude of well-designed agents,
 which not only play an important role in work scenarios but also offer great convenience in learning processes.
 Our marketplace is not just a showcase platform but also a collaborative space. Here, everyone can contribute their wisdom and share the agents they have developed.
 
 > \[!TIP]
 >
 > By [🤖/🏪 Submit Agents][submit-agents-link], you can easily submit your agent creations to our platform.
-> Importantly, LobeChat has established a sophisticated automated internationalization (i18n) workflow,
+> Importantly, DeusGPT Chat has established a sophisticated automated internationalization (i18n) workflow,
 > capable of seamlessly translating your agent into multiple language versions.
 > This means that no matter what language your users speak, they can experience your agent without barriers.
 
@@ -287,16 +287,16 @@ We deeply understand the importance of providing a seamless experience for users
 Therefore, we have adopted Progressive Web Application ([PWA](https://support.google.com/chrome/answer/9658361)) technology,
 a modern web technology that elevates web applications to an experience close to that of native apps.
 
-Through PWA, LobeChat can offer a highly optimized user experience on both desktop and mobile devices while maintaining its lightweight and high-performance characteristics.
+Through PWA, DeusGPT Chat can offer a highly optimized user experience on both desktop and mobile devices while maintaining its lightweight and high-performance characteristics.
 Visually and in terms of feel, we have also meticulously designed the interface to ensure it is indistinguishable from native apps,
 providing smooth animations, responsive layouts, and adapting to different device screen resolutions.
 
 > \[!NOTE]
 >
-> If you are unfamiliar with the installation process of PWA, you can add LobeChat as your desktop application (also applicable to mobile devices) by following these steps:
+> If you are unfamiliar with the installation process of PWA, you can add DeusGPT Chat as your desktop application (also applicable to mobile devices) by following these steps:
 >
 > - Launch the Chrome or Edge browser on your computer.
-> - Visit the LobeChat webpage.
+> - Visit the DeusGPT Chat webpage.
 > - In the upper right corner of the address bar, click on the <kbd>Install</kbd> icon.
 > - Follow the instructions on the screen to complete the PWA Installation.
 
@@ -322,15 +322,15 @@ We have carried out a series of optimization designs for mobile devices to enhan
 
 ### `10` [Custom Themes][docs-feat-theme]
 
-As a design-engineering-oriented application, LobeChat places great emphasis on users' personalized experiences,
+As a design-engineering-oriented application, DeusGPT Chat places great emphasis on users' personalized experiences,
 hence introducing flexible and diverse theme modes, including a light mode for daytime and a dark mode for nighttime.
 Beyond switching theme modes, a range of color customization options allow users to adjust the application's theme colors according to their preferences.
-Whether it's a desire for a sober dark blue, a lively peach pink, or a professional gray-white, users can find their style of color choices in LobeChat.
+Whether it's a desire for a sober dark blue, a lively peach pink, or a professional gray-white, users can find their style of color choices in DeusGPT Chat.
 
 > \[!TIP]
 >
 > The default configuration can intelligently recognize the user's system color mode and automatically switch themes to ensure a consistent visual experience with the operating system.
-> For users who like to manually control details, LobeChat also offers intuitive setting options and a choice between chat bubble mode and document mode for conversation scenarios.
+> For users who like to manually control details, DeusGPT Chat also offers intuitive setting options and a choice between chat bubble mode and document mode for conversation scenarios.
 
 <div align="right">
 
@@ -340,7 +340,7 @@ Whether it's a desire for a sober dark blue, a lively peach pink, or a professio
 
 ### `*` What's more
 
-Beside these features, LobeChat also have much better basic technique underground:
+Beside these features, DeusGPT Chat also have much better basic technique underground:
 
 - [x] 💨 **Quick Deployment**: Using the Vercel platform or docker image, you can deploy with just one click and complete the process within 1 minute without any complex configuration.
 - [x] 🌐 **Custom Domain**: If users have their own domain, they can bind it to the platform for quick access to the dialogue agent from anywhere.
@@ -348,7 +348,7 @@ Beside these features, LobeChat also have much better basic technique undergroun
 - [x] 💎 **Exquisite UI Design**: With a carefully designed interface, it offers an elegant appearance and smooth interaction. It supports light and dark themes and is mobile-friendly. PWA support provides a more native-like experience.
 - [x] 🗣️ **Smooth Conversation Experience**: Fluid responses ensure a smooth conversation experience. It fully supports Markdown rendering, including code highlighting, LaTex formulas, Mermaid flowcharts, and more.
 
-> ✨ more features will be added when LobeChat evolve.
+> ✨ more features will be added when DeusGPT Chat evolve.
 
 ---
 
@@ -381,11 +381,11 @@ Beside these features, LobeChat also have much better basic technique undergroun
 
 ## 🛳 Self Hosting
 
-LobeChat provides Self-Hosted Version with Vercel and [Docker Image][docker-release-link]. This allows you to deploy your own chatbot within a few minutes without any prior knowledge.
+DeusGPT Chat provides Self-Hosted Version with Vercel and [Docker Image][docker-release-link]. This allows you to deploy your own chatbot within a few minutes without any prior knowledge.
 
 > \[!TIP]
 >
-> Learn more about [📘 Build your own LobeChat][docs-self-hosting] by checking it out.
+> Learn more about [📘 Build your own DeusGPT Chat][docs-self-hosting] by checking it out.
 
 ### `A` Deploying with Vercel, Zeabur or Sealos
 
@@ -424,7 +424,7 @@ If you have deployed your own project following the one-click deployment steps i
 [![][docker-size-shield]][docker-size-link]
 [![][docker-pulls-shield]][docker-pulls-link]
 
-We provide a Docker image for deploying the LobeChat service on your own private device. Use the following command to start the LobeChat service:
+We provide a Docker image for deploying the DeusGPT Chat service on your own private device. Use the following command to start the DeusGPT Chat service:
 
 ```fish
 $ docker run -d -p 3210:3210 \
@@ -481,7 +481,7 @@ This project provides some additional configuration items set with environment v
 | [@lobehub/ui][lobe-ui-link]       | [lobehub/lobe-ui][lobe-ui-github]       | Open-source UI component library dedicated to building AIGC web applications.                         | [![][lobe-ui-shield]][lobe-ui-link]       |
 | [@lobehub/icons][lobe-icons-link] | [lobehub/lobe-icons][lobe-icons-github] | Popular AI / LLM Model Brand SVG Logo and Icon Collection.                                            | [![][lobe-icons-shield]][lobe-icons-link] |
 | [@lobehub/tts][lobe-tts-link]     | [lobehub/lobe-tts][lobe-tts-github]     | High-quality & reliable TTS/STT React Hooks library                                                   | [![][lobe-tts-shield]][lobe-tts-link]     |
-| [@lobehub/lint][lobe-lint-link]   | [lobehub/lobe-lint][lobe-lint-github]   | Configurations for ESlint, Stylelint, Commitlint, Prettier, Remark, and Semantic Release for LobeHub. | [![][lobe-lint-shield]][lobe-lint-link]   |
+| [@lobehub/lint][lobe-lint-link]   | [lobehub/lobe-lint][lobe-lint-github]   | Configurations for ESlint, Stylelint, Commitlint, Prettier, Remark, and Semantic Release for DeusGPT. | [![][lobe-lint-shield]][lobe-lint-link]   |
 
 <div align="right">
 
@@ -491,12 +491,12 @@ This project provides some additional configuration items set with environment v
 
 ## 🧩 Plugins
 
-Plugins provide a means to extend the [Function Calling][docs-functionc-call] capabilities of LobeChat. They can be used to introduce new function calls and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide][docs-plugin-dev] in the Wiki.
+Plugins provide a means to extend the [Function Calling][docs-functionc-call] capabilities of DeusGPT Chat. They can be used to introduce new function calls and even new ways to render message results. If you are interested in plugin development, please refer to our [📘 Plugin Development Guide][docs-plugin-dev] in the Wiki.
 
-- [lobe-chat-plugins][lobe-chat-plugins]: This is the plugin index for LobeChat. It accesses index.json from this repository to display a list of available plugins for LobeChat to the user.
-- [chat-plugin-template][chat-plugin-template]: This is the plugin template for LobeChat plugin development.
-- [@lobehub/chat-plugin-sdk][chat-plugin-sdk]: The LobeChat Plugin SDK assists you in creating exceptional chat plugins for Lobe Chat.
-- [@lobehub/chat-plugins-gateway][chat-plugins-gateway]: The LobeChat Plugins Gateway is a backend service that provides a gateway for LobeChat plugins. We deploy this service using Vercel. The primary API POST /api/v1/runner is deployed as an Edge Function.
+- [lobe-chat-plugins][lobe-chat-plugins]: This is the plugin index for DeusGPT Chat. It accesses index.json from this repository to display a list of available plugins for DeusGPT Chat to the user.
+- [chat-plugin-template][chat-plugin-template]: This is the plugin template for DeusGPT Chat plugin development.
+- [@lobehub/chat-plugin-sdk][chat-plugin-sdk]: The DeusGPT Chat Plugin SDK assists you in creating exceptional chat plugins for Lobe Chat.
+- [@lobehub/chat-plugins-gateway][chat-plugins-gateway]: The DeusGPT Chat Plugins Gateway is a backend service that provides a gateway for DeusGPT Chat plugins. We deploy this service using Vercel. The primary API POST /api/v1/runner is deployed as an Edge Function.
 
 > \[!NOTE]
 >
@@ -543,7 +543,7 @@ Contributions of all types are more than welcome; if you are interested in contr
 >
 > We are creating a technology-driven forum, fostering knowledge interaction and the exchange of ideas that may culminate in mutual inspiration and collaborative innovation.
 >
-> Help us make LobeChat better. Welcome to provide product design feedback, user experience discussions directly to us.
+> Help us make DeusGPT Chat better. Welcome to provide product design feedback, user experience discussions directly to us.
 >
 > **Principal Maintainers:** [@arvinxx](https://github.com/arvinxx) [@canisminor1990](https://github.com/canisminor1990)
 
@@ -627,7 +627,7 @@ Every bit counts and your one-time donation sparkles in our galaxy of support! Y
 
 </details>
 
-Copyright © 2024 [LobeHub][profile-link]. <br />
+Copyright © 2024 [DeusGPT][profile-link]. <br />
 This project is [MIT](./LICENSE) licensed.
 
 <!-- LINK GROUP -->
@@ -751,7 +751,7 @@ This project is [MIT](./LICENSE) licensed.
 [share-whatsapp-shield]: https://img.shields.io/badge/-share%20on%20whatsapp-black?labelColor=black&logo=whatsapp&logoColor=white&style=flat-square
 [share-x-link]: https://x.com/intent/tweet?hashtags=chatbot%2CchatGPT%2CopenAI&text=Check%20this%20GitHub%20repository%20out%20%F0%9F%A4%AF%20LobeChat%20-%20An%20open-source%2C%20extensible%20%28Function%20Calling%29%2C%20high-performance%20chatbot%20framework.%20It%20supports%20one-click%20free%20deployment%20of%20your%20private%20ChatGPT%2FLLM%20web%20application.&url=https%3A%2F%2Fgithub.com%2Flobehub%2Flobe-chat
 [share-x-shield]: https://img.shields.io/badge/-share%20on%20x-black?labelColor=black&logo=x&logoColor=white&style=flat-square
-[sponsor-link]: https://opencollective.com/lobehub 'Become ❤️ LobeHub Sponsor'
+[sponsor-link]: https://opencollective.com/lobehub 'Become ❤️ DeusGPT Sponsor'
 [sponsor-shield]: https://img.shields.io/badge/-Sponsor%20LobeHub-f04f88?logo=opencollective&logoColor=white&style=flat-square
 [submit-agents-link]: https://github.com/lobehub/lobe-chat-agents
 [submit-agents-shield]: https://img.shields.io/badge/🤖/🏪_submit_agent-%E2%86%92-c4f042?labelColor=black&style=for-the-badge

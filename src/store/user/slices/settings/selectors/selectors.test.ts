@@ -28,7 +28,7 @@ describe('settingsSelectors', () => {
               },
             },
             meta: {
-              avatar: 'Default Agent',
+              avatar: 'DeusGPT',
               description: 'Default agent for testing',
             },
           },

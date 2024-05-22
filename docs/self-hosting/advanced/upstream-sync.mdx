@@ -1,9 +1,8 @@
 ---
-title: LobeChat Upstream Sync and Docker Deployment Guide
+title: DeusGPT Chat Upstream Sync and Docker Deployment Guide
 description: >-
-  Learn how to enable automatic updates for LobeChat Vercel deployments and
-  upgrade Docker deployment versions easily. Follow step-by-step instructions
-  for a seamless deployment process.
+  Learn how to enable automatic updates for DeusGPT Chat Vercel deployments and upgrade Docker deployment versions easily. Follow step-by-step instructions for a seamless deployment process.
+
 tags:
   - Upstream Sync
   - Vercel Deployment
@@ -42,21 +41,21 @@ After forking the project, due to Github's limitations, you need to manually ena
 
 ## `B` Docker Deployment
 
-Upgrading the Docker deployment version is very simple, you just need to redeploy the latest LobeChat image. Here are the commands required to perform these steps:
+Upgrading the Docker deployment version is very simple, you just need to redeploy the latest DeusGPT Chat image. Here are the commands required to perform these steps:
 
 <Steps>
-  ### Stop and Remove the Current Running LobeChat Container
+  ### Stop and Remove the Current Running DeusGPT Chat Container
 
-Assuming the LobeChat container is named `lobe-chat`, use the following commands to stop and remove the currently running LobeChat container:
+Assuming the DeusGPT Chat container is named `lobe-chat`, use the following commands to stop and remove the currently running DeusGPT Chat container:
 
 ```fish
 docker stop lobe-chat
 docker rm lobe-chat
 ```
 
-### Pull the Latest LobeChat Image
+### Pull the Latest DeusGPT Chat Image
 
-Use the following command to pull the latest Docker image for LobeChat:
+Use the following command to pull the latest Docker image for DeusGPT Chat:
 
 ```fish
 docker pull lobehub/lobe-chat
@@ -64,7 +63,7 @@ docker pull lobehub/lobe-chat
 
 ### Restart the Docker Container
 
-Redeploy the LobeChat container using the newly pulled image:
+Redeploy the DeusGPT Chat container using the newly pulled image:
 
 ```fish
 docker run -d -p 3210:3210 \
@@ -82,7 +81,7 @@ Ensure that you have sufficient permissions to stop and remove the container bef
 <Callout type={'tip'}>
   **If I redeploy, will I lose my local chat records?**
 
-No need to worry, you won't. All of LobeChat's chat records are stored in your local browser. Therefore, when redeploying LobeChat using Docker, your chat records will not be lost.
+No need to worry, you won't. All of DeusGPT Chat's chat records are stored in your local browser. Therefore, when redeploying DeusGPT Chat using Docker, your chat records will not be lost.
 
 </Callout>
 

@@ -177,7 +177,7 @@ describe('toolSelectors', () => {
       expect(result).toEqual([
         {
           type: 'builtin',
-          author: 'LobeHub',
+          author: 'DeusGPT',
           identifier: 'builtin-1',
           meta: { title: 'Builtin 1', description: 'Builtin 1 description' },
         },

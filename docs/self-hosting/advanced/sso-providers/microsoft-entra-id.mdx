@@ -1,16 +1,15 @@
 ---
-title: Configuration of Microsoft Entra ID Authentication Service for LobeChat
+title: Configuration of Microsoft Entra ID Authentication Service for DeusGPT Chat
 description: >-
-  Learn how to configure Microsoft Entra ID Authentication Service for LobeChat,
-  create applications, add users, and set up environment variables for seamless
-  integration.
+  Learn how to configure Microsoft Entra ID Authentication Service for DeusGPT Chat, create applications, add users, and set up environment variables for seamless integration.
+
 tags:
   - Microsoft Entra ID
   - Authentication Service
   - Azure Portal
   - SSO
   - Environment Variables
-  - LobeChat
+  - DeusGPT Chat
 ---
 
 # Configuration of Microsoft Entra ID Authentication Service
@@ -63,15 +62,15 @@ Go to "Certificates & secrets", select the "Client secrets" tab, click on "New c
 
 ### Add Users
 
-Go back to the "Microsoft Entra ID" interface, enter "Users", click on "New user", fill in the user information, and click on "Create" to create a user for using LobeChat.
+Go back to the "Microsoft Entra ID" interface, enter "Users", click on "New user", fill in the user information, and click on "Create" to create a user for using DeusGPT Chat.
 
 ### Configure Environment Variables
 
-When deploying LobeChat, you need to configure the following environment variables:
+When deploying DeusGPT Chat, you need to configure the following environment variables:
 
 | Environment Variable | Type | Description |
 | --- | --- | --- |
-| `ENABLE_OAUTH_SSO` | Required | Enable single sign-on (SSO) for LobeChat. Set to `1` to enable single sign-on. |
+| `ENABLE_OAUTH_SSO` | Required | Enable single sign-on (SSO) for DeusGPT Chat. Set to `1` to enable single sign-on. |
 | `NEXTAUTH_SECRET` | Required | Key used to encrypt Auth.js session tokens. You can generate the key using the following command: `openssl rand -base64 32` |
 | `SSO_PROVIDERS` | Required | Select the single sign-on provider for LoboChat. Use `azure-ad` for Microsoft Entra ID. |
 | `AZURE_AD_CLIENT_ID` | Required | Client ID of the Microsoft Entra ID application. |
@@ -89,8 +88,8 @@ When deploying LobeChat, you need to configure the following environment variabl
 </Steps>
 
 <Callout>
-  After successful deployment, users will be able to authenticate and use LobeChat using the users
-  configured in Microsoft Entra ID.
+  After successful deployment, users will be able to authenticate and use DeusGPT Chat using the
+  users configured in Microsoft Entra ID.
 </Callout>
 
 ## Advanced Configuration

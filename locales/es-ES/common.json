@@ -1,7 +1,7 @@
 {
   "about": "Acerca de",
   "advanceSettings": "Configuración avanzada",
-  "appInitializing": "LobeChat está inicializando, por favor espere...",
+  "appInitializing": "DeusGPT Chat está inicializando, por favor espere...",
   "autoGenerate": "Generación automática",
   "autoGenerateTooltip": "Completar automáticamente la descripción del asistente basándose en las sugerencias",
   "autoGenerateTooltipDisabled": "Por favor, complete la palabra clave antes de usar la función de autocompletar",
@@ -155,9 +155,9 @@
   "telemetry": {
     "allow": "Permitir",
     "deny": "Denegar",
-    "desc": "Queremos recopilar información sobre tu uso de forma anónima para ayudarnos a mejorar LobeChat y ofrecerte una mejor experiencia de producto. Puedes desactivarlo en 'Configuración' - 'Acerca de' en cualquier momento.",
+    "desc": "Queremos recopilar información sobre tu uso de forma anónima para ayudarnos a mejorar DeusGPT Chat y ofrecerte una mejor experiencia de producto. Puedes desactivarlo en 'Configuración' - 'Acerca de' en cualquier momento.",
     "learnMore": "Más información",
-    "title": "Ayuda a mejorar LobeChat"
+    "title": "Ayuda a mejorar DeusGPT Chat"
   },
   "temp": "Temporal",
   "terms": "Términos de servicio",

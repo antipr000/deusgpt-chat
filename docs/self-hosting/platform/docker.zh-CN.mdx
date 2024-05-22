@@ -1,9 +1,9 @@
 ---
-title: 通过 Docker 部署 LobeChat
-description: 学习如何使用 Docker 部署 LobeChat 服务，包括安装 Docker 容器环境和使用指令一键启动服务。详细说明如何配置环境变量和使用代理地址。
+title: 通过 Docker 部署 DeusGPT Chat
+description: 学习如何使用 Docker 部署 DeusGPT Chat 服务，包括安装 Docker 容器环境和使用指令一键启动服务。详细说明如何配置环境变量和使用代理地址。
 tags:
   - Docker
-  - LobeChat
+  - DeusGPT Chat
   - 部署指引
   - 环境变量
   - 代理地址
@@ -21,7 +21,7 @@ tags:
 
 </div>
 
-我们提供了 [Docker 镜像][docker-release-link]，供你在自己的私有设备上部署 LobeChat 服务。
+我们提供了 [Docker 镜像][docker-release-link]，供你在自己的私有设备上部署 DeusGPT Chat 服务。
 
 <Steps>
   ### 安装 Docker 容器环境
@@ -47,7 +47,7 @@ tags:
 
 ### Docker 指令部署
 
-使用以下命令即可使用一键启动 LobeChat 服务：
+使用以下命令即可使用一键启动 DeusGPT Chat 服务：
 
 ```fish
 $ docker run -d -p 3210:3210 \
@@ -63,7 +63,8 @@ $ docker run -d -p 3210:3210 \
 - 使用你的 OpenAI API Key 替换上述命令中的 `sk-xxxx`
 
 <Callout type={'tip'}>
-  LobeChat 支持的完整环境变量列表请参考 [📘 环境变量](/docs/self-hosting/environment-variables) 部分
+  DeusGPT Chat 支持的完整环境变量列表请参考 [📘 环境变量](/docs/self-hosting/environment-variables)
+  部分
 </Callout>
 
 <Callout>

@@ -1,12 +1,11 @@
 ---
-title: Configure ZITADEL Authentication Service for LobeChat
+title: Configure ZITADEL Authentication Service for DeusGPT Chat
 description: >-
-  Learn how to configure ZITADEL Authentication Service for LobeChat deployment,
-  including creating ZITADEL applications, setting up environment variables, and
-  enabling single sign-on (SSO).
+  Learn how to configure ZITADEL Authentication Service for DeusGPT Chat deployment, including creating ZITADEL applications, setting up environment variables, and enabling single sign-on (SSO).
+
 tags:
   - ZITADEL Authentication
-  - LobeChat Deployment
+  - DeusGPT Chat Deployment
   - Single Sign-On (SSO)
   - Environment Variables
   - ZITADEL Applications
@@ -57,8 +56,8 @@ http(s)://your-domain/api/auth/callback/zitadel
   - You can fill in or modify redirect URIs after creating the application, but make sure the filled
   URL is consistent with the deployed URL.
 
-  - Replace `http(s)://your-domain` with the actual URL that LobeChat is deployed to.
-</Callout>
+- Replace `http(s)://your-domain` with the actual URL that DeusGPT Chat is deployed to.
+  </Callout>
 
 Confirm the configuration and click **Create**.
 
@@ -76,8 +75,7 @@ Save the **ClientId** and **ClientSecret** for later use.
   src="https://github.com/lobehub/lobe-chat/assets/8692892/407b4eed-7f21-4aa6-b68f-9bae2faf09d0"
 />
 
-In the application settings page, navigate to the **Token Settings** tab, enable **User Info inside
-ID Token** option, and click **Save**.
+In the application settings page, navigate to the **Token Settings** tab, enable **User Info inside ID Token** option, and click **Save**.
 
 <Image
   alt="Create ZITADEL Application S7"
@@ -95,11 +93,11 @@ Navigate to the **URLs** tab, and save the **issuer** URL.
 
 ### Configure Environment Variables
 
-When deploying LobeChat, you need to configure the following environment variables:
+When deploying DeusGPT Chat, you need to configure the following environment variables:
 
 | Environment Variable | Type | Description |
 | --- | --- | --- |
-| `ENABLE_OAUTH_SSO` | Required | Enable single sign-on (SSO) for LobeChat. Set to `1` to enable single sign-on. |
+| `ENABLE_OAUTH_SSO` | Required | Enable single sign-on (SSO) for DeusGPT Chat. Set to `1` to enable single sign-on. |
 | `NEXTAUTH_SECRET` | Required | Key used to encrypt Auth.js session tokens. You can generate a key using the following command: `openssl rand -base64 32` |
 | `SSO_PROVIDERS` | Optional | Select the single sign-on provider for LoboChat. Use `zitadel` for ZITADEL. |
 | `ZITADEL_CLIENT_ID` | Required | Client ID (`ClientId` as shown in ZITADEL) of the ZITADEL application |
@@ -115,6 +113,6 @@ When deploying LobeChat, you need to configure the following environment variabl
 </Steps>
 
 <Callout>
-  After successful deployment, users will be able to authenticate and use LobeChat using existing
-  users configured in ZITADEL.
+  After successful deployment, users will be able to authenticate and use DeusGPT Chat using
+  existing users configured in ZITADEL.
 </Callout>

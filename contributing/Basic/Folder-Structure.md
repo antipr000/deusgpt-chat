@@ -1,6 +1,6 @@
 # Directory Structure
 
-The directory structure of LobeChat is as follows:
+The directory structure of DeusGPT Chat is as follows:
 
 ```bash
 src

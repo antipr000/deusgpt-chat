@@ -1,7 +1,7 @@
 {
   "background_color": "#000000",
   "categories": ["productivity", "design", "development", "education"],
-  "description": "Personal LLM productivity tool, brings you the best user experience of ChatGPT, OLLaMA, Gemini, Claude WebUI. Customize AI assistant features flexibly according to personalized needs to solve problems, enhance productivity, and explore future workflow in LobeChat.",
+  "description": "Personal LLM productivity tool, brings you the best user experience of ChatGPT, OLLaMA, Gemini, Claude WebUI. Customize AI assistant features flexibly according to personalized needs to solve problems, enhance productivity, and explore future workflow in DeusGPT Chat.",
   "display": "standalone",
   "display_override": ["tabbed"],
   "edge_side_panel": {
@@ -38,7 +38,7 @@
   "launch_handler": {
     "client_mode": ["navigate-existing", "auto"]
   },
-  "name": "LobeChat",
+  "name": "DeusGPT Chat",
   "orientation": "portrait",
   "related_applications": [
     {
@@ -109,7 +109,7 @@
       "form_factor": "wide"
     }
   ],
-  "short_name": "LobeChat",
+  "short_name": "DeusGPT Chat",
   "splash_pages": null,
   "start_url": ".",
   "tab_strip": {

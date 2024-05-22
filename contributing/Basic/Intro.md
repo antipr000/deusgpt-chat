@@ -1,6 +1,6 @@
 # Technical Development Getting Started Guide
 
-Welcome to the LobeChat technical development getting started guide. LobeChat is an AI conversation application built on the Next.js framework, which integrates a series of technology stacks to achieve diverse functions and features. This guide will provide a detailed introduction to the main technical components of LobeChat and how to configure and use these technologies in your development environment.
+Welcome to the DeusGPT Chat technical development getting started guide. DeusGPT Chat is an AI conversation application built on the Next.js framework, which integrates a series of technology stacks to achieve diverse functions and features. This guide will provide a detailed introduction to the main technical components of DeusGPT Chat and how to configure and use these technologies in your development environment.
 
 #### TOC
 
@@ -9,7 +9,7 @@ Welcome to the LobeChat technical development getting started guide. LobeChat is
 
 ## Basic Technology Stack
 
-The core technology stack of LobeChat includes:
+The core technology stack of DeusGPT Chat includes:
 
 - **Framework**: We have chosen [Next.js](https://nextjs.org/), a powerful React framework that provides key features such as server-side rendering, routing framework, and Router Handler for our project.
 - **Component Library**: We use [Ant Design (antd)](https://ant.design/) as the basic component library, and also introduce [lobe-ui](https://github.com/lobehub/lobe-ui) as our business component library.
@@ -22,7 +22,7 @@ The core technology stack of LobeChat includes:
 
 ## Folder Directory Structure
 
-The folder directory structure of LobeChat is as follows:
+The folder directory structure of DeusGPT Chat is as follows:
 
 ```bash
 src

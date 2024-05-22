@@ -10,9 +10,9 @@
   "confirmClearCurrentMessages": "You are about to clear the current session messages. Once cleared, they cannot be retrieved. Please confirm your action.",
   "confirmRemoveSessionItemAlert": "You are about to delete this agent. Once deleted, it cannot be retrieved. Please confirm your action.",
   "confirmRemoveSessionSuccess": "Agent removed successfully",
-  "defaultAgent": "Default Agent",
+  "defaultAgent": "DeusGPT",
   "defaultList": "Default List",
-  "defaultSession": "Default Agent",
+  "defaultSession": "DeusGPT",
   "duplicateSession": {
     "loading": "Copying...",
     "success": "Copy successful",
