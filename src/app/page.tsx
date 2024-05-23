@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 const Page = () => {
+  console.log('Hereeee');
   return (
     <>
       <Client />

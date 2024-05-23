@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { Integration, Model } from '../types/Integration.type';
+import { Integration, Model } from '../../../../types/common/Integration.type';
 
 const modelSchema = new mongoose.Schema<Model>({
   name: {

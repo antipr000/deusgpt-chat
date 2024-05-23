@@ -5,8 +5,8 @@ import { ChatErrorType } from '@/types/fetch';
 import { ChatStreamPayload } from '@/types/openai/chat';
 import { getTracePayload } from '@/utils/trace';
 
+import { Integration } from '../../../../types/common/Integration.type';
 import IntegrationRepository from '../../db/repositories/integration.repository';
-import { Integration } from '../../db/types/Integration.type';
 import { checkAuth } from '../../middleware/auth';
 import { createTraceOptions, initAgentRuntimeWithUserPayload } from '../agentRuntime';
 

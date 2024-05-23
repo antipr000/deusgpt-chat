@@ -1,5 +1,5 @@
+import { Integration } from '../../../../types/common/Integration.type';
 import DBProvider from '../mongo.client';
-import { Integration } from '../types/Integration.type';
 
 class IntegrationRepository {
   private dbProvider: DBProvider;
@@ -17,6 +17,19 @@ class IntegrationRepository {
     const integrationModel = await this.dbProvider.getIntegrationModel();
     const data = await integrationModel.findOne({ name });
     return data;
+  }
+
+  async getAllIntegrations(): Promise<Partial<Integration>> {
+    const integrationModel = await this.dbProvider.getIntegrationModel();
+    const data: Integration[] = await integrationModel.find({ enabled: true });
+    console.log('Got', data);
+    const finalData = data.map(({ displayName, enabled, name, models }) => ({
+      displayName,
+      enabled,
+      name,
+      models,
+    }));
+    return finalData as Partial<Integration>;
   }
 }
 
