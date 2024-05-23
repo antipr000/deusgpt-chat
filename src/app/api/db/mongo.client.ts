@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+import { ChatSessionModel } from './entities/ChatSession';
 import { IntegrationModel } from './entities/Integration';
 
 const DATABASE_URL = process.env.MONGO_URI;
@@ -35,6 +36,11 @@ class DBProvider {
   async getIntegrationModel() {
     await connectDB();
     return IntegrationModel;
+  }
+
+  async getChatSessionModel() {
+    await connectDB();
+    return ChatSessionModel;
   }
 }
 
