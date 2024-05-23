@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import { Chat } from '../types/Chat.type';
-import { ChatSession } from '../types/ChatSession.type';
+import { Chat } from '../../../../types/common/Chat.type';
+import { ChatSession } from '../../../../types/common/ChatSession.type';
 
 const chatSchema = new mongoose.Schema<Chat>({
   id: {

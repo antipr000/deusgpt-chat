@@ -1,7 +1,5 @@
-import chat from '@/locales/default/chat';
-
+import { ChatSession } from '../../../../types/common/ChatSession.type';
 import DBProvider from '../mongo.client';
-import { ChatSession } from '../types/ChatSession.type';
 
 class ChatRepository {
   private dbProvider: DBProvider;
@@ -23,7 +21,7 @@ class ChatRepository {
     return chatSession;
   }
 
-  async getAllChatSessions(firebaseId: String): Promise<ChatSession[]> {
+  async getAllChatSessions(firebaseId: string): Promise<ChatSession[]> {
     const chatSessionModel = await this.dbProvider.getChatSessionModel();
     const chatSessions = await chatSessionModel.find({ firebaseId });
     return chatSessions;

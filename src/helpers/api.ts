@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { store } from '@/store/atoms/store.atom';
 import { idTokenAtom } from '@/store/atoms/token.atom';
+import { ChatSession } from '@/types/common/ChatSession.type';
 import { Integration } from '@/types/common/Integration.type';
 
 const instance = axios.create({
@@ -22,4 +23,19 @@ const getAllIntegrations = async (): Promise<Integration[]> => {
   return data;
 };
 
-export { getAllIntegrations };
+const createChatSession = async (request: ChatSession): Promise<ChatSession> => {
+  const { data } = await instance.post('/chat-session');
+  return data;
+};
+
+const getAllChatSessions = async (): Promise<ChatSession[]> => {
+  const { data } = await instance.get('/chat-session');
+  return data;
+};
+
+const updateChatSession = async (): Promise<ChatSession[]> => {
+  const { data } = await instance.patch('/chat-session');
+  return data;
+};
+
+export { getAllIntegrations, createChatSession, getAllChatSessions, updateChatSession };
