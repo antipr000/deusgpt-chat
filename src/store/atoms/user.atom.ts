@@ -1,10 +1,15 @@
 import { atom } from 'jotai';
 
 export type UserData = {
-  firstName?: String;
-  lastName?: String;
-  email: String;
-  plan: String;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  plan: string;
 };
 
-export const userAtom = atom<UserData | null>(null);
+export const userAtom = atom<UserData | null>({
+  email: "debjit@gmail.com",
+  firstName: 'Debjit',
+  lastName: 'Majumder',
+  plan: "standard"
+});

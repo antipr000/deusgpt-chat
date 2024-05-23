@@ -17,7 +17,7 @@ const Layout = memo<LayoutProps>(({ children, nav }) => {
   const [_, setIdToken] = useAtom(idTokenAtom);
   const [_2, setUser] = useAtom(userAtom);
 
-  const handleEvent = ({ data }: { data: { type: string; payload: any } }) => {
+  const handleEvent = ({ data }: { data: { payload: any; type: string } }) => {
     const { type, payload } = data;
 
     if (type === 'id-token') {
@@ -29,7 +29,7 @@ const Layout = memo<LayoutProps>(({ children, nav }) => {
   };
 
   useEffect(() => {
-    window.parent.postMessage({ type: 'chat-load', payload: true }, '*');
+    window.parent.postMessage({ payload: true, type: 'chat-load' }, '*');
 
     window.addEventListener('message', handleEvent);
   }, []);

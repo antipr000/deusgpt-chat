@@ -11,6 +11,7 @@ import { ChatModelCard } from '@/types/llm';
 
 import ModelIcon from '../ModelIcon';
 import ModelProviderIcon from '../ModelProviderIcon';
+import { Model } from '@/app/api/db/types/Integration.type';
 
 const useStyles = createStyles(({ css, token }) => ({
   custom: css`
@@ -134,7 +135,7 @@ export const ModelInfoTags = memo<ModelInfoTagsProps>(
   },
 );
 
-interface ModelItemRenderProps extends ChatModelCard {
+interface ModelItemRenderProps extends Model {
   showInfoTag?: boolean;
 }
 
@@ -142,11 +143,11 @@ export const ModelItemRender = memo<ModelItemRenderProps>(({ showInfoTag = true,
   return (
     <Flexbox align={'center'} gap={32} horizontal justify={'space-between'}>
       <Flexbox align={'center'} gap={8} horizontal>
-        <ModelIcon model={model.id} size={20} />
-        {model.displayName || model.id}
+        <ModelIcon model={model.name} size={20} />
+        {model.name}
       </Flexbox>
 
-      {showInfoTag && <ModelInfoTags {...model} />}
+      {/*showInfoTag && <ModelInfoTags {...model} />*/}
     </Flexbox>
   );
 });

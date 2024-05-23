@@ -1,13 +1,14 @@
 export type Model = {
-  name: String;
-  isPremium: Boolean;
+  displayName?: string;
+  isPremium: boolean;
+  name: string;
 };
 
 export type Integration = {
-  name: String;
-  displayName: String;
-  secret: String;
-  proxy: String;
-  enabled: Boolean;
+  displayName: string;
+  enabled: boolean;
   models: Array<Model>;
+  name: string;
+  proxy: string;
+  secret?: string;
 };

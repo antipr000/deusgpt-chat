@@ -1,3 +1,3 @@
 import { atom } from 'jotai';
 
-export const idTokenAtom = atom<String | null>(null);
+export const idTokenAtom = atom<string | null>("token");
