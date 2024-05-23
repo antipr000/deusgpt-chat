@@ -8,7 +8,7 @@ import { useIsPWA } from '@/hooks/useIsPWA';
 
 import { LayoutProps } from './type';
 
-const Layout = memo<LayoutProps>(({ children }) => {
+const Layout = memo<LayoutProps>(({ children, nav }) => {
   const isPWA = useIsPWA();
   const theme = useTheme();
 
@@ -22,6 +22,7 @@ const Layout = memo<LayoutProps>(({ children }) => {
       }}
       width={'100%'}
     >
+      {nav}
       {children}
     </Flexbox>
   );
