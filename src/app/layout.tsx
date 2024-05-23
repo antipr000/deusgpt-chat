@@ -1,4 +1,5 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Provider } from 'jotai';
 import { ResolvingViewport } from 'next';
 import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
@@ -8,6 +9,7 @@ import Analytics from '@/components/Analytics';
 import { DEFAULT_LANG, LOBE_LOCALE_COOKIE } from '@/const/locale';
 import AuthProvider from '@/layout/AuthProvider';
 import GlobalProvider from '@/layout/GlobalProvider';
+import { store } from '@/store/atoms/store.atom';
 import { isMobileDevice } from '@/utils/responsive';
 
 const inVercel = process.env.VERCEL === '1';
@@ -28,8 +30,10 @@ const RootLayout = async ({ children, modal }: RootLayoutProps) => {
       <body>
         <GlobalProvider>
           <AuthProvider>
-            {children}
-            {modal}
+            <Provider store={store}>
+              {children}
+              {modal}
+            </Provider>
           </AuthProvider>
         </GlobalProvider>
         <Analytics />
