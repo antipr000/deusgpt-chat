@@ -1,7 +1,13 @@
+export type Limit = {
+  standard: number | string;
+  premium: number | string;
+};
+
 export type Model = {
   displayName?: string;
   isPremium: boolean;
   name: string;
+  limit: Limit;
 };
 
 export type Integration = {

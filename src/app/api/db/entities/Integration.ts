@@ -1,6 +1,19 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-import { Integration, Model } from '../../../../types/common/Integration.type';
+import { Integration, Limit, Model } from '@/types/common/Integration.type';
+
+const limitSchema = new mongoose.Schema<Limit>({
+  standard: {
+    type: Schema.Types.Mixed,
+    required: false,
+    default: 0,
+  },
+  premium: {
+    type: Schema.Types.Mixed,
+    required: false,
+    default: 'unlimited',
+  },
+});
 
 const modelSchema = new mongoose.Schema<Model>({
   name: {
@@ -12,6 +25,10 @@ const modelSchema = new mongoose.Schema<Model>({
     type: Boolean,
     required: false,
     default: false,
+  },
+  limit: {
+    type: limitSchema,
+    required: false,
   },
 });
 
