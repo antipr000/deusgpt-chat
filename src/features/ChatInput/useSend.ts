@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import { addUsage } from '@/helpers/api';
 import { useChatStore } from '@/store/chat';
 import { chatSelectors } from '@/store/chat/selectors';
 import { SendMessageParams } from '@/store/chat/slices/message/action';

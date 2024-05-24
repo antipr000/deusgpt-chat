@@ -3,6 +3,7 @@ import numeral from 'numeral';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
+import { e } from 'vitest/dist/reporters-1evA5lom.js';
 
 import { useTokenCount } from '@/hooks/useTokenCount';
 import { useAgentStore } from '@/store/agent';
@@ -23,7 +24,6 @@ const Token = memo(() => {
     s.inputMessage,
     chatSelectors.chatsMessageString(s),
   ]);
-
   const [systemRole, model] = useAgentStore((s) => [
     agentSelectors.currentAgentSystemRole(s),
     agentSelectors.currentAgentModel(s) as string,
@@ -46,15 +46,17 @@ const Token = memo(() => {
   const toolsToken = useTokenCount(canUseTool ? toolsString : '');
 
   // Chat usage token
-  const inputTokenCount = useTokenCount(input);
+  const inputTokenCount = input ? 1 : 0;
+  const messageTokenCount = messageString ? 1 : 0;
 
-  const chatsToken = useTokenCount(messageString) + inputTokenCount;
+  const chatsToken = messageTokenCount + inputTokenCount;
 
   // SystemRole token
   const systemRoleToken = useTokenCount(systemRole);
 
   // Total token
   const totalToken = systemRoleToken + toolsToken + chatsToken;
+
   return (
     <Tooltip
       placement={'bottom'}
