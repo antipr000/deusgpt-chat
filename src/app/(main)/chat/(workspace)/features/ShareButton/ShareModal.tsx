@@ -59,10 +59,10 @@ const ShareModal = memo<ModalProps>(({ onCancel, open }) => {
         label: t('shareModal.screenshot'),
         value: Tab.Screenshot,
       },
-      {
-        label: 'ShareGPT',
-        value: Tab.ShareGPT,
-      },
+      // {
+      //   label: 'ShareGPT',
+      //   value: Tab.ShareGPT,
+      // },
     ],
     [],
   );

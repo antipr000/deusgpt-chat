@@ -25,6 +25,9 @@ export default {
       success: '已重置所有设置',
       title: '重置所有设置',
     },
+    save: {
+      action: 'Save',
+    },
   },
   header: {
     desc: '偏好与模型设置',
@@ -236,6 +239,16 @@ export default {
       desc: '管理员已开启加密访问',
       placeholder: '请输入访问密码',
       title: '访问密码',
+    },
+    firstName: {
+      desc: 'First name of user',
+      placeholder: 'Eg. John',
+      title: 'Enter your first name',
+    },
+    lastName: {
+      desc: 'Last name of user',
+      placeholder: 'Eg. Smith',
+      title: 'Enter your last name',
     },
     oauth: {
       info: {

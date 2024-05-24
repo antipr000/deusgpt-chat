@@ -15,9 +15,6 @@ const SettingButton = memo<{ mobile?: boolean }>(({ mobile }) => {
   return (
     <ActionIcon
       icon={AlignJustify}
-      style={{
-        alignSelf: 'flex-end',
-      }}
       onClick={() => openChatSettings()}
       size={mobile ? MOBILE_HEADER_ICON_SIZE : DESKTOP_HEADER_ICON_SIZE}
       title={t('header.session', { ns: 'setting' })}

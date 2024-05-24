@@ -24,6 +24,9 @@
       "desc": "Reset all settings to default values",
       "success": "All settings have been reset",
       "title": "Reset All Settings"
+    },
+    "save": {
+      "action": "Save"
     }
   },
   "header": {
@@ -234,6 +237,16 @@
       "placeholder": "Enter access password",
       "title": "Access Password"
     },
+    "firstName": {
+      "desc": "First name of user",
+      "placeholder": "Eg. John",
+      "title": "Enter your first name"
+    },
+    "lastName": {
+      "desc": "Last name of user",
+      "placeholder": "Eg. Smith",
+      "title": "Enter your last name"
+    },
     "oauth": {
       "info": {
         "desc": "Logged in",
@@ -250,7 +263,7 @@
         "success": "Sign out successful"
       }
     },
-    "title": "System Settings"
+    "title": "User Settings"
   },
   "settingTTS": {
     "openai": {
@@ -362,7 +375,7 @@
   "tab": {
     "about": "About",
     "agent": "DeusGPT",
-    "common": "Common Settings",
+    "common": "User Settings",
     "experiment": "Experiment",
     "llm": "Language Model",
     "sync": "Cloud Sync",

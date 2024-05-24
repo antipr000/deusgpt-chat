@@ -4,6 +4,7 @@ import { store } from '@/store/atoms/store.atom';
 import { idTokenAtom } from '@/store/atoms/token.atom';
 import { ChatSession } from '@/types/common/ChatSession.type';
 import { Integration } from '@/types/common/Integration.type';
+import { User } from '@/types/common/User.type';
 
 const instance = axios.create({
   baseURL: 'http://localhost:3010/api',
@@ -69,6 +70,11 @@ const getUsage = async (model: string): Promise<number> => {
   return data.count;
 };
 
+const updateUser = async (userData: Partial<User>): Promise<User> => {
+  const { data } = await instance.patch('/user', userData);
+  return data;
+};
+
 export {
   addUsage,
   createChatSession,
@@ -77,4 +83,5 @@ export {
   getAllIntegrations,
   getUsage,
   updateChatSession,
+  updateUser,
 };
