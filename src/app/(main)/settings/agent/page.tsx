@@ -5,8 +5,8 @@ export const generateMetadata = async () => {
   const { t } = await translation('setting');
   return metadataModule.generate({
     description: t('header.desc'),
-    title: t('tab.agent'),
-    url: '/settings/agent',
+    title: t('tab.common'),
+    url: '/settings/common',
   });
 };
 export { default } from './index';

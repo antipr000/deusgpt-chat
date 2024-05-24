@@ -1,8 +1,10 @@
 import { CollapseProps } from 'antd';
+import { useAtomValue } from 'jotai';
 // import isEqual from 'fast-deep-equal';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 import { useGlobalStore } from '@/store/global';
 import { preferenceSelectors } from '@/store/global/selectors';
 import { useSessionStore } from '@/store/session';
@@ -12,8 +14,6 @@ import { SessionDefaultGroup } from '@/types/session';
 import Actions from '../SessionListContent/CollapseGroup/Actions';
 import CollapseGroup from './CollapseGroup';
 import SessionList from './List';
-import { useAtomValue } from 'jotai';
-import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 
 const DefaultMode = memo(() => {
   const { t } = useTranslation('chat');
@@ -21,7 +21,7 @@ const DefaultMode = memo(() => {
   const [useFetchSessions] = useSessionStore((s) => [s.useFetchSessions]);
   useFetchSessions();
 
-  const defaultSessions = useAtomValue(chatSessionsAtom)
+  const defaultSessions = useAtomValue(chatSessionsAtom);
 
   const [sessionGroupKeys, updatePreference] = useGlobalStore((s) => [
     preferenceSelectors.sessionGroupKeys(s),
@@ -49,6 +49,9 @@ const DefaultMode = memo(() => {
         const expandSessionGroupKeys = typeof keys === 'string' ? [keys] : keys;
 
         updatePreference({ expandSessionGroupKeys });
+      }}
+      style={{
+        flexGrow: 1,
       }}
     />
   );

@@ -1,5 +1,6 @@
 import ServerLayout from '@/components/server/ServerLayout';
 
+import SettingButton from '../(workspace)/features/SettingButton';
 import Desktop from './_layout/Desktop';
 import Mobile from './_layout/Mobile';
 import SessionHydration from './features/SessionHydration';
@@ -12,6 +13,7 @@ const Session = () => {
     <>
       <Layout>
         <SessionListContent />
+        <SettingButton />
       </Layout>
       <SessionHydration />
     </>

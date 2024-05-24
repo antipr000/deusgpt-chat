@@ -14,25 +14,6 @@ import { LayoutProps } from './type';
 const Layout = memo<LayoutProps>(({ children, nav }) => {
   const isPWA = useIsPWA();
   const theme = useTheme();
-  const [_, setIdToken] = useAtom(idTokenAtom);
-  const [_2, setUser] = useAtom(userAtom);
-
-  const handleEvent = ({ data }: { data: { payload: any; type: string } }) => {
-    const { type, payload } = data;
-
-    if (type === 'id-token') {
-      // set state
-      const { idToken, user }: { idToken: string; user: UserData } = payload;
-      setIdToken(idToken);
-      setUser(user);
-    }
-  };
-
-  useEffect(() => {
-    window.parent.postMessage({ payload: true, type: 'chat-load' }, '*');
-
-    window.addEventListener('message', handleEvent);
-  }, []);
 
   return (
     <Flexbox

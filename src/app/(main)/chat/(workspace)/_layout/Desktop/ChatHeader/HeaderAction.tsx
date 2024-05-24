@@ -17,7 +17,6 @@ const HeaderAction = memo(() => {
       <Tags />
       <ModelSwitch />
       <ShareButton />
-      {isAgentEditable && <SettingButton />}
     </>
   );
 });

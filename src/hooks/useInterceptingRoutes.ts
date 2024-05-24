@@ -25,22 +25,23 @@ export const useOpenSettings = (tab: SettingsTabs = SettingsTabs.Common) => {
 
 export const useOpenChatSettings = (tab: ChatSettingsTabs = ChatSettingsTabs.Meta) => {
   const activeId = useSessionStore((s) => s.activeId);
-  const openSettings = useOpenSettings(SettingsTabs.Agent);
+  const openSettings = useOpenSettings(SettingsTabs.Common);
   const router = useQueryRoute();
   const mobile = useIsMobile();
 
   return useMemo(() => {
-    if (activeId === INBOX_SESSION_ID) {
-      useGlobalStore.setState({
-        sidebarKey: SidebarTabKey.Setting,
-      });
-      return openSettings;
-    }
-    if (mobile) {
-      return () => router.push('/chat/settings');
-    } else {
-      // use Intercepting Routes on Desktop
-      return () => router.push('/chat/settings/modal', { query: { session: activeId, tab } });
-    }
+    // if (activeId === INBOX_SESSION_ID) {
+    //   useGlobalStore.setState({
+    //     sidebarKey: SidebarTabKey.Setting,
+    //   });
+    //   return openSettings;
+    // }
+    // if (mobile) {
+    //   return () => router.push('/chat/settings');
+    // } else {
+    //   // use Intercepting Routes on Desktop
+    //   return () => router.push('/chat/settings/modal', { query: { session: activeId, tab } });
+    // }
+    return openSettings;
   }, [openSettings, mobile, activeId, router, tab]);
 };
