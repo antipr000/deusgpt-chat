@@ -33,7 +33,10 @@ const getAllChatSessions = async (): Promise<ChatSession[]> => {
   return data;
 };
 
-const updateChatSession = async (sessionId: string, request: Partial<ChatSession>): Promise<ChatSession[]> => {
+const updateChatSession = async (
+  sessionId: string,
+  request: Partial<ChatSession>,
+): Promise<ChatSession[]> => {
   const { data } = await instance.patch(`/chat-session/${sessionId}`, request);
   return data;
 };
@@ -43,4 +46,33 @@ const deleteChatSession = async (sessionId: string): Promise<ChatSession[]> => {
   return data;
 };
 
-export { createChatSession, deleteChatSession, getAllChatSessions, getAllIntegrations, updateChatSession };
+const addUsage = async ({
+  model,
+  queryType,
+  chatId,
+}: {
+  model: String;
+  queryType?: String;
+  chatId?: String;
+}): Promise<void> => {
+  await instance.post('/usage', {
+    modelId: model,
+    queryType: queryType,
+    chatId: chatId,
+  });
+};
+
+const getUsage = async (model: String): Promise<Number> => {
+  const { data }: { data: { count: Number } } = await axios.get(`/usage?model=${model}`);
+  return data.count;
+};
+
+export {
+  getAllIntegrations,
+  createChatSession,
+  getAllChatSessions,
+  updateChatSession,
+  deleteChatSession,
+  addUsage,
+  getUsage,
+};
