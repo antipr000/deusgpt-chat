@@ -3,25 +3,26 @@ import mongoose from 'mongoose';
 import { Usage } from '@/types/common/Usage.type';
 
 const usageSchema = new mongoose.Schema<Usage>({
-  firebaseId: {
+  chatId: {
+    required: false,
     type: String,
-    required: true,
-  },
-  modelId: {
-    type: String,
-    required: true,
   },
   createdAt: {
-    type: Date,
+    default: Date.now,
     required: true,
+    type: Date,
+  },
+  firebaseId: {
+    required: true,
+    type: String,
+  },
+  modelId: {
+    required: true,
+    type: String,
   },
   queryType: {
-    type: String,
     required: false,
-  },
-  chatId: {
     type: String,
-    required: false,
   },
 });
 

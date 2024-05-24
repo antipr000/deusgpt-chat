@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Center, Flexbox } from 'react-layout-kit';
 
 import StopLoadingIcon from '@/components/StopLoading';
-import SaveTopic from '@/features/ChatInput/Topic';
+// import SaveTopic from '@/features/ChatInput/Topic';
 import { useSendMessage } from '@/features/ChatInput/useSend';
 import { useAgentStore } from '@/store/agent';
 import { agentSelectors } from '@/store/agent/slices/chat';
@@ -65,7 +65,9 @@ const Footer = memo<FooterProps>(({ setExpand }) => {
     s.stopGenerateMessage,
   ]);
 
-  const model = useAgentStore(agentSelectors.currentAgentModel);
+  const [model] = useAgentStore((s) => [
+    agentSelectors.currentAgentModel(s) as string,
+  ]);
 
   const [useCmdEnterToSend, canUpload] = useUserStore((s) => [
     preferenceSelectors.useCmdEnterToSend(s),
@@ -121,7 +123,7 @@ const Footer = memo<FooterProps>(({ setExpand }) => {
           {wrapperShortcut}
           <span>{t('input.warp')}</span>
         </Flexbox>
-        <SaveTopic />
+        {/* <SaveTopic /> */}
         <Flexbox style={{ minWidth: 92 }}>
           {loading ? (
             <Button
@@ -135,7 +137,7 @@ const Footer = memo<FooterProps>(({ setExpand }) => {
             <Space.Compact>
               <Button
                 onClick={() => {
-                  sendMessage();
+                  sendMessage(model);
                   setExpand?.(false);
                 }}
                 type={'primary'}

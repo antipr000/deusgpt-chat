@@ -1,7 +1,7 @@
 export type Usage = {
-  firebaseId: String;
-  modelId: string;
-  createdAt: Date;
-  queryType?: string;
   chatId?: string;
+  createdAt: Date;
+  firebaseId: string;
+  modelId: string;
+  queryType?: string;
 };

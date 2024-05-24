@@ -46,14 +46,11 @@ const Token = memo(() => {
   const { availableTokens, maxTokens } = useMemo(() => {
     const integration = integrations?.find(int => int.name === provider);
     if(integration) {
-      console.log(integration)
-
       const storedModel = integration.models.find(m => m.name === model);
       if(storedModel) {
         const isPremium = user?.plan === 'premium';
         const limit = isPremium ? storedModel.limit.premium : storedModel.limit.standard;
 
-        console.log(storedModel, limit, usage)
         if(typeof limit === 'string') {
           return { availableTokens: 'Unlimited', maxTokens: 'Unlimited' };
         } else {
