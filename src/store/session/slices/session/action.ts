@@ -119,19 +119,18 @@ export const createSessionSlice: StateCreator<
     );
 
     const newSession: LobeAgentSession = merge(defaultAgent, agent);
-
     const id = await sessionService.createSession(LobeSessionType.Agent, newSession);
+    
     const newChatSession = await createChatSession({
       agent: 'gpt',
       firebaseId: store.get(userAtom)!.firebaseId!,
-      messages: [],
       name: 'DeusGPT',
       sessionId: id,
     })
     const chatSessions = store.get(chatSessionsAtom)
     chatSessions.push(newChatSession);
-    store.set(chatSessionsAtom, () => chatSessions);
-    
+    store.set(chatSessionsAtom, () => [...chatSessions]);
+
     await refreshSessions();
 
     // Whether to goto  to the new session after creation, the default is to switch to

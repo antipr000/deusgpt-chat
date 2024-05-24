@@ -22,11 +22,11 @@ const useStyles = createStyles(({ css }) => ({
 interface ActionProps {
   group: string | undefined;
   id: string;
-  openCreateGroupModal: () => void;
+  onRenameChatSessionOpen: () => void;
   setOpen: (open: boolean) => void;
 }
 
-const Actions = memo<ActionProps>(({ id, setOpen }) => {
+const Actions = memo<ActionProps>(({ id, setOpen, onRenameChatSessionOpen }) => {
   const { styles } = useStyles();
   const { t } = useTranslation('chat');
   const router = useRouter();
@@ -54,7 +54,7 @@ const Actions = memo<ActionProps>(({ id, setOpen }) => {
         key: 'pin',
         label: t('rename'),
         onClick: () => {
-          // Need to modify
+          onRenameChatSessionOpen()
         },
       },
       {

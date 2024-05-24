@@ -1,7 +1,6 @@
 import { Empty } from 'antd';
 import { createStyles } from 'antd-style';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Center } from 'react-layout-kit';
@@ -17,6 +16,9 @@ import SkeletonList from '../SkeletonList';
 import AddButton from './AddButton';
 import SessionItem from './Item';
 import { ChatSession } from '@/types/common/ChatSession.type';
+import { useAtom, useAtomValue } from 'jotai';
+import { selectedChatSessionAtom } from '@/store/atoms/selectedChatSession.atom';
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 
 const useStyles = createStyles(
   ({ css }) => css`
@@ -32,11 +34,15 @@ const SessionList = memo<SessionListProps>(({ dataSource, groupId, showAddButton
   const { t } = useTranslation('chat');
   const isInit = useSessionStore((s) => sessionSelectors.isSessionListInit(s));
   const { showCreateSession } = useServerConfigStore(featureFlagsSelectors);
-  const params = useSearchParams();
-
-  const agent = params.get('agent') as string;
+  const [_, setSelectedChatSession] = useAtom(selectedChatSessionAtom);
+  const chatSessions = useAtomValue(chatSessionsAtom);
 
   const { styles } = useStyles();
+
+  const onChatSessionClick = (sessionId: string) => {
+    const session = chatSessions.find((session) => session.sessionId === sessionId)!;
+    setSelectedChatSession(session)
+  }
 
   const mobile = useServerConfigStore((s) => s.isMobile);
   const isEmpty = !dataSource || dataSource.length === 0;
@@ -45,7 +51,7 @@ const SessionList = memo<SessionListProps>(({ dataSource, groupId, showAddButton
   ) : !isEmpty ? (
     dataSource.map(({ sessionId }) => (
       <LazyLoad className={styles} key={sessionId}>
-        <Link aria-label={sessionId} href={SESSION_CHAT_URL(sessionId, agent, mobile)}>
+        <Link aria-label={sessionId} href={SESSION_CHAT_URL(sessionId, mobile)} onClick={() => onChatSessionClick(sessionId)}>
           <SessionItem id={sessionId} />
         </Link>
       </LazyLoad>

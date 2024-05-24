@@ -33,8 +33,8 @@ const getAllChatSessions = async (): Promise<ChatSession[]> => {
   return data;
 };
 
-const updateChatSession = async (): Promise<ChatSession[]> => {
-  const { data } = await instance.patch('/chat-session');
+const updateChatSession = async (sessionId: string, request: Partial<ChatSession>): Promise<ChatSession[]> => {
+  const { data } = await instance.patch(`/chat-session/${sessionId}`, request);
   return data;
 };
 

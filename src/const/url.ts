@@ -42,11 +42,10 @@ export const AGENTS_INDEX_GITHUB_ISSUE = urlJoin(AGENTS_INDEX_GITHUB, 'issues/ne
 
 export const SESSION_CHAT_URL = (
   id: string = INBOX_SESSION_ID,
-  agent: string = 'gpt',
   mobile?: boolean,
 ) =>
   qs.stringifyUrl({
-    query: mobile ? { agent, session: id, showMobileWorkspace: mobile } : { agent, session: id },
+    query: mobile ? { session: id, showMobileWorkspace: mobile } : { session: id },
     url: '/chat',
   });
 

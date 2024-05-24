@@ -11,8 +11,11 @@ import { sessionHelpers } from '@/store/session/helpers';
 import { sessionMetaSelectors, sessionSelectors } from '@/store/session/selectors';
 
 import ListItem from '../../ListItem';
-import CreateGroupModal from '../../Modals/CreateGroupModal';
+// import CreateGroupModal from '../../Modals/CreateGroupModal';
 import Actions from './Actions';
+import { useAtomValue } from 'jotai';
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
+import RenameChatSessionModal from '../../Modals/RenameChatSession';
 
 interface SessionItemProps {
   id: string;
@@ -20,8 +23,9 @@ interface SessionItemProps {
 
 const SessionItem = memo<SessionItemProps>(({ id }) => {
   const [open, setOpen] = useState(false);
-  const [createGroupModalOpen, setCreateGroupModalOpen] = useState(false);
+  const [renameChatSessionModalOpen, setRenameChatSessionModalOpen] = useState(false);
   const [defaultModel] = useAgentStore((s) => [s.defaultAgentConfig.model]);
+  const chatSessions = useAtomValue(chatSessionsAtom)
 
   const [active] = useSessionStore((s) => [s.activeId === id]);
   const [loading] = useChatStore((s) => [chatSelectors.isAIGenerating(s) && id === s.activeId]);
@@ -29,11 +33,12 @@ const SessionItem = memo<SessionItemProps>(({ id }) => {
   const [pin, title, description, avatar, avatarBackground, updateAt, model, group] =
     useSessionStore((s) => {
       const session = sessionSelectors.getSessionById(id)(s);
+      const chatSession = chatSessions.find((session) => session.sessionId === id)!;
       const meta = session.meta;
 
       return [
         sessionHelpers.getSessionPinned(session),
-        sessionMetaSelectors.getTitle(meta),
+        chatSession.name,
         sessionMetaSelectors.getDescription(meta),
         sessionMetaSelectors.getAvatar(meta),
         meta.backgroundColor,
@@ -50,7 +55,7 @@ const SessionItem = memo<SessionItemProps>(({ id }) => {
       <Actions
         group={group}
         id={id}
-        openCreateGroupModal={() => setCreateGroupModalOpen(true)}
+        onRenameChatSessionOpen={() => setRenameChatSessionModalOpen(true)}
         setOpen={setOpen}
       />
     ),
@@ -82,10 +87,11 @@ const SessionItem = memo<SessionItemProps>(({ id }) => {
         showAction={open}
         title={title}
       />
-      <CreateGroupModal
+      <RenameChatSessionModal
         id={id}
-        onCancel={() => setCreateGroupModalOpen(false)}
-        open={createGroupModalOpen}
+        initialValue={title}
+        onCancel={() => setRenameChatSessionModalOpen(false)}
+        open={renameChatSessionModalOpen}
       />
     </>
   );

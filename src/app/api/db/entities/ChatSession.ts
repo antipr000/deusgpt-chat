@@ -1,234 +1,234 @@
 import mongoose, { Schema } from 'mongoose';
 
 import { ChatSession } from '@/types/common/ChatSession.type';
-import { ChatMessage, ChatMessageError, ChatTTS, ChatTranslate } from '@/types/message';
-import { ChatPluginPayload, ChatToolPayload } from '@/types/message';
+import { ChatMessage, ChatMessageError, ChatTTS , ChatPluginPayload, ChatToolPayload } from '@/types/message';
+
 import { MetaData } from '@/types/meta';
 
 const chatToolPayloadSchema = new mongoose.Schema<ChatToolPayload>({
   apiName: {
-    type: String,
     required: true,
+    type: String,
   },
   arguments: {
-    type: String,
     required: true,
+    type: String,
   },
   id: {
-    type: String,
     required: true,
+    type: String,
   },
   identifier: {
-    type: String,
     required: true,
+    type: String,
   },
   type: {
-    type: String,
     required: true,
+    type: String,
   },
 });
 
 const chatPluginPayloadSchema = new mongoose.Schema<ChatPluginPayload>({
   apiName: {
-    type: String,
     required: true,
+    type: String,
   },
   arguments: {
-    type: String,
     required: true,
+    type: String,
   },
   identifier: {
-    type: String,
     required: true,
+    type: String,
   },
   type: {
-    type: String,
     required: true,
+    type: String,
   },
 });
 
 const chatTranslateSchema = new mongoose.Schema({
   content: {
-    type: String,
     required: false,
+    type: String,
   },
 });
 
 const chatTTSSchema = new mongoose.Schema<ChatTTS>({
   contentMd5: {
-    type: String,
     required: false,
+    type: String,
   },
   file: {
-    type: String,
     required: false,
+    type: String,
   },
   voice: {
-    type: String,
     required: false,
+    type: String,
   },
 });
 
 const extraSchema = new mongoose.Schema({
   fromModel: {
-    type: String,
     required: false,
+    type: String,
   },
   fromProvider: {
-    type: String,
     required: false,
+    type: String,
   },
   translate: {
-    type: chatTranslateSchema,
     required: false,
+    type: chatTranslateSchema,
   },
   tts: {
-    type: chatTTSSchema,
     required: false,
+    type: chatTTSSchema,
   },
 });
 
 const chatMessageErrorSchema = new mongoose.Schema<ChatMessageError>({
   body: {
-    type: Schema.Types.Mixed,
     required: false,
+    type: Schema.Types.Mixed,
   },
   message: {
-    type: String,
     required: true,
+    type: String,
   },
   type: {
-    type: String,
     required: true,
+    type: String,
   },
 });
 
 const metadataSchema = new mongoose.Schema<MetaData>({
   avatar: {
-    type: String,
     required: false,
+    type: String,
   },
   backgroundColor: {
-    type: String,
     required: false,
+    type: String,
   },
   description: {
-    type: String,
     required: false,
+    type: String,
   },
   tags: {
-    type: [String],
     required: false,
+    type: [String],
   },
   title: {
-    type: String,
     required: false,
+    type: String,
   },
 });
 
-const chatSchema = new mongoose.Schema<ChatMessage>({
-  id: {
-    type: String,
-    required: true,
-    unique: true,
-  },
+export const chatSchema = new mongoose.Schema<ChatMessage>({
   content: {
-    type: String,
     required: false,
+    type: String,
   },
   createdAt: {
+    required: true,
     type: Number,
-    required: true,
-  },
-  updatedAt: {
-    type: Number,
-    required: true,
-  },
-  meta: {
-    type: metadataSchema,
-    required: false,
-  },
-  role: {
-    type: String,
-    required: true,
   },
   error: {
-    type: chatMessageErrorSchema,
     required: false,
+    type: chatMessageErrorSchema,
   },
   extra: {
-    type: extraSchema,
     required: false,
+    type: extraSchema,
   },
   files: {
-    type: [String],
     required: false,
+    type: [String],
+  },
+  id: {
+    required: true,
+    type: String,
+    unique: true,
+  },
+  meta: {
+    required: false,
+    type: metadataSchema,
   },
   observationId: {
-    type: String,
     required: false,
+    type: String,
   },
   parentId: {
-    type: String,
     required: false,
+    type: String,
   },
   plugin: {
-    type: chatPluginPayloadSchema,
     required: false,
+    type: chatPluginPayloadSchema,
   },
   pluginState: {
-    type: Schema.Types.Mixed,
     required: false,
+    type: Schema.Types.Mixed,
   },
   quotaId: {
-    type: String,
     required: false,
+    type: String,
+  },
+  role: {
+    required: true,
+    type: String,
   },
   sessionId: {
-    type: String,
     required: false,
+    type: String,
   },
   tool_call_id: {
-    type: String,
     required: false,
+    type: String,
   },
   tools: {
-    type: chatToolPayloadSchema,
     required: false,
+    type: chatToolPayloadSchema,
   },
   topicId: {
-    type: String,
     required: false,
+    type: String,
   },
   traceId: {
-    type: String,
     required: false,
+    type: String,
+  },
+  updatedAt: {
+    required: true,
+    type: Number,
   },
 });
 
 const chatSessionSchema = new mongoose.Schema<ChatSession>({
-  firebaseId: {
-    type: String,
-    required: true,
-  },
-  sessionId: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-  },
   agent: {
-    type: String,
     required: true,
+    type: String,
+  },
+  createdAt: {
+    default: Date.now,
+    required: true,
+    type: Date,
+  },
+  firebaseId: {
+    required: true,
+    type: String,
   },
   name: {
+    required: false,
     type: String,
-    required: false,
   },
-  messages: {
-    type: [chatSchema],
-    required: false,
-    default: [],
+  sessionId: {
+    required: true,
+    trim: true,
+    type: String,
+    unique: true,
   },
 });
 

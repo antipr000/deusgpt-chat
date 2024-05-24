@@ -23,7 +23,7 @@ class ChatRepository {
 
   async getAllChatSessions(firebaseId: string): Promise<ChatSession[]> {
     const chatSessionModel = await this.dbProvider.getChatSessionModel();
-    const chatSessions = await chatSessionModel.find({ firebaseId });
+    const chatSessions = await chatSessionModel.find({ firebaseId }).sort({ createdAt: -1 });
     return chatSessions;
   }
 
