@@ -4,8 +4,8 @@ import Theme from './features/Theme';
 const Page = () => {
   return (
     <>
-      <Theme />
       <Common />
+      <Theme />
     </>
   );
 };

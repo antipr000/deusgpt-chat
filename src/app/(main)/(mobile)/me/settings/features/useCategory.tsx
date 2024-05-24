@@ -20,23 +20,23 @@ export const useCategory = () => {
       key: SettingsTabs.Common,
       label: t('tab.common'),
     },
-    enableWebrtc && {
-      icon: Cloudy,
-      key: SettingsTabs.Sync,
-      label: (
-        <Flexbox align={'center'} gap={8} horizontal>
-          {t('tab.sync')}
-          <Tag bordered={false} color={'warning'}>
-            {t('tab.experiment')}
-          </Tag>
-        </Flexbox>
-      ),
-    },
-    showLLM && {
-      icon: Brain,
-      key: SettingsTabs.LLM,
-      label: t('tab.llm'),
-    },
+    // enableWebrtc && {
+    //   icon: Cloudy,
+    //   key: SettingsTabs.Sync,
+    //   label: (
+    //     <Flexbox align={'center'} gap={8} horizontal>
+    //       {t('tab.sync')}
+    //       <Tag bordered={false} color={'warning'}>
+    //         {t('tab.experiment')}
+    //       </Tag>
+    //     </Flexbox>
+    //   ),
+    // },
+    // showLLM && {
+    //   icon: Brain,
+    //   key: SettingsTabs.LLM,
+    //   label: t('tab.llm'),
+    // },
     { icon: Mic2, key: SettingsTabs.TTS, label: t('tab.tts') },
     {
       icon: Bot,

@@ -1,8 +1,11 @@
+import { Flex } from 'antd';
+
 import ServerLayout from '@/components/server/ServerLayout';
 
 import SettingButton from '../(workspace)/features/SettingButton';
 import Desktop from './_layout/Desktop';
 import Mobile from './_layout/Mobile';
+import Clear from './clear';
 import SessionHydration from './features/SessionHydration';
 import SessionListContent from './features/SessionListContent';
 
@@ -13,7 +16,15 @@ const Session = () => {
     <>
       <Layout>
         <SessionListContent />
-        <SettingButton />
+        <Flex
+          justify="space-between"
+          style={{
+            paddingBottom: '10px',
+          }}
+        >
+          <SettingButton />
+          <Clear />
+        </Flex>
       </Layout>
       <SessionHydration />
     </>

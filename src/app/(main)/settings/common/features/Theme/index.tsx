@@ -31,12 +31,12 @@ const Theme = memo(() => {
 
   const theme: SettingItemGroup = {
     children: [
-      {
-        children: <AvatarWithUpload />,
-        hidden: enableAuth,
-        label: t('settingTheme.avatar.title'),
-        minWidth: undefined,
-      },
+      // {
+      //   children: <AvatarWithUpload />,
+      //   hidden: enableAuth,
+      //   label: t('settingTheme.avatar.title'),
+      //   minWidth: undefined,
+      // },
       {
         children: (
           <SelectWithImg
@@ -80,53 +80,53 @@ const Theme = memo(() => {
         label: t('settingTheme.lang.title'),
         name: 'language',
       },
-      {
-        children: (
-          <SliderWithInput
-            marks={{
-              12: {
-                label: 'A',
-                style: {
-                  fontSize: 12,
-                  marginTop: 4,
-                },
-              },
-              14: {
-                label: t('settingTheme.fontSize.marks.normal'),
-                style: {
-                  fontSize: 14,
-                  marginTop: 4,
-                },
-              },
-              18: {
-                label: 'A',
-                style: {
-                  fontSize: 18,
-                  marginTop: 4,
-                },
-              },
-            }}
-            max={18}
-            min={12}
-            step={1}
-          />
-        ),
-        desc: t('settingTheme.fontSize.desc'),
-        label: t('settingTheme.fontSize.title'),
-        name: 'fontSize',
-      },
-      {
-        children: <ThemeSwatchesPrimary />,
-        desc: t('settingTheme.primaryColor.desc'),
-        label: t('settingTheme.primaryColor.title'),
-        minWidth: undefined,
-      },
-      {
-        children: <ThemeSwatchesNeutral />,
-        desc: t('settingTheme.neutralColor.desc'),
-        label: t('settingTheme.neutralColor.title'),
-        minWidth: undefined,
-      },
+      // {
+      //   children: (
+      //     <SliderWithInput
+      //       marks={{
+      //         12: {
+      //           label: 'A',
+      //           style: {
+      //             fontSize: 12,
+      //             marginTop: 4,
+      //           },
+      //         },
+      //         14: {
+      //           label: t('settingTheme.fontSize.marks.normal'),
+      //           style: {
+      //             fontSize: 14,
+      //             marginTop: 4,
+      //           },
+      //         },
+      //         18: {
+      //           label: 'A',
+      //           style: {
+      //             fontSize: 18,
+      //             marginTop: 4,
+      //           },
+      //         },
+      //       }}
+      //       max={18}
+      //       min={12}
+      //       step={1}
+      //     />
+      //   ),
+      //   desc: t('settingTheme.fontSize.desc'),
+      //   label: t('settingTheme.fontSize.title'),
+      //   name: 'fontSize',
+      // },
+      // {
+      //   children: <ThemeSwatchesPrimary />,
+      //   desc: t('settingTheme.primaryColor.desc'),
+      //   label: t('settingTheme.primaryColor.title'),
+      //   minWidth: undefined,
+      // },
+      // {
+      //   children: <ThemeSwatchesNeutral />,
+      //   desc: t('settingTheme.neutralColor.desc'),
+      //   label: t('settingTheme.neutralColor.title'),
+      //   minWidth: undefined,
+      // },
     ],
     title: t('settingTheme.title'),
   };
