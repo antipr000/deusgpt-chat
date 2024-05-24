@@ -1,15 +1,6 @@
 // import { Icon } from '@lobehub/ui';
 import { Dropdown } from 'antd';
 import { createStyles } from 'antd-style';
-// import type { ItemType } from 'antd/es/menu/interface';
-// import isEqual from 'fast-deep-equal';
-// import { LucideArrowRight } from 'lucide-react';
-// import { useRouter } from 'next/navigation';
-import { PropsWithChildren, memo, useMemo } from 'react';
-// import { useTranslation } from 'react-i18next';
-// import { Flexbox } from 'react-layout-kit';
-
-import { ModelItemRender } from '@/components/ModelSelect';
 // import { useAgentStore } from '@/store/agent';
 // import { agentSelectors } from '@/store/agent/slices/chat';
 // import { useUserStore } from '@/store/user';
@@ -17,8 +8,19 @@ import { ModelItemRender } from '@/components/ModelSelect';
 // import { ModelProviderCard } from '@/types/llm';
 // import { withBasePath } from '@/utils/basePath';
 import { useAtomValue } from 'jotai';
+// import type { ItemType } from 'antd/es/menu/interface';
+// import isEqual from 'fast-deep-equal';
+// import { LucideArrowRight } from 'lucide-react';
+// import { useRouter } from 'next/navigation';
+import { PropsWithChildren, memo, useMemo } from 'react';
+
+// import { useTranslation } from 'react-i18next';
+// import { Flexbox } from 'react-layout-kit';
+import { ModelItemRender } from '@/components/ModelSelect';
+import { useAgentStore } from '@/store/agent';
+import { agentSelectors } from '@/store/agent/selectors';
 import { integrationsAtom } from '@/store/atoms/integrations.atom';
-import { Integration } from '@/app/api/db/types/Integration.type';
+import { Integration, Model } from '@/types/common/Integration.type';
 
 const useStyles = createStyles(({ css, prefixCls }) => ({
   menu: css`
@@ -46,23 +48,23 @@ const menuKey = (provider: string, model: string) => `${provider}-${model}`;
 const ModelSwitchPanel = memo<PropsWithChildren>(({ children }) => {
   // const { t } = useTranslation('components');
   const { styles } = useStyles();
-  const integrations = useAtomValue(integrationsAtom)
-  // const [model, provider, updateAgentConfig] = useAgentStore((s) => [
-  //   agentSelectors.currentAgentModel(s),
-  //   agentSelectors.currentAgentModelProvider(s),
-  //   s.updateAgentConfig,
-  // ]);
+  const integrations = useAtomValue(integrationsAtom);
+  const [model, provider, updateAgentConfig] = useAgentStore((s) => [
+    agentSelectors.currentAgentModel(s),
+    agentSelectors.currentAgentModelProvider(s),
+    s.updateAgentConfig,
+  ]);
 
   // const router = useRouter();
   // const enabledList = useUserStore(modelProviderSelectors.modelProviderListForModelSelect, isEqual);
 
   const items: any = useMemo(() => {
     const getModelItems = (provider: Integration) => {
-      const items = provider.models.map((model) => ({
+      const items = provider.models.map((model: Model) => ({
         key: menuKey(provider.name, model.name),
         label: <ModelItemRender {...model} />,
         onClick: () => {
-          // updateAgentConfig({ model: model.id, provider: provider.id });
+          updateAgentConfig({ model: model.name, provider: provider.name });
         },
       }));
 

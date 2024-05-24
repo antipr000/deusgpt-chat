@@ -29,6 +29,8 @@ const Token = memo(() => {
     agentSelectors.currentAgentModel(s) as string,
   ]);
 
+  console.log('HELLOOOO', model);
+
   const maxTokens = useUserStore(modelProviderSelectors.modelMaxToken(model));
 
   // Tool usage token

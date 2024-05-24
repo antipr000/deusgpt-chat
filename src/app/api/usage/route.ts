@@ -22,7 +22,9 @@ export async function POST(request: NextRequest) {
   const usageRepository = new UsageRepository();
 
   await usageRepository.createUsage(body);
-  return NextResponse.json({});
+
+  const count = await usageRepository.getUsageForToday(firebaseId, body.modelId);
+  return NextResponse.json({ count });
 }
 
 export async function GET(request: NextRequest) {

@@ -54,12 +54,14 @@ const addUsage = async ({
   model: String;
   queryType?: String;
   chatId?: String;
-}): Promise<void> => {
-  await instance.post('/usage', {
+}): Promise<Number> => {
+  const { data } = await instance.post('/usage', {
     modelId: model,
     queryType: queryType,
     chatId: chatId,
   });
+
+  return data.count;
 };
 
 const getUsage = async (model: String): Promise<Number> => {
