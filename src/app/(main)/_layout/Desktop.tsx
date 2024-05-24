@@ -44,7 +44,6 @@ const Layout = memo<LayoutProps>(({ children, nav }) => {
       }}
       width={'100%'}
     >
-      {nav}
       {children}
     </Flexbox>
   );

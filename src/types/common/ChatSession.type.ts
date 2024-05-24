@@ -1,7 +1,7 @@
 export type ChatSession = {
-  firebaseId: String;
-  sessionId: String;
-  name?: String;
-  agent: String; // Can be gpt, translate, search
+  agent: string; // Can be gpt, translate, search
+  firebaseId: string;
   messages?: Array<any>;
+  name?: string;
+  sessionId: string;
 };

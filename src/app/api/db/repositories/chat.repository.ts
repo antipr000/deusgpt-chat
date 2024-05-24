@@ -13,7 +13,7 @@ class ChatRepository {
     return chatSession;
   }
 
-  async updateChatSession(sessionId: String, request: Partial<ChatSession>): Promise<ChatSession> {
+  async updateChatSession(sessionId: string, request: Partial<ChatSession>): Promise<ChatSession> {
     const chatSessionModel = await this.dbProvider.getChatSessionModel();
     const chatSession = await chatSessionModel.findOneAndUpdate({ sessionId }, request, {
       new: true,
@@ -25,6 +25,12 @@ class ChatRepository {
     const chatSessionModel = await this.dbProvider.getChatSessionModel();
     const chatSessions = await chatSessionModel.find({ firebaseId });
     return chatSessions;
+  }
+
+  async deleteChatSession(sessionId: string): Promise<ChatSession[]> {
+    const chatSessionModel = await this.dbProvider.getChatSessionModel();
+    const chatSession = await chatSessionModel.findOneAndDelete({ sessionId });
+    return chatSession;
   }
 }
 

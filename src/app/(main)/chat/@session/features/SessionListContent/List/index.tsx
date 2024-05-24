@@ -11,11 +11,12 @@ import { SESSION_CHAT_URL } from '@/const/url';
 import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfig';
 import { useSessionStore } from '@/store/session';
 import { sessionSelectors } from '@/store/session/selectors';
-import { LobeAgentSession } from '@/types/session';
+// import { LobeAgentSession } from '@/types/session';
 
 import SkeletonList from '../SkeletonList';
 import AddButton from './AddButton';
 import SessionItem from './Item';
+import { ChatSession } from '@/types/common/ChatSession.type';
 
 const useStyles = createStyles(
   ({ css }) => css`
@@ -23,7 +24,7 @@ const useStyles = createStyles(
   `,
 );
 interface SessionListProps {
-  dataSource?: LobeAgentSession[];
+  dataSource?: ChatSession[];
   groupId?: string;
   showAddButton?: boolean;
 }
@@ -42,10 +43,10 @@ const SessionList = memo<SessionListProps>(({ dataSource, groupId, showAddButton
   return !isInit ? (
     <SkeletonList />
   ) : !isEmpty ? (
-    dataSource.map(({ id }) => (
-      <LazyLoad className={styles} key={id}>
-        <Link aria-label={id} href={SESSION_CHAT_URL(id, agent, mobile)}>
-          <SessionItem id={id} />
+    dataSource.map(({ sessionId }) => (
+      <LazyLoad className={styles} key={sessionId}>
+        <Link aria-label={sessionId} href={SESSION_CHAT_URL(sessionId, agent, mobile)}>
+          <SessionItem id={sessionId} />
         </Link>
       </LazyLoad>
     ))

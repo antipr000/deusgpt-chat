@@ -24,7 +24,7 @@ const getAllIntegrations = async (): Promise<Integration[]> => {
 };
 
 const createChatSession = async (request: ChatSession): Promise<ChatSession> => {
-  const { data } = await instance.post('/chat-session');
+  const { data } = await instance.post('/chat-session', request);
   return data;
 };
 
@@ -38,4 +38,9 @@ const updateChatSession = async (): Promise<ChatSession[]> => {
   return data;
 };
 
-export { getAllIntegrations, createChatSession, getAllChatSessions, updateChatSession };
+const deleteChatSession = async (sessionId: string): Promise<ChatSession[]> => {
+  const { data } = await instance.delete(`/chat-session/${sessionId}`);
+  return data;
+};
+
+export { createChatSession, deleteChatSession, getAllChatSessions, getAllIntegrations, updateChatSession };

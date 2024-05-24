@@ -26,6 +26,10 @@ import { setNamespace } from '@/utils/storeDebug';
 import { SessionDispatch, sessionsReducer } from './reducers';
 import { sessionSelectors } from './selectors';
 import { sessionMetaSelectors } from './selectors/meta';
+import { createChatSession } from '@/helpers/api';
+import { store } from '@/store/atoms/store.atom';
+import { userAtom } from '@/store/atoms/user.atom';
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 
 const n = setNamespace('session');
 
@@ -117,6 +121,17 @@ export const createSessionSlice: StateCreator<
     const newSession: LobeAgentSession = merge(defaultAgent, agent);
 
     const id = await sessionService.createSession(LobeSessionType.Agent, newSession);
+    const newChatSession = await createChatSession({
+      agent: 'gpt',
+      firebaseId: store.get(userAtom)!.firebaseId!,
+      messages: [],
+      name: 'DeusGPT',
+      sessionId: id,
+    })
+    const chatSessions = store.get(chatSessionsAtom)
+    chatSessions.push(newChatSession);
+    store.set(chatSessionsAtom, () => chatSessions);
+    
     await refreshSessions();
 
     // Whether to goto  to the new session after creation, the default is to switch to

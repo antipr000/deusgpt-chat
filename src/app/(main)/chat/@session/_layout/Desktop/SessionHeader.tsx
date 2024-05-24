@@ -47,7 +47,7 @@ const Header = memo(() => {
             onClick={() => mutate()}
             size={DESKTOP_HEADER_ICON_SIZE}
             style={{ flex: 'none' }}
-            title={t('newAgent')}
+            title={t('newChat')}
           />
         )}
       </Flexbox>

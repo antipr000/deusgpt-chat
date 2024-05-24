@@ -9,6 +9,9 @@ import { useTranslation } from 'react-i18next';
 import { useSessionStore } from '@/store/session';
 import { sessionHelpers } from '@/store/session/helpers';
 import { sessionSelectors } from '@/store/session/selectors';
+import { deleteChatSession } from '@/helpers/api';
+import { useAtom } from 'jotai';
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 
 const useStyles = createStyles(({ css }) => ({
   modalRoot: css`
@@ -27,6 +30,7 @@ const Actions = memo<ActionProps>(({ id, setOpen }) => {
   const { styles } = useStyles();
   const { t } = useTranslation('chat');
   const router = useRouter();
+  const [chatSessions, setChatSessions] = useAtom(chatSessionsAtom)
 
   const [pin, removeSession] = useSessionStore((s) => {
     const session = sessionSelectors.getSessionById(id)(s);
@@ -67,8 +71,11 @@ const Actions = memo<ActionProps>(({ id, setOpen }) => {
             centered: true,
             okButtonProps: { danger: true },
             onOk: async () => {
+              await deleteChatSession(id);
               await removeSession(id);
-              router.replace('/chat?session=inbox');
+              const sessions = chatSessions.filter((session) => session.sessionId !== id);
+              setChatSessions(sessions);
+              router.replace('/chat');
               message.success(t('confirmRemoveSessionSuccess'));
             },
             rootClassName: styles.modalRoot,
