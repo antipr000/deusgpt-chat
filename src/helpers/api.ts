@@ -51,30 +51,30 @@ const addUsage = async ({
   queryType,
   chatId,
 }: {
-  model: String;
-  queryType?: String;
-  chatId?: String;
-}): Promise<Number> => {
+  chatId?: string;
+  model: string;
+  queryType?: string;
+}): Promise<number> => {
   const { data } = await instance.post('/usage', {
+    chatId: chatId,
     modelId: model,
     queryType: queryType,
-    chatId: chatId,
   });
 
   return data.count;
 };
 
-const getUsage = async (model: String): Promise<Number> => {
-  const { data }: { data: { count: Number } } = await axios.get(`/usage?model=${model}`);
+const getUsage = async (model: string): Promise<number> => {
+  const { data }: { data: { count: number } } = await instance.get(`/usage?model=${model}`);
   return data.count;
 };
 
 export {
-  getAllIntegrations,
-  createChatSession,
-  getAllChatSessions,
-  updateChatSession,
-  deleteChatSession,
   addUsage,
+  createChatSession,
+  deleteChatSession,
+  getAllChatSessions,
+  getAllIntegrations,
   getUsage,
+  updateChatSession,
 };

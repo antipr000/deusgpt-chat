@@ -34,8 +34,10 @@ export async function GET(request: NextRequest) {
   if (!idToken) {
     return NextResponse.json({}, { status: 401 });
   }
-  const firebaseId = await getUidFromIdToken(idToken);
+  // const firebaseId = await getUidFromIdToken(idToken);
+  const firebaseId = "Rjzn2cqUKHMMOhFpvBxfmeVKs2m1"
   const modelId: string | null = request.nextUrl.searchParams.get('model');
+  console.log(modelId)
 
   if (!modelId) {
     return NextResponse.json({}, { status: 404 });

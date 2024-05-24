@@ -13,6 +13,8 @@ import { integrationsAtom } from '@/store/atoms/integrations.atom';
 import { selectedChatSessionAtom } from '@/store/atoms/selectedChatSession.atom';
 import { idTokenAtom } from '@/store/atoms/token.atom';
 import { UserData, userAtom } from '@/store/atoms/user.atom';
+import { Integration } from '@/types/common/Integration.type';
+import { ChatSession } from '@/types/common/ChatSession.type';
 
 // const checkHasConversation = async () => {
 //   const hasMessages = await messageService.hasMessages();
@@ -50,10 +52,18 @@ const Redirect = memo(() => {
   }, []);
 
   const loadAllData = async () => {
-    const integrations = await getAllIntegrations();
-    const chatSessions = await getAllChatSessions();
+    const promiseArr = [
+      getAllIntegrations(),
+      getAllChatSessions(),
+    ]
+    
+    const [integrations, chatSessions] = await Promise.all<[Integration[], ChatSession[]]>(
+      // @ts-ignore
+      promiseArr
+    );
     setIntegrations(integrations);
     setChatSessions(chatSessions);
+    
     if (chatSessions.length) {
       setSelectedChatSession(chatSessions[0]);
       return chatSessions[0].sessionId;
@@ -61,9 +71,9 @@ const Redirect = memo(() => {
       const newSession = await createChatSession({
         agent: 'gpt',
         createdAt: new Date(),
-        sessionId: v4(),
-        firebaseId: '',
+        firebaseId: user!.firebaseId!,
         name: 'DeusGPT',
+        sessionId: v4(),
       });
       setChatSessions([newSession]);
       setSelectedChatSession(newSession);

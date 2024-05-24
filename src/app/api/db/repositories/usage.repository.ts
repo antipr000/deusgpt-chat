@@ -14,7 +14,7 @@ class UsageRepository {
     return usage;
   }
 
-  async getUsageForToday(firebaseId: String, modelId: String): Promise<Number> {
+  async getUsageForToday(firebaseId: string, modelId: string): Promise<number> {
     const startOfToday = new Date();
     startOfToday.setHours(0, 0, 0, 0);
 
@@ -22,12 +22,12 @@ class UsageRepository {
     endOfToday.setHours(23, 59, 59, 999);
     const usageModel = await this.dbProvider.getUsageModel();
     const count = await usageModel.countDocuments({
-      firebaseId: firebaseId,
-      modelId: modelId,
       createdAt: {
         $gte: startOfToday,
         $lt: endOfToday,
       },
+      firebaseId: firebaseId,
+      modelId: modelId,
     });
 
     return count;
