@@ -1,9 +1,9 @@
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
-
 import ChatRepository from '../../db/repositories/chat.repository';
 import { ChatSession } from '@/types/common/ChatSession.type';
+import { getUidFromIdToken } from '../../firebase/utils';
 
 export async function DELETE(request: NextRequest, { params }: {params: { id: string}}) {
     const headerList = headers();
@@ -12,7 +12,7 @@ export async function DELETE(request: NextRequest, { params }: {params: { id: st
     if (!idToken) {
       return NextResponse.json({}, { status: 401 });
     }
-    // await getUidFromIdToken(idToken);
+    getUidFromIdToken(idToken);
 
     const { id } = params;
   
@@ -28,7 +28,7 @@ export async function DELETE(request: NextRequest, { params }: {params: { id: st
     if (!idToken) {
       return NextResponse.json({}, { status: 401 });
     }
-    // const firebaseId = await getUidFromIdToken(idToken);
+    await getUidFromIdToken(idToken);
     const { id } = params;
   
     const body: Partial<ChatSession> = await request.json();

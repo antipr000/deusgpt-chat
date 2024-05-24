@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ChatSession } from '@/types/common/ChatSession.type';
 
 import ChatRepository from '../db/repositories/chat.repository';
+import { getUidFromIdToken } from '../firebase/utils';
 
 export async function GET() {
   const headerList = headers();
@@ -12,8 +13,7 @@ export async function GET() {
   if (!idToken) {
     return NextResponse.json({}, { status: 401 });
   }
-  // const firebaseId = await getUidFromIdToken(idToken);
-  const firebaseId = 'Rjzn2cqUKHMMOhFpvBxfmeVKs2m1';
+  const firebaseId = await getUidFromIdToken(idToken);
 
   const chatRepository = new ChatRepository();
   const data = await chatRepository.getAllChatSessions(firebaseId);
@@ -27,8 +27,7 @@ export async function POST(request: NextRequest) {
   if (!idToken) {
     return NextResponse.json({}, { status: 401 });
   }
-  // const firebaseId = await getUidFromIdToken(idToken);
-  const firebaseId = 'Rjzn2cqUKHMMOhFpvBxfmeVKs2m1';
+  const firebaseId = await getUidFromIdToken(idToken);
 
   const body: ChatSession = await request.json();
   body.firebaseId = firebaseId;

@@ -29,7 +29,6 @@ const Redirect = memo(() => {
   const [_3, setSelectedChatSession] = useAtom(selectedChatSessionAtom);
 
   const loadAllData = async () => {
-    console.log("Hello")
     const integrations = await getAllIntegrations();
     const chatSessions = await getAllChatSessions();
     setIntegrations(integrations);

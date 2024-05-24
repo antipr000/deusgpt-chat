@@ -5,11 +5,13 @@ import { Skeleton } from 'antd';
 import { Fragment, Suspense, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
+import { useAtomValue } from 'jotai';
 
 import { useInitAgentConfig } from '@/app/(main)/chat/(workspace)/_layout/useInitAgentConfig';
 import { useOpenChatSettings } from '@/hooks/useInterceptingRoutes';
 import { useSessionStore } from '@/store/session';
 import { sessionMetaSelectors, sessionSelectors } from '@/store/session/selectors';
+import { selectedChatSessionAtom } from '../../../../../../../store/atoms/selectedChatSession.atom';
 
 const Main = memo(() => {
   const { t } = useTranslation('chat');
@@ -26,8 +28,10 @@ const Main = memo(() => {
   ]);
 
   const openChatSettings = useOpenChatSettings();
+  const selectedChatSession = useAtomValue(selectedChatSessionAtom)
+  console.log(selectedChatSession)
 
-  const displayTitle = isInbox ? t('inbox.title') : title;
+  const displayTitle = isInbox ? t('inbox.title') : selectedChatSession?.name;
   const displayDesc = isInbox ? t('inbox.desc') : description;
 
   return !init ? (
@@ -48,7 +52,7 @@ const Main = memo(() => {
             background={backgroundColor}
             onClick={() => openChatSettings()}
             size={40}
-            title={title}
+            title={selectedChatSession?.name}
           />
           <ChatHeaderTitle desc={displayDesc} title={displayTitle} />
         </>
