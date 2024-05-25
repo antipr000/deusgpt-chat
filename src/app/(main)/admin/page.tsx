@@ -1,19 +1,7 @@
-"use client";
+import { redirect } from 'next/navigation'
 
-import React, { useEffect, useState } from 'react'
-
-import LLM from "@/app/(main)/settings/llm";
-
-const Admin = () => {
-  const [isClient, setIsClient] = useState(false)
- 
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  return (
-    isClient && <LLM />
-  )
+const AdminPage = () => {
+  redirect('/admin/models');
 }
 
-export default Admin
+export default AdminPage

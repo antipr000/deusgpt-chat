@@ -194,6 +194,7 @@ const ProviderConfig = memo<ProviderConfigProps>(
           align={'center'}
           className={styles.safariIconWidthFix}
           horizontal
+          id={provider}
           style={{
             height: 24,
             maxHeight: 24,

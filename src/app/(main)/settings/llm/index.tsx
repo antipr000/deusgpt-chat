@@ -2,6 +2,8 @@
 
 import { Flexbox } from 'react-layout-kit';
 
+import ProviderList from '@/components/AdminSidebar/ProviderList';
+
 import Anthropic from './Anthropic';
 import Azure from './Azure';
 import Bedrock from './Bedrock';
@@ -22,25 +24,28 @@ import Footer from './components/Footer';
 
 const Page = () => {
   return (
-    <Flexbox align='center' gap={24} style={{ overflowY: 'auto' }} width={'100%'}>
-      <OpenAI />
-      <Ollama />
-      <Azure />
-      <Google />
-      <Anthropic />
-      <Bedrock />
-      <DeepSeek />
-      <OpenRouter />
-      <TogetherAI />
-      <Groq />
-      <Perplexity />
-      <Minimax />
-      <Mistral />
-      <Moonshot />
-      <Zhipu />
-      <ZeroOne />
-      <Footer />
-    </Flexbox>
+    <>
+      <Flexbox align="center" gap={24} style={{ overflowY: 'auto' }} width={'100%'}>
+        <OpenAI />
+        <Ollama />
+        <Azure />
+        <Google />
+        <Anthropic />
+        <Bedrock />
+        <DeepSeek />
+        <OpenRouter />
+        <TogetherAI />
+        <Groq />
+        <Perplexity />
+        <Minimax />
+        <Mistral />
+        <Moonshot />
+        <Zhipu />
+        <ZeroOne />
+        <Footer />
+      </Flexbox>
+      <ProviderList />
+    </>
   );
 };
 
