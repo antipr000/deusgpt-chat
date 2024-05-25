@@ -7,6 +7,7 @@ import { debounce } from 'lodash-es';
 import { ReactNode, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
+import isEqual from 'fast-deep-equal';
 
 import { useSyncSettings } from '@/app/(main)/settings/hooks/useSyncSettings';
 import {
@@ -17,11 +18,12 @@ import {
 } from '@/app/(main)/settings/llm/const';
 import { FORM_STYLE } from '@/const/layoutTokens';
 import { useUserStore } from '@/store/user';
-import { modelConfigSelectors } from '@/store/user/selectors';
+import { modelConfigSelectors, modelProviderSelectors } from '@/store/user/selectors';
 import { GlobalLLMProviderKey } from '@/types/settings';
 
 import Checker from '../Checker';
 import ProviderModelListSelect from '../ProviderModelList';
+import ModelForms from '../ModelForms';
 
 const useStyles = createStyles(({ css, prefixCls, responsive }) => ({
   form: css`
@@ -36,6 +38,9 @@ const useStyles = createStyles(({ css, prefixCls, responsive }) => ({
     }
     .${prefixCls}-select-selection-overflow-item {
       font-size: 12px;
+    }
+    .ant-form-item-row {
+      align-items: flex-start !important;
     }
   `,
   safariIconWidthFix: css`
@@ -100,6 +105,11 @@ const ProviderConfig = memo<ProviderConfigProps>(
       modelConfigSelectors.isProviderEndpointNotEmpty(provider)(s),
     ]);
 
+    const enabledModels = useUserStore(
+      modelProviderSelectors.getEnableModelsById(provider),
+      isEqual,
+    );
+
     useSyncSettings(form);
 
     const apiKeyItem: FormItemProps[] = !showApiKey
@@ -160,6 +170,11 @@ const ProviderConfig = memo<ProviderConfigProps>(
         label: t('llm.checker.title'),
         minWidth: undefined,
       },
+      {
+        children: <ModelForms models={enabledModels || []} />,
+        desc: 'Set the limits for each model',
+        label: 'Limits',
+      }
     ].filter(Boolean) as FormItemProps[];
 
     const model: ItemGroup = {

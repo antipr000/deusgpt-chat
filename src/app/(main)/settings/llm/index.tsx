@@ -22,7 +22,7 @@ import Footer from './components/Footer';
 
 const Page = () => {
   return (
-    <Flexbox gap={24} width={'100%'}>
+    <Flexbox align='center' gap={24} style={{ overflowY: 'auto' }} width={'100%'}>
       <OpenAI />
       <Ollama />
       <Azure />
