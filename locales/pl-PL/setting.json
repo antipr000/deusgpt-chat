@@ -24,6 +24,9 @@
       "desc": "Zresetuj wszystkie ustawienia do wartości domyślnych",
       "success": "Wszystkie ustawienia zostały zresetowane",
       "title": "Zresetuj wszystkie ustawienia"
+    },
+    "save": {
+      "action": "Zapisz"
     }
   },
   "header": {
@@ -233,6 +236,16 @@
       "desc": "Administrator włączył szyfrowany dostęp",
       "placeholder": "Wprowadź hasło dostępu",
       "title": "Hasło dostępu"
+    },
+    "firstName": {
+      "desc": "Imię użytkownika",
+      "placeholder": "Np. Jan",
+      "title": "Wprowadź swoje imię"
+    },
+    "lastName": {
+      "desc": "Nazwisko użytkownika",
+      "placeholder": "Np. Kowalski",
+      "title": "Wprowadź swoje nazwisko"
     },
     "oauth": {
       "info": {

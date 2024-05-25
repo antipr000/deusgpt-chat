@@ -24,6 +24,9 @@
       "desc": "重置所有設定項回預設值",
       "success": "已重設所有設定",
       "title": "重置所有設定"
+    },
+    "save": {
+      "action": "儲存"
     }
   },
   "header": {
@@ -233,6 +236,16 @@
       "desc": "管理員已開啟加密訪問",
       "placeholder": "請輸入訪問密碼",
       "title": "訪問密碼"
+    },
+    "firstName": {
+      "desc": "使用者的名字",
+      "placeholder": "例如：約翰",
+      "title": "輸入您的名字"
+    },
+    "lastName": {
+      "desc": "使用者的姓氏",
+      "placeholder": "例如：史密斯",
+      "title": "輸入您的姓氏"
     },
     "oauth": {
       "info": {

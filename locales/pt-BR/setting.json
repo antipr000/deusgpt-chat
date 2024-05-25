@@ -24,6 +24,9 @@
       "desc": "Redefinir todas as configurações para os valores padrão",
       "success": "Todas as configurações foram redefinidas com sucesso",
       "title": "Redefinir Todas as Configurações"
+    },
+    "save": {
+      "action": "Salvar"
     }
   },
   "header": {
@@ -233,6 +236,16 @@
       "desc": "O administrador habilitou o acesso criptografado",
       "placeholder": "Digite a senha de acesso",
       "title": "Senha de acesso"
+    },
+    "firstName": {
+      "desc": "Nome do usuário",
+      "placeholder": "Ex. João",
+      "title": "Digite seu primeiro nome"
+    },
+    "lastName": {
+      "desc": "Sobrenome do usuário",
+      "placeholder": "Ex. Silva",
+      "title": "Digite seu sobrenome"
     },
     "oauth": {
       "info": {

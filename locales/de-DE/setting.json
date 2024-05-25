@@ -24,6 +24,9 @@
       "desc": "Alle Einstellungen auf Standardwerte zurücksetzen",
       "success": "Alle Einstellungen wurden zurückgesetzt",
       "title": "Alle Einstellungen zurücksetzen"
+    },
+    "save": {
+      "action": "Speichern"
     }
   },
   "header": {
@@ -233,6 +236,16 @@
       "desc": "Der Administrator hat den verschlüsselten Zugriff aktiviert",
       "placeholder": "Bitte geben Sie das Zugangspasswort ein",
       "title": "Zugangspasswort"
+    },
+    "firstName": {
+      "desc": "Vorname des Benutzers",
+      "placeholder": "z.B. John",
+      "title": "Geben Sie Ihren Vornamen ein"
+    },
+    "lastName": {
+      "desc": "Nachname des Benutzers",
+      "placeholder": "z.B. Smith",
+      "title": "Geben Sie Ihren Nachnamen ein"
     },
     "oauth": {
       "info": {

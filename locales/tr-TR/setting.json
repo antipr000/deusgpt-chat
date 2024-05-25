@@ -24,6 +24,9 @@
       "desc": "Tüm ayarları varsayılan değerlere sıfırlar",
       "success": "Tüm ayarlar sıfırlandı",
       "title": "Tüm Ayarları Sıfırla"
+    },
+    "save": {
+      "action": "Kaydet"
     }
   },
   "header": {
@@ -233,6 +236,16 @@
       "desc": "Yönetici tarafından şifreleme erişimi etkinleştirildi",
       "placeholder": "Erişim şifresini girin",
       "title": "Erişim Şifresi"
+    },
+    "firstName": {
+      "desc": "Kullanıcının adı",
+      "placeholder": "Örn. Ahmet",
+      "title": "Adınızı girin"
+    },
+    "lastName": {
+      "desc": "Kullanıcının soyadı",
+      "placeholder": "Örn. Yılmaz",
+      "title": "Soyadınızı girin"
     },
     "oauth": {
       "info": {

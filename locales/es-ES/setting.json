@@ -24,6 +24,9 @@
       "desc": "Restablecer todas las opciones de configuración a sus valores predeterminados",
       "success": "Se han restablecido todas las configuraciones",
       "title": "Restablecer todas las configuraciones"
+    },
+    "save": {
+      "action": "Guardar"
     }
   },
   "header": {
@@ -233,6 +236,16 @@
       "desc": "El administrador ha habilitado el acceso cifrado",
       "placeholder": "Ingrese la contraseña de acceso",
       "title": "Contraseña de acceso"
+    },
+    "firstName": {
+      "desc": "Nombre de pila del usuario",
+      "placeholder": "Por ejemplo, Juan",
+      "title": "Ingrese su nombre de pila"
+    },
+    "lastName": {
+      "desc": "Apellido del usuario",
+      "placeholder": "Por ejemplo, Pérez",
+      "title": "Ingrese su apellido"
     },
     "oauth": {
       "info": {

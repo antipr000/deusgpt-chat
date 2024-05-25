@@ -24,6 +24,9 @@
       "desc": "Réinitialiser tous les paramètres aux valeurs par défaut",
       "success": "Toutes les configurations ont été réinitialisées avec succès",
       "title": "Réinitialiser tous les paramètres"
+    },
+    "save": {
+      "action": "Enregistrer"
     }
   },
   "header": {
@@ -233,6 +236,16 @@
       "desc": "L'administrateur a activé l'accès chiffré",
       "placeholder": "Veuillez entrer le mot de passe d'accès",
       "title": "Mot de passe d'accès"
+    },
+    "firstName": {
+      "desc": "Prénom de l'utilisateur",
+      "placeholder": "Ex. John",
+      "title": "Entrez votre prénom"
+    },
+    "lastName": {
+      "desc": "Nom de famille de l'utilisateur",
+      "placeholder": "Ex. Smith",
+      "title": "Entrez votre nom de famille"
     },
     "oauth": {
       "info": {

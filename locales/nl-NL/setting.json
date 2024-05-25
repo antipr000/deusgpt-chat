@@ -24,6 +24,9 @@
       "desc": "Alle instellingen worden teruggezet naar de standaardwaarden",
       "success": "Alle instellingen zijn succesvol gereset",
       "title": "Alle instellingen resetten"
+    },
+    "save": {
+      "action": "Opslaan"
     }
   },
   "header": {
@@ -233,6 +236,16 @@
       "desc": "Beheerder heeft versleutelde toegang ingeschakeld",
       "placeholder": "Voer toegangswachtwoord in",
       "title": "Toegangswachtwoord"
+    },
+    "firstName": {
+      "desc": "Voornaam van gebruiker",
+      "placeholder": "Bijv. John",
+      "title": "Voer uw voornaam in"
+    },
+    "lastName": {
+      "desc": "Achternaam van gebruiker",
+      "placeholder": "Bijv. Smith",
+      "title": "Voer uw achternaam in"
     },
     "oauth": {
       "info": {

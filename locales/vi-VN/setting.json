@@ -24,6 +24,9 @@
       "desc": "Đặt lại tất cả cài đặt về giá trị mặc định",
       "success": "Đã đặt lại tất cả cài đặt",
       "title": "Đặt lại tất cả cài đặt"
+    },
+    "save": {
+      "action": "Lưu"
     }
   },
   "header": {
@@ -233,6 +236,16 @@
       "desc": "Quản trị viên đã bật mã hóa truy cập",
       "placeholder": "Nhập mật khẩu truy cập",
       "title": "Mật khẩu truy cập"
+    },
+    "firstName": {
+      "desc": "Tên đầu tiên của người dùng",
+      "placeholder": "Ví dụ: John",
+      "title": "Nhập tên đầu tiên của bạn"
+    },
+    "lastName": {
+      "desc": "Họ của người dùng",
+      "placeholder": "Ví dụ: Smith",
+      "title": "Nhập họ của bạn"
     },
     "oauth": {
       "info": {

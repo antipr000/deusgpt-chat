@@ -24,6 +24,9 @@
       "desc": "Ripristina tutte le impostazioni ai valori predefiniti",
       "success": "Tutte le impostazioni sono state ripristinate con successo",
       "title": "Ripristina tutte le impostazioni"
+    },
+    "save": {
+      "action": "Salva"
     }
   },
   "header": {
@@ -233,6 +236,16 @@
       "desc": "L'amministratore ha abilitato l'accesso crittografato",
       "placeholder": "Inserisci la password di accesso",
       "title": "Password di accesso"
+    },
+    "firstName": {
+      "desc": "Nome di battesimo dell'utente",
+      "placeholder": "Es. Giovanni",
+      "title": "Inserisci il tuo nome di battesimo"
+    },
+    "lastName": {
+      "desc": "Cognome dell'utente",
+      "placeholder": "Es. Rossi",
+      "title": "Inserisci il tuo cognome"
     },
     "oauth": {
       "info": {
