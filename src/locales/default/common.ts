@@ -97,6 +97,7 @@ export default {
     'zh-CN': '简体中文',
     'zh-TW': '繁体中文',
   },
+  newChat: 'New Chat',
   layoutInitializing: '正在加载布局...',
   noDescription: '暂无描述',
   oauth: 'SSO 登录',
