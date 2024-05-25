@@ -1,9 +1,11 @@
 'use client';
 
+import { Button } from 'antd';
 import { createStyles } from 'antd-style';
 import { useTranslation } from 'react-i18next';
 import { Flexbox, FlexboxProps } from 'react-layout-kit';
 
+import Logout from '@/app/(main)/chat/@session/logout';
 import BrandWatermark from '@/components/BrandWatermark';
 
 const useStyles = createStyles(({ token, css }) => ({
@@ -51,7 +53,8 @@ const SidebarLayout = ({ children, className, title, desc, ...rest }: SidebarLay
         <p className={styles.desc}>{desc || t('header.desc')}</p>
       </Flexbox>
       {children}
-      <BrandWatermark paddingInline={12} />
+      <Logout />
+      {/* <BrandWatermark paddingInline={12} /> */}
     </Flexbox>
   );
 };

@@ -1,11 +1,5 @@
 import { atom } from 'jotai';
 
-export type UserData = {
-  email: string;
-  firebaseId: string;
-  firstName?: string;
-  lastName?: string;
-  plan: string;
-};
+import { User } from '@/types/common/User.type';
 
-export const userAtom = atom<UserData | null>(null);
+export const userAtom = atom<User | null>(null);

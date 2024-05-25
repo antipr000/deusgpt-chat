@@ -6,8 +6,6 @@ import { memo, useEffect } from 'react';
 import { Flexbox } from 'react-layout-kit';
 
 import { useIsPWA } from '@/hooks/useIsPWA';
-import { idTokenAtom } from '@/store/atoms/token.atom';
-import { UserData, userAtom } from '@/store/atoms/user.atom';
 
 import { LayoutProps } from './type';
 
