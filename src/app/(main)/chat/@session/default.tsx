@@ -8,6 +8,7 @@ import Mobile from './_layout/Mobile';
 import Clear from './clear';
 import SessionHydration from './features/SessionHydration';
 import SessionListContent from './features/SessionListContent';
+import FullName from './fullname';
 
 const Layout = ServerLayout({ Desktop, Mobile });
 
@@ -18,11 +19,15 @@ const Session = () => {
         <SessionListContent />
         <Flex
           justify="space-between"
+          align="center"
           style={{
-            paddingBottom: '10px',
+            padding: '10px',
           }}
         >
-          <SettingButton />
+          <Flex gap={'10px'} align="center">
+            <SettingButton />
+            <FullName />
+          </Flex>
           <Clear />
         </Flex>
       </Layout>
