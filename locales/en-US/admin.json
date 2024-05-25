@@ -1,0 +1,21 @@
+{
+  "dashboard": {
+    "tokenUsage": {
+      "title": "Token Usage",
+      "today": "Today",
+      "thisWeek": "Last 7 days",
+      "thisMonth": "Last 30 days"
+    },
+    "users": {
+      "title": "Users Joined",
+      "today": "Today",
+      "thisWeek": "Last 7 days",
+      "thisMonth": "Last 30 days"
+    }
+  },
+  "sidebar": {
+    "languageModels": "Language Models",
+    "dashboard": "Dashboard",
+    "payments": "Payments"
+  }
+}

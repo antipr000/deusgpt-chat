@@ -32,6 +32,18 @@ class UsageRepository {
 
     return count;
   }
+
+  async getUsageForDateRange(startDate: Date, endDate?: Date): Promise<number> {
+    const usageModel = await this.dbProvider.getUsageModel();
+    const count = await usageModel.countDocuments({
+      createdAt: {
+        $gte: startDate,
+        $lte: endDate || new Date(),
+      },
+    });
+
+    return count;
+  }
 }
 
 export default UsageRepository;

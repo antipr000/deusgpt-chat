@@ -14,6 +14,12 @@ class UserRepository {
     return data;
   }
 
+  async getAllUsers() {
+    const userModel = await this.dbProvider.getUserModel();
+    const data = await userModel.find();
+    return data;
+  }
+
   async getUserById(id: string) {
     const userModel = await this.dbProvider.getUserModel();
     const data = await userModel.findById(id);
@@ -44,6 +50,17 @@ class UserRepository {
       new: true,
     });
     return data;
+  }
+
+  async getUsersForDateRange(startDate: Date, endDate?: Date) {
+    const userModel = await this.dbProvider.getUserModel();
+    const data = await userModel.find({
+      createdAt: {
+        $gte: startDate,
+        $lte: endDate || new Date(),
+      },
+    });
+    return data.length;
   }
 }
 

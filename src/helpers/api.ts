@@ -70,8 +70,22 @@ const getUsage = async (model: string): Promise<number> => {
   return data.count;
 };
 
+const getUsageForDateRange = async (startDate: Date, endDate?: Date): Promise<number> => {
+  const { data }: { data: { count: number } } = await instance.get(
+    `/usage/date?startDate=${startDate.toISOString()}&endDate=${(endDate || new Date()).toISOString()}`,
+  );
+  return data.count;
+};
+
 const updateUser = async (userData: Partial<User>): Promise<User> => {
   const { data } = await instance.patch('/user', userData);
+  return data;
+};
+
+const getCountOfUsersInDateRange = async (startDate: Date, endDate?: Date): Promise<number> => {
+  const { data } = await instance.get<number>(
+    `/user?startDate=${startDate.toISOString()}&endDate=${(endDate || new Date()).toISOString()}`,
+  );
   return data;
 };
 
@@ -81,7 +95,9 @@ export {
   deleteChatSession,
   getAllChatSessions,
   getAllIntegrations,
+  getCountOfUsersInDateRange,
   getUsage,
+  getUsageForDateRange,
   updateChatSession,
   updateUser,
 };

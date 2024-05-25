@@ -3,6 +3,7 @@
 import { Icon } from '@lobehub/ui';
 import { BarChartIcon, Brain, DollarSign } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
 
 import Menu from '../Menu';
@@ -10,22 +11,23 @@ import Menu from '../Menu';
 const AdminSidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const { t } = useTranslation('admin');
 
   const items = [
     {
       icon: <Icon icon={Brain} />,
       key: 'models',
-      label: 'Language Models',
+      label: t('sidebar.languageModels'),
     },
     {
       icon: <Icon icon={BarChartIcon} />,
       key: 'dashboard',
-      label: 'Dashboard',
+      label: t('sidebar.dashboard'),
     },
     {
       icon: <Icon icon={DollarSign} />,
       key: 'payments',
-      label: 'Payments',
+      label: t('sidebar.payments'),
     },
   ];
 

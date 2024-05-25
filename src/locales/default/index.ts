@@ -1,4 +1,5 @@
 import tool from '../default/tool';
+import admin from './admin';
 import auth from './auth';
 import chat from './chat';
 import clerk from './clerk';
@@ -14,6 +15,7 @@ import setting from './setting';
 import welcome from './welcome';
 
 const resources = {
+  admin,
   auth,
   chat,
   clerk,
