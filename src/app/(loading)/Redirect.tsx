@@ -49,7 +49,7 @@ const Redirect = memo(() => {
     setChatSessions(chatSessions);
 
     if (chatSessions.length) {
-      setSelectedChatSession(chatSessions[0]);
+      setSelectedChatSession(chatSessions[0].sessionId);
       return chatSessions[0].sessionId;
     } else {
       const newSession = await createChatSession({
@@ -60,7 +60,7 @@ const Redirect = memo(() => {
         sessionId: v4(),
       });
       setChatSessions([newSession]);
-      setSelectedChatSession(newSession);
+      setSelectedChatSession(newSession.sessionId);
       return newSession.sessionId;
     }
   };

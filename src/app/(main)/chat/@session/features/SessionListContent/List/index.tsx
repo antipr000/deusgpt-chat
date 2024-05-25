@@ -1,5 +1,6 @@
 import { Empty } from 'antd';
 import { createStyles } from 'antd-style';
+import { useAtom, useAtomValue } from 'jotai';
 import Link from 'next/link';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,18 +8,17 @@ import { Center } from 'react-layout-kit';
 import LazyLoad from 'react-lazy-load';
 
 import { SESSION_CHAT_URL } from '@/const/url';
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
+import { selectedChatSessionAtom } from '@/store/atoms/selectedChatSession.atom';
 import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfig';
 import { useSessionStore } from '@/store/session';
 import { sessionSelectors } from '@/store/session/selectors';
-// import { LobeAgentSession } from '@/types/session';
+import { ChatSession } from '@/types/common/ChatSession.type';
 
+// import { LobeAgentSession } from '@/types/session';
 import SkeletonList from '../SkeletonList';
 import AddButton from './AddButton';
 import SessionItem from './Item';
-import { ChatSession } from '@/types/common/ChatSession.type';
-import { useAtom, useAtomValue } from 'jotai';
-import { selectedChatSessionAtom } from '@/store/atoms/selectedChatSession.atom';
-import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 
 const useStyles = createStyles(
   ({ css }) => css`
@@ -41,8 +41,8 @@ const SessionList = memo<SessionListProps>(({ dataSource, groupId, showAddButton
 
   const onChatSessionClick = (sessionId: string) => {
     const session = chatSessions.find((session) => session.sessionId === sessionId)!;
-    setSelectedChatSession(session)
-  }
+    setSelectedChatSession(session.sessionId);
+  };
 
   const mobile = useServerConfigStore((s) => s.isMobile);
   const isEmpty = !dataSource || dataSource.length === 0;
@@ -51,7 +51,11 @@ const SessionList = memo<SessionListProps>(({ dataSource, groupId, showAddButton
   ) : !isEmpty ? (
     dataSource.map(({ sessionId }) => (
       <LazyLoad className={styles} key={sessionId}>
-        <Link aria-label={sessionId} href={SESSION_CHAT_URL(sessionId, mobile)} onClick={() => onChatSessionClick(sessionId)}>
+        <Link
+          aria-label={sessionId}
+          href={SESSION_CHAT_URL(sessionId, mobile)}
+          onClick={() => onChatSessionClick(sessionId)}
+        >
           <SessionItem id={sessionId} />
         </Link>
       </LazyLoad>

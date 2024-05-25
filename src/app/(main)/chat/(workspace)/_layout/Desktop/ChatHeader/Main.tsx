@@ -2,15 +2,17 @@
 
 import { Avatar, ChatHeaderTitle } from '@lobehub/ui';
 import { Skeleton } from 'antd';
+import { useAtomValue } from 'jotai';
 import { Fragment, Suspense, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
-import { useAtomValue } from 'jotai';
 
 import { useInitAgentConfig } from '@/app/(main)/chat/(workspace)/_layout/useInitAgentConfig';
 import { useOpenChatSettings } from '@/hooks/useInterceptingRoutes';
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 import { useSessionStore } from '@/store/session';
 import { sessionMetaSelectors, sessionSelectors } from '@/store/session/selectors';
+
 import { selectedChatSessionAtom } from '../../../../../../../store/atoms/selectedChatSession.atom';
 
 const Main = memo(() => {
@@ -27,9 +29,14 @@ const Main = memo(() => {
     sessionMetaSelectors.currentAgentBackgroundColor(s),
   ]);
 
+  const chatSessions = useAtomValue(chatSessionsAtom);
+
   const openChatSettings = useOpenChatSettings();
-  const selectedChatSession = useAtomValue(selectedChatSessionAtom)
-  console.log(selectedChatSession)
+  const selectedChatSessionId = useAtomValue(selectedChatSessionAtom);
+  const selectedChatSession = chatSessions.find(
+    (session) => session.sessionId === selectedChatSessionId,
+  );
+  console.log(selectedChatSession);
 
   const displayTitle = isInbox ? t('inbox.title') : selectedChatSession?.name;
   const displayDesc = isInbox ? t('inbox.desc') : description;

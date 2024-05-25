@@ -1,14 +1,14 @@
 import { Input, Modal, type ModalProps } from '@lobehub/ui';
 import { App } from 'antd';
+import { useAtom } from 'jotai';
 import { MouseEvent, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
 
+import { updateChatSession } from '@/helpers/api';
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 // import { useGlobalStore } from '@/store/global';
 import { useSessionStore } from '@/store/session';
-import { updateChatSession } from '@/helpers/api';
-import { useAtom } from 'jotai';
-import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 
 interface RenameChatSessionProps extends ModalProps {
   id: string;
@@ -25,12 +25,10 @@ const RenameChatSessionModal = memo<RenameChatSessionProps>(
     //   s.updateSessionGroupId,
     //   s.addSessionGroup,
     // ]);
-    const [updateAgentMeta] = useSessionStore((s) => [
-        s.updateSessionMeta,
-      ]);
+    const [updateAgentMeta] = useSessionStore((s) => [s.updateSessionMeta]);
     const [input, setInput] = useState(initialValue || '');
     const [loading, setLoading] = useState(false);
-    const [chatSessions, setChatSessions] = useAtom(chatSessionsAtom)
+    const [chatSessions, setChatSessions] = useAtom(chatSessionsAtom);
 
     return (
       <div onClick={(e) => e.stopPropagation()}>
@@ -62,7 +60,7 @@ const RenameChatSessionModal = memo<RenameChatSessionProps>(
             onCancel?.(e);
           }}
           open={open}
-          title={t('sessionGroup.createGroup')}
+          title={t('sessionGroup.rename')}
           width={400}
         >
           <Flexbox paddingBlock={16}>
