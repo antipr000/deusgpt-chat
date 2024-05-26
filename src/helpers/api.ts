@@ -24,6 +24,16 @@ const getAllIntegrations = async (): Promise<Integration[]> => {
   return data;
 };
 
+const getAllAdminIntegrations = async (): Promise<Integration[]> => {
+  const { data }: { data: Integration[] } = await instance.get('/integrations/admin');
+  return data;
+};
+
+const updateIntegration = async (integration: Partial<Integration>) => {
+  const { data } = await instance.patch('/integrations/admin', integration);
+  return data;
+};
+
 const createChatSession = async (request: ChatSession): Promise<ChatSession> => {
   const { data } = await instance.post('/chat-session', request);
   return data;
@@ -110,4 +120,6 @@ export {
   getUsageForDateRange,
   updateChatSession,
   updateUser,
+  updateIntegration,
+  getAllAdminIntegrations,
 };

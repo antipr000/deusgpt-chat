@@ -31,6 +31,26 @@ class IntegrationRepository {
     }));
     return finalData as Partial<Integration>;
   }
+
+  async adminGetAllIntegrations(): Promise<Integration[]> {
+    const integrationModel = await this.dbProvider.getIntegrationModel();
+    const data: Integration[] = await integrationModel.find({ enabled: true });
+    return data;
+  }
+
+  async updateIntegration(name: string, data: Partial<Integration>): Promise<Integration | null> {
+    const integrationModel = await this.dbProvider.getIntegrationModel();
+    const existingIntegration = await integrationModel.findOne({ name });
+    let integration;
+    if (existingIntegration) {
+      integration = await integrationModel.findOneAndUpdate({ name }, data, {
+        new: true,
+      });
+    } else {
+      integration = await this.createNewIntegration(data as Integration);
+    }
+    return integration;
+  }
 }
 
 export default IntegrationRepository;

@@ -1,7 +1,13 @@
-import { redirect } from 'next/navigation'
+import Loading from './loading/Client';
+import Setup from './loading/Setup';
 
 const AdminPage = () => {
-  redirect('/admin/models');
-}
+  return (
+    <>
+      <Loading />
+      <Setup />
+    </>
+  );
+};
 
-export default AdminPage
+export default AdminPage;

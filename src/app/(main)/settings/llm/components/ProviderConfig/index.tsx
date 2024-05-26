@@ -1,13 +1,14 @@
 'use client';
 
 import { Form, type FormItemProps, type ItemGroup } from '@lobehub/ui';
-import { Input, Switch } from 'antd';
+import { Button, Flex, Input, Switch } from 'antd';
 import { createStyles } from 'antd-style';
+import isEqual from 'fast-deep-equal';
+import { useAtom, useAtomValue } from 'jotai';
 import { debounce } from 'lodash-es';
-import { ReactNode, memo } from 'react';
+import { MouseEventHandler, ReactNode, memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
-import isEqual from 'fast-deep-equal';
 
 import { useSyncSettings } from '@/app/(main)/settings/hooks/useSyncSettings';
 import {
@@ -17,13 +18,16 @@ import {
   LLMProviderModelListKey,
 } from '@/app/(main)/settings/llm/const';
 import { FORM_STYLE } from '@/const/layoutTokens';
+import { MODELS } from '@/const/models';
+import { updateIntegration } from '@/helpers/api';
+import { integrationsAtom } from '@/store/atoms/integrations.atom';
 import { useUserStore } from '@/store/user';
 import { modelConfigSelectors, modelProviderSelectors } from '@/store/user/selectors';
 import { GlobalLLMProviderKey } from '@/types/settings';
 
 import Checker from '../Checker';
-import ProviderModelListSelect from '../ProviderModelList';
 import ModelForms from '../ModelForms';
+import ProviderModelListSelect from '../ProviderModelList';
 
 const useStyles = createStyles(({ css, prefixCls, responsive }) => ({
   form: css`
@@ -91,16 +95,9 @@ const ProviderConfig = memo<ProviderConfigProps>(
     const { t: modelT } = useTranslation('modelProvider');
     const [form] = Form.useForm();
     const { styles } = useStyles();
-    const [
-      toggleProviderEnabled,
-      setSettings,
-      enabled,
-      isFetchOnClient,
-      isProviderEndpointNotEmpty,
-    ] = useUserStore((s) => [
-      s.toggleProviderEnabled,
+    const [loading, setLoading] = useState(false);
+    const [setSettings, isFetchOnClient, isProviderEndpointNotEmpty] = useUserStore((s) => [
       s.setSettings,
-      modelConfigSelectors.isProviderEnabled(provider)(s),
       modelConfigSelectors.isProviderFetchOnClient(provider)(s),
       modelConfigSelectors.isProviderEndpointNotEmpty(provider)(s),
     ]);
@@ -110,7 +107,93 @@ const ProviderConfig = memo<ProviderConfigProps>(
       isEqual,
     );
 
+    const integrations = useAtomValue(integrationsAtom);
+    const [_, setIntegrations] = useAtom(integrationsAtom);
+
+    const currentIntegration = useMemo(() => {
+      return integrations?.find((integration) => integration?.name === provider);
+    }, [integrations]);
+
+    const [enabled, setEnabled] = useState(currentIntegration?.enabled);
+
+    const initialValue = useMemo(() => {
+      return {
+        [LLMProviderConfigKey]: {
+          [provider]: {
+            [LLMProviderApiTokenKey]: currentIntegration?.secret,
+            [LLMProviderModelListKey]: currentIntegration?.models.map((model) => model.name),
+            models: currentIntegration?.models.reduce(
+              (acc, model) => ({
+                ...acc,
+                [model.name]: model.limit,
+              }),
+              {},
+            ),
+          },
+        },
+      };
+    }, [currentIntegration]);
+
     useSyncSettings(form);
+
+    const save = async (event: MouseEvent): Promise<void> => {
+      event.stopPropagation();
+      const providerConfigs = form.getFieldsValue()[LLMProviderConfigKey][provider];
+      const selectedModels = providerConfigs['enabledModels'];
+
+      const modelConfigs = selectedModels.map((modelName: string) => {
+        let standardLimit = providerConfigs['models'][modelName]['standard'];
+        let premiumLimit = providerConfigs['models'][modelName]['premium'];
+
+        if (standardLimit !== 'unlimited') {
+          standardLimit = parseInt(standardLimit);
+        }
+
+        if (premiumLimit !== 'unlimited') {
+          premiumLimit = parseInt(premiumLimit);
+        }
+
+        return {
+          name: modelName,
+          limit: {
+            standard: standardLimit,
+            premium: premiumLimit,
+          },
+        };
+      });
+
+      const finalData = {
+        name: provider,
+        displayName: MODELS[provider]['title'],
+        enabled: enabled,
+        secret: providerConfigs[LLMProviderApiTokenKey],
+        models: modelConfigs,
+      };
+
+      if (!finalData.secret) {
+        window.alert('Secret is required for enabling the model');
+      } else {
+        setLoading(true);
+        const updatedIntegration = await updateIntegration(finalData);
+        const others = integrations?.filter((integration) => integration.name !== provider) || [];
+
+        setIntegrations((_) => [...others, updatedIntegration]);
+        setLoading(false);
+      }
+    };
+
+    // const toggleProviderEnabled = async (enabled: boolean) => {
+    //   setLoading(true);
+    //   const updatedIntegration = await updateIntegration({
+    //     name: provider,
+    //     displayName: MODELS[provider]['title'],
+    //     enabled: enabled,
+    //   });
+    //   const others = integrations?.filter((integration) => integration.name !== provider) || [];
+
+    //   setIntegrations((_) => [...others, updatedIntegration]);
+    //   setLoading(false);
+    // };
 
     const apiKeyItem: FormItemProps[] = !showApiKey
       ? []
@@ -120,6 +203,7 @@ const ProviderConfig = memo<ProviderConfigProps>(
               <Input.Password
                 autoComplete={'new-password'}
                 placeholder={modelT(`${provider}.token.placeholder` as any)}
+                required
               />
             ),
             desc: modelT(`${provider}.token.desc` as any),
@@ -171,10 +255,10 @@ const ProviderConfig = memo<ProviderConfigProps>(
         minWidth: undefined,
       },
       {
-        children: <ModelForms models={enabledModels || []} />,
+        children: <ModelForms models={enabledModels || []} form={form} provider={provider} />,
         desc: 'Set the limits for each model',
         label: 'Limits',
-      }
+      },
     ].filter(Boolean) as FormItemProps[];
 
     const model: ItemGroup = {
@@ -182,12 +266,13 @@ const ProviderConfig = memo<ProviderConfigProps>(
 
       defaultActive: canDeactivate ? enabled : undefined,
       extra: canDeactivate ? (
-        <Switch
-          onChange={(enabled) => {
-            toggleProviderEnabled(provider, enabled);
-          }}
-          value={enabled}
-        />
+        <Flex gap={'8px'} align="center">
+          <Switch onChange={setEnabled} disabled={loading} value={enabled} />
+
+          <Button type="primary" size="small" onClick={save} loading={loading}>
+            Save
+          </Button>
+        </Flex>
       ) : undefined,
       title: (
         <Flexbox
@@ -211,6 +296,7 @@ const ProviderConfig = memo<ProviderConfigProps>(
         className={styles.form}
         form={form}
         items={[model]}
+        initialValues={initialValue}
         onValuesChange={debounce(setSettings, 100)}
         {...FORM_STYLE}
       />

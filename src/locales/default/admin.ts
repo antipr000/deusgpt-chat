@@ -19,4 +19,5 @@ export default {
     members: '会员',
     payments: '付款',
   },
+  adminInitializing: '管理面板正在加载。请稍候',
 };

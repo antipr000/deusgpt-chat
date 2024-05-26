@@ -1,4 +1,5 @@
 {
+  "adminInitializing": "Admin panel is loading. Please wait!",
   "dashboard": {
     "tokenUsage": {
       "thisMonth": "Last 30 days",

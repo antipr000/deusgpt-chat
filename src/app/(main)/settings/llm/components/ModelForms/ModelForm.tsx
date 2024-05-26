@@ -1,13 +1,18 @@
 import { Form, ItemGroup } from '@lobehub/ui';
-import { Checkbox, Input } from 'antd';
+import { Checkbox, FormInstance, Input } from 'antd';
 import { createStyles } from 'antd-style';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Flexbox } from 'react-layout-kit';
 
 import { FORM_STYLE } from '@/const/layoutTokens';
+import { GlobalLLMConfig } from '@/types/settings';
+
+import { LLMProviderConfigKey } from '../../const';
 
 export interface ModelFormProps {
   model: string;
+  form: FormInstance<any>;
+  provider: keyof GlobalLLMConfig;
 }
 
 const useStyles = createStyles(({ css, prefixCls, responsive }) => ({
@@ -32,57 +37,59 @@ const useStyles = createStyles(({ css, prefixCls, responsive }) => ({
   `,
 }));
 
-const ModelForm: FC<ModelFormProps> = ({ model }) => {
+const ModelForm: FC<ModelFormProps> = ({ model, form, provider }) => {
   const { styles } = useStyles();
-  const [standard, setStandard] = React.useState<number | string>(0);
-  const [premium, setPremium] = React.useState<number | string>(0);
+  const [checkedStandard, setCheckedStandard] = useState<boolean>(false);
+  const [checkedPremium, setCheckedPremium] = useState<boolean>(false);
 
   const onCheckStandard = (value: boolean, type: string) => {
     switch (type) {
-        case 'standard': {
-            setStandard(value ? 'unlimited' : 0);
-            break;
-        }
-        case 'premium': {
-            setPremium(value ? 'unlimited' : 0);
-            break;
-        }
-        default: {
-            break;
-        }
+      case 'standard': {
+        form.setFieldsValue({
+          [LLMProviderConfigKey]: {
+            [provider]: {
+              models: {
+                [model]: {
+                  standard: value ? 'unlimited' : 0,
+                },
+              },
+            },
+          },
+        });
+        setCheckedStandard(value);
+        break;
+      }
+      case 'premium': {
+        form.setFieldsValue({
+          [LLMProviderConfigKey]: {
+            [provider]: {
+              models: {
+                [model]: {
+                  premium: value ? 'unlimited' : 0,
+                },
+              },
+            },
+          },
+        });
+        setCheckedPremium(value);
+        break;
+      }
+      default: {
+        break;
+      }
     }
-  }
+  };
 
   const formItems = [
     {
-      children: (
-        <Flexbox align='center' gap={10} horizontal justify='flex-end'>
-          <Input
-            disabled={standard === 'unlimited'}
-            onChange={(e) => setStandard(e.target.value)}
-            style={{ width: 100 }}
-            value={standard}
-          />
-          <Checkbox onChange={(e) => onCheckStandard(e.target.checked, 'standard')}>Unlimited</Checkbox>
-        </Flexbox>
-      ),
+      children: <Input disabled={checkedStandard} style={{ width: 100 }} required />,
       label: 'Standard',
-      name: 'standard',
+      name: [LLMProviderConfigKey, provider, 'models', model, 'standard'],
     },
     {
-      children: (
-        <Flexbox align='center' gap={10} horizontal justify='flex-end'>
-          <Input 
-            disabled={premium === 'unlimited'}
-            onChange={(e) => setPremium(e.target.value)}
-            style={{ width: 100 }}
-            value={premium}
-          />
-          <Checkbox onChange={(e) => onCheckStandard(e.target.checked, 'premium')}>Unlimited</Checkbox>
-        </Flexbox>
-      ),
+      children: <Input required disabled={checkedPremium} style={{ width: 100 }} />,
       label: 'Premium',
-      name: 'premium',
+      name: [LLMProviderConfigKey, provider, 'models', model, 'premium'],
     },
   ];
 
@@ -110,7 +117,19 @@ const ModelForm: FC<ModelFormProps> = ({ model }) => {
     <Form
       className={styles.form}
       component="div"
-      // form={form}
+      form={form}
+      initialValues={{
+        [LLMProviderConfigKey]: {
+          [provider]: {
+            models: {
+              [model]: {
+                standard: 0,
+                premium: 0,
+              },
+            },
+          },
+        },
+      }}
       items={[formLayout]}
       // onValuesChange={debounce(setSettings, 100)}
       {...FORM_STYLE}

@@ -134,11 +134,7 @@ const Common = memo(() => {
       },
       {
         children: (
-          <Input
-            autoComplete={'last-name'}
-            placeholder={t('settingSystem.lastName.placeholder')}
-            value={userData?.lastName}
-          />
+          <Input autoComplete={'last-name'} placeholder={t('settingSystem.lastName.placeholder')} />
         ),
         desc: t('settingSystem.lastName.desc'),
         label: t('settingSystem.lastName.title'),
