@@ -29,7 +29,7 @@ const Setup = memo(() => {
   const [_1, setIntegrations] = useAtom(integrationsAtom);
 
   useEffect(() => {
-    postMessageToParent('admin-load', true);
+    postMessageToParent('translate-load', true);
 
     window.addEventListener('message', handleEvent);
   }, []);
