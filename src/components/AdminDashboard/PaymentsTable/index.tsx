@@ -4,12 +4,23 @@ import { Table } from 'antd';
 import type { TableProps } from 'antd';
 import React, { useEffect, useState } from 'react';
 
-import { getAllUsers } from '@/helpers/api';
-import { User } from '@/types/common/User.type';
+import { getAllPayments } from '@/helpers/api';
+import { postMessageToParent } from '@/helpers/iframe.notification';
+import { PaymentWithUser } from '@/types/common/Payment.type';
 
 type ColumnsType<T extends object> = TableProps<T>['columns'];
 
-const columns: ColumnsType<User> = [
+const columns: ColumnsType<PaymentWithUser> = [
+  {
+    dataIndex: 'sessionId',
+    key: 'sessionId',
+    title: 'Payment Id',
+  },
+  {
+    dataIndex: 'email',
+    key: 'email',
+    title: 'Email',
+  },
   {
     dataIndex: 'firstName',
     key: 'firstName',
@@ -21,9 +32,9 @@ const columns: ColumnsType<User> = [
     title: 'Last Name',
   },
   {
-    dataIndex: 'email',
-    key: 'email',
-    title: 'Email',
+    dataIndex: 'status',
+    key: 'status',
+    title: 'Payment Status',
   },
   {
     dataIndex: 'plan',
@@ -31,22 +42,50 @@ const columns: ColumnsType<User> = [
     title: 'Plan',
   },
   {
+    dataIndex: 'amount',
+    key: 'amount',
+    title: 'Amount',
+  },
+  {
     dataIndex: 'createdAt',
     key: 'createdAt',
     render: (date: string) => new Date(date).toISOString().split('T')[0],
-    title: 'Registered On',
+    title: 'Started On',
+  },
+  {
+    dataIndex: 'completedAt',
+    key: 'completedAt',
+    render: (date: string) => new Date(date).toISOString().split('T')[0],
+    title: 'Completed On',
+  },
+  {
+    dataIndex: 'invoiceId',
+    key: 'invoiceId',
+    render: (link: string) => (
+      <a
+        href={'#'}
+        onClick={() => {
+          console.log('Link', link);
+          postMessageToParent('open-link', link);
+        }}
+      >
+        {' '}
+        Link{' '}
+      </a>
+    ),
+    title: 'Invoice',
   },
 ];
 
-const MembersTable = () => {
-  const [users, setUsers] = useState<User[]>([]);
+const PaymentsTable = () => {
+  const [payments, setPayments] = useState<PaymentWithUser[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [refreshTimer, setRefreshTimer] = useState(10);
 
   useEffect(() => {
-    getAllUsers()
+    getAllPayments()
       .then((data) => {
-        setUsers(data);
+        setPayments(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -58,9 +97,9 @@ const MembersTable = () => {
     }, 1000);
     const timer = setInterval(() => {
       setLoading(true);
-      getAllUsers()
+      getAllPayments()
         .then((data) => {
-          setUsers(data);
+          setPayments(data);
           setLoading(false);
           setRefreshTimer(10);
         })
@@ -79,7 +118,7 @@ const MembersTable = () => {
     <Table
       loading={loading}
       columns={columns}
-      dataSource={users}
+      dataSource={payments}
       pagination={{
         pageSize: 10,
       }}
@@ -88,4 +127,4 @@ const MembersTable = () => {
   );
 };
 
-export default MembersTable;
+export default PaymentsTable;

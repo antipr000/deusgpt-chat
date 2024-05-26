@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 import { ChatSessionModel } from './entities/ChatSession';
 import { IntegrationModel } from './entities/Integration';
+import { PaymentModel } from './entities/Payment';
 import { UsageModel } from './entities/Usage';
 import { UserModel } from './entities/User';
 
@@ -53,6 +54,11 @@ class DBProvider {
   async getUserModel() {
     await connectDB();
     return UserModel;
+  }
+
+  async getPaymentModel() {
+    await connectDB();
+    return PaymentModel;
   }
 }
 

@@ -6,7 +6,7 @@ import { createStyles } from 'antd-style';
 import isEqual from 'fast-deep-equal';
 import { useAtom, useAtomValue } from 'jotai';
 import { debounce } from 'lodash-es';
-import { MouseEventHandler, ReactNode, memo, useMemo, useState } from 'react';
+import { MouseEvent, MouseEventHandler, ReactNode, memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
 
@@ -136,7 +136,7 @@ const ProviderConfig = memo<ProviderConfigProps>(
 
     useSyncSettings(form);
 
-    const save = async (event: MouseEvent): Promise<void> => {
+    const save = async (event: any) => {
       event.stopPropagation();
       const providerConfigs = form.getFieldsValue()[LLMProviderConfigKey][provider];
       const selectedModels = providerConfigs['enabledModels'];
@@ -170,7 +170,7 @@ const ProviderConfig = memo<ProviderConfigProps>(
         models: modelConfigs,
       };
 
-      if (!finalData.secret) {
+      if (enabled && !finalData.secret) {
         window.alert('Secret is required for enabling the model');
       } else {
         setLoading(true);

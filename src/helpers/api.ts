@@ -4,6 +4,7 @@ import { store } from '@/store/atoms/store.atom';
 import { idTokenAtom } from '@/store/atoms/token.atom';
 import { ChatSession } from '@/types/common/ChatSession.type';
 import { Integration } from '@/types/common/Integration.type';
+import { Payment, PaymentWithUser } from '@/types/common/Payment.type';
 import { User } from '@/types/common/User.type';
 
 const instance = axios.create({
@@ -108,6 +109,11 @@ const getCountOfUsersInDateRange = async (startDate: Date, endDate?: Date): Prom
   return data;
 };
 
+const getAllPayments = async (): Promise<PaymentWithUser[]> => {
+  const { data } = await instance.get('/payment');
+  return data;
+};
+
 export {
   addUsage,
   createChatSession,
@@ -122,4 +128,5 @@ export {
   updateUser,
   updateIntegration,
   getAllAdminIntegrations,
+  getAllPayments,
 };
