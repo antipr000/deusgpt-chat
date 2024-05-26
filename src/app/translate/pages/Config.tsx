@@ -1,7 +1,7 @@
 'use client';
 
-import { useCallback, useRef } from 'react';
-import { Button, Input, Toggle } from 'react-daisyui';
+import React, { useCallback } from 'react';
+import { Button, Toggle } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FaTimes } from 'react-icons/fa';
@@ -11,12 +11,11 @@ import { OPENAI_MODELS_TITLES } from '../constants';
 import { OpenAIModel } from '../types';
 
 function ConfigPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translate');
   const {
-    configValues: { openaiApiUrl, openaiApiKey, streamEnabled, currentModel, temperatureParam },
+    configValues: { streamEnabled, currentModel, temperatureParam },
     setConfigValues,
   } = useGlobalStore();
-  const openaiApiInputRef = useRef<HTMLInputElement>(null);
 
   const handleSave = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,10 +37,10 @@ function ConfigPage() {
       }
       setConfigValues((prev) => ({
         ...prev,
-        openaiApiUrl: `${openaiApiUrl}`,
-        openaiApiKey: `${openaiApiKey}`,
-        streamEnabled: streamEnabled === 'on',
         currentModel: selectedModel as OpenAIModel,
+        openaiApiKey: `${openaiApiKey}`,
+        openaiApiUrl: `${openaiApiUrl}`,
+        streamEnabled: streamEnabled === 'on',
         temperatureParam: +temperatureParam,
       }));
       toast.success(t('Config Saved!'));
@@ -49,28 +48,13 @@ function ConfigPage() {
     [setConfigValues, t],
   );
 
-  const handleResetOpenaiApiUrl = useCallback(
-    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-      event.preventDefault();
-      const inputRef = openaiApiInputRef.current;
-      if (!inputRef) {
-        return;
-      }
-      inputRef.value = 'https://api.openai.com';
-      inputRef.focus();
-      // eslint-disable-next-line quotes
-      toast(t("Don't forget to click the save button for the settings to take effect!"));
-    },
-    [t],
-  );
-
   return (
     <div className="p-4 w-[28.75rem] max-w-[100vw] bg-base-100 overflow-y-auto overflow-x-hidden h-full">
       <h1 className="sticky top-0 z-50 flex justify-between w-full text-2xl font-bold align-middle bg-base-100">
         <span className="leading-[48px]">{t('Config')}</span>
         <label
-          htmlFor="history-record-drawer"
           className="drawer-button btn btn-primary btn-ghost btn-circle"
+          htmlFor="history-record-drawer"
           title={t('Close')}
         >
           <FaTimes size={20} />
@@ -80,50 +64,10 @@ function ConfigPage() {
         <div className="mb-2 form-control">
           <label className="label">
             <span className="text-lg font-bold label-text">{t('Use stream (typing effect)')}</span>
-            <Toggle color="primary" name="streamEnabled" defaultChecked={streamEnabled} />
+            <Toggle color="primary" defaultChecked={streamEnabled} name="streamEnabled" />
           </label>
         </div>
-        <div className="mb-2 form-control">
-          <label className="label">
-            <span className="text-lg font-bold label-text">{t('OpenAI API Url')}</span>
-            <span className="label-text-alt">
-              <a className="link link-primary" href="#" onClick={handleResetOpenaiApiUrl}>
-                {t('Reset to default')}
-              </a>
-            </span>
-          </label>
-          <Input
-            ref={openaiApiInputRef}
-            name="openaiApiUrl"
-            color="primary"
-            className="break-all"
-            placeholder={t('Please input OpenAI API Url here.')}
-            defaultValue={openaiApiUrl}
-            required
-          />
-        </div>
-        <div className="mb-2 form-control">
-          <label className="label">
-            <span className="text-lg font-bold label-text">{t('OpenAI API Key')}</span>
-            <span className="label-text-alt">
-              <a
-                className="link link-primary"
-                href="https://platform.openai.com/account/api-keys"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                {t('Get your OpenAI API Key')}
-              </a>
-            </span>
-          </label>
-          <textarea
-            name="openaiApiKey"
-            className="h-24 break-all resize-none rounded-2xl textarea textarea-md textarea-primary"
-            placeholder={t('Please paste your OpenAI API Key here.')}
-            defaultValue={openaiApiKey}
-            required
-          ></textarea>
-        </div>
+        
         <div className="mb-2 form-control">
           <label className="label">
             <span className="text-lg font-bold label-text">{t('Model (engine)')}</span>
@@ -147,13 +91,13 @@ function ConfigPage() {
             <span className="label-text-alt">{t('Higher temperature will be more creative.')}</span>
           </label>
           <input
-            type="range"
-            name="temperatureParam"
-            min="0.4"
-            max="1.0"
-            defaultValue={temperatureParam}
             className="range range-primary"
+            defaultValue={temperatureParam}
+            max="1.0"
+            min="0.4"
+            name="temperatureParam"
             step="0.1"
+            type="range"
           />
           <div className="flex justify-between w-full pl-0 pr-1 text-xs">
             <span>rad</span>
@@ -166,7 +110,7 @@ function ConfigPage() {
           </div>
         </div>
         <div className="form-control">
-          <Button type="submit" color="primary">
+          <Button color="primary" type="submit">
             {t('Save')}
           </Button>
         </div>

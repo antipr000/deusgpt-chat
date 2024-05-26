@@ -13,6 +13,7 @@ import modelProvider from './modelProvider';
 import plugin from './plugin';
 import setting from './setting';
 import welcome from './welcome';
+import translate from './translate';
 
 const resources = {
   admin,
@@ -29,6 +30,7 @@ const resources = {
   plugin,
   setting,
   tool,
+  translate,
   welcome,
 } as const;
 

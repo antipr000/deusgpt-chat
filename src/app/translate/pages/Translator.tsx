@@ -11,13 +11,13 @@ import TextareaAutoSize from 'react-textarea-autosize';
 import 'regenerator-runtime/runtime';
 
 import { useGlobalStore } from '../components/GlobalStore';
-import { SpeechRecognitionButton } from '../components/SpeechRecognitionButton';
+// import { SpeechRecognitionButton } from '../components/SpeechRecognitionButton';
 import { TTSButton } from '../components/TTSButton';
 import { LANGUAGES, Language } from '../constants';
 import { getTranslatePrompt } from '../utils/prompt';
 
 function TranslatorPage() {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation('translate');
   const translateTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const {
@@ -115,11 +115,11 @@ function TranslatorPage() {
       }));
 
       mutateTranslateText({
-        token: openaiApiKey,
         engine: currentModel,
         prompt,
-        temperatureParam,
         queryText: translateText as string,
+        temperatureParam,
+        token: openaiApiKey,
       });
     },
     [
@@ -150,13 +150,13 @@ function TranslatorPage() {
           <div className="flex flex-row mb-4">
             <select
               className="w-5/12 select"
-              value={lastTranslateData.fromLang}
+              name="fromLang"
               onChange={(e) =>
                 setLastTranslateData((prev) => ({ ...prev, fromLang: e.target.value }))
               }
-              name="fromLang"
-              title="From Language"
               required
+              title="From Language"
+              value={lastTranslateData.fromLang}
             >
               {Object.keys(LANGUAGES).map((lang) => (
                 <option key={lang} value={lang}>
@@ -167,11 +167,11 @@ function TranslatorPage() {
 
             <div className="flex justify-center w-2/12">
               <Button
-                type="button"
                 color="ghost"
-                shape="circle"
                 onClick={onExchangeLanguageBtnClick}
+                shape="circle"
                 title="Exchange"
+                type="button"
               >
                 <CgArrowsExchange size={20} />
               </Button>
@@ -179,13 +179,13 @@ function TranslatorPage() {
 
             <select
               className="w-5/12 select"
-              value={lastTranslateData.toLang}
+              name="toLang"
               onChange={(e) =>
                 setLastTranslateData((prev) => ({ ...prev, toLang: e.target.value }))
               }
-              name="toLang"
-              title="To language"
               required
+              title="To language"
+              value={lastTranslateData.toLang}
             >
               {Object.keys(LANGUAGES).map((lang) => (
                 <option key={lang} value={lang}>
@@ -198,13 +198,13 @@ function TranslatorPage() {
           <div className="form-control">
             <div className="relative">
               <TextareaAutoSize
-                ref={translateTextAreaRef}
-                name="translateText"
-                defaultValue={translateText}
                 className="w-full mb-2 whitespace-pre-line break-words resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-10"
-                placeholder={t('Please enter the text you want to translate here.')}
-                onChange={(e) => setTranslateText(e.target.value)}
+                defaultValue={translateText}
                 disabled={isTranslating}
+                name="translateText"
+                onChange={(e) => setTranslateText(e.target.value)}
+                placeholder={t('Please enter the text you want to translate here.')}
+                ref={translateTextAreaRef}
                 required
               ></TextareaAutoSize>
               <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
@@ -231,12 +231,12 @@ function TranslatorPage() {
                 </div>
                 {!!translateText && (
                   <Button
-                    type="button"
-                    shape="circle"
                     color="ghost"
+                    onClick={onClearBtnClick}
+                    shape="circle"
                     size="sm"
                     title="Clear the input"
-                    onClick={onClearBtnClick}
+                    type="button"
                   >
                     <MdClose size="16" />
                   </Button>
@@ -244,11 +244,11 @@ function TranslatorPage() {
               </div>
             </div>
             <Button
-              type="submit"
-              color="primary"
               className="md:hidden"
-              loading={isTranslating}
+              color="primary"
               disabled={isTranslating}
+              loading={isTranslating}
+              type="submit"
             >
               {isTranslating ? t('Translating...') : t('Translate')}
             </Button>
@@ -256,27 +256,27 @@ function TranslatorPage() {
         </div>
         <div className="p-4 pb-14 m-0 form-control">
           <Button
-            type="submit"
-            color="primary"
             className="hidden mb-4 md:inline-flex"
-            loading={isTranslating}
+            color="primary"
             disabled={isTranslating}
+            loading={isTranslating}
+            type="submit"
           >
             {isTranslating ? t('Translating...') : t('Translate')}
           </Button>
           <div className="relative">
             <TextareaAutoSize
-              name="translatedText"
-              value={translatedText || ''}
               className={clsx(
                 'w-full mb-2 whitespace-pre-line break-words resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]',
                 !!translatedText && !isTranslating && 'pb-10',
               )}
+              name="translatedText"
               placeholder={
                 isTranslating ? t('Please wait...') : t('Translated text will appear here.')
               }
               readOnly
               required
+              value={translatedText || ''}
             ></TextareaAutoSize>
             <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
               {!!translatedText && (
@@ -289,12 +289,12 @@ function TranslatorPage() {
               )}
               {!!translatedText && !isTranslating && (
                 <Button
-                  type="button"
-                  shape="circle"
                   color="ghost"
+                  onClick={onCopyBtnClick}
+                  shape="circle"
                   size="sm"
                   title={t('Copy translated text')}
-                  onClick={onCopyBtnClick}
+                  type="button"
                 >
                   <MdContentCopy size="16" />
                 </Button>

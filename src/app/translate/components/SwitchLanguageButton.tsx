@@ -1,6 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
@@ -13,15 +14,18 @@ import { useLocalStorage, useOnClickOutside } from 'usehooks-ts';
 
 const LANGUAGES = [
   {
-    code: 'en',
+    code: 'en-US',
+    icon: '/flags/en.svg',
     name: 'English',
   },
   {
-    code: 'zh',
+    code: 'zh-CW',
+    icon: '/flags/hk.svg',
     name: '简体中文',
   },
   {
-    code: 'ja',
+    code: 'ja-JP',
+    icon: '/flags/jp.svg',
     name: '日本語',
   },
 ] as const;
@@ -29,9 +33,9 @@ const LANGUAGES = [
 type LanguageCode = (typeof LANGUAGES)[number]['code'];
 
 export function SwitchLanguageButton() {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation('translate');
   const ref = useRef(null);
-  const [lang, setLang] = useLocalStorage<LanguageCode>('langCode', 'zh');
+  const [lang, setLang] = useLocalStorage<LanguageCode>('langCode', 'en-US');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useOnClickOutside(ref, () => setIsMenuOpen(false));
@@ -50,17 +54,17 @@ export function SwitchLanguageButton() {
 
   return (
     <div
-      title="Change Language"
       className={clsx('dropdown', 'dropdown-end', isMenuOpen && 'dropdown-open')}
       ref={ref}
+      title="Change Language"
     >
       <Button
-        type="button"
-        title={t('Change Language')}
-        tabIndex={0}
-        color="ghost"
         className="gap-1 normal-case"
+        color="ghost"
         onClick={() => setIsMenuOpen((prev) => !prev)}
+        tabIndex={0}
+        title={t('Change Language')}
+        type="button"
       >
         <FaLanguage size={20} />
         <FaSortDown size={12} />
@@ -70,13 +74,13 @@ export function SwitchLanguageButton() {
           {LANGUAGES.map((language) => (
             <li key={language.code}>
               <a
-                className={clsx('flex', i18n.language === language.code && 'active')}
+                className={clsx('flex items-center', i18n.language === language.code && 'active')}
                 onClick={() => {
                   setLang(language.code);
                   setIsMenuOpen(false);
                 }}
               >
-                {language.icon}
+                <Image alt="en" height={20} src={language.icon} width={20} />
                 <span className="flex justify-between flex-1">{language.name}</span>
               </a>
             </li>

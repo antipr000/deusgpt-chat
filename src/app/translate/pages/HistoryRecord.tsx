@@ -1,4 +1,3 @@
-import { t } from 'i18next';
 import { useCallback } from 'react';
 import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
@@ -11,7 +10,7 @@ import { LANGUAGES, Language } from '../constants';
 import { formatTime } from '../utils';
 
 function HistoryRecord() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation('translate');
   const {
     history: { historyRecords, setHistoryRecords },
   } = useGlobalStore();
@@ -63,30 +62,30 @@ function HistoryRecord() {
         <span className="leading-[48px]">{t('History Record')}</span>
         {!!historyRecords && !!historyRecords.length && (
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="ml-6 btn-outline btn btn-error btn-xs">
-              <FaTrashAlt size={12} className="mr-2" />
+            <label className="ml-6 btn-outline btn btn-error btn-xs" tabIndex={0}>
+              <FaTrashAlt className="mr-2" size={12} />
               {t('Clear All')}
             </label>
             <div
-              tabIndex={0}
               className="w-64 p-2 shadow dropdown-content card card-compact bg-warning text-warning-content z-50"
+              tabIndex={0}
             >
               <div className="card-body">
                 <h3 className="card-title">{t('Notice!')}</h3>
                 <p>{t('Do you really want to clear all history?')}</p>
                 <div className="flex justify-end">
                   <Button
-                    size="sm"
                     color="ghost"
                     onClick={() => (document.activeElement as HTMLElement).blur()}
+                    size="sm"
                   >
                     {t('Cancel')}
                   </Button>
                   <Button
-                    size="sm"
-                    color="error"
                     className="ml-2"
+                    color="error"
                     onClick={handleClearHistoryRecords}
+                    size="sm"
                   >
                     {t('Yes')}
                   </Button>
@@ -100,7 +99,7 @@ function HistoryRecord() {
         {!!historyRecords &&
           !!historyRecords.length &&
           historyRecords.map((record) => (
-            <li key={record.id} className="my-2">
+            <li className="my-2" key={record.id}>
               <div className="chat chat-end">
                 <div className="chat-header">
                   <span>
@@ -112,17 +111,17 @@ function HistoryRecord() {
                       {LANGUAGES[record.toLanguage as Language] || record.fromLanguage || 'Auto'}
                     </span>
                     <div className="dropdown dropdown-end z-[1]">
-                      <label tabIndex={0} className="mx-1 btn btn-sm btn-ghost btn-circle">
+                      <label className="mx-1 btn btn-sm btn-ghost btn-circle" tabIndex={0}>
                         <FaEllipsisV size={8} />
                       </label>
                       <ul
-                        tabIndex={0}
                         className="p-2 shadow dropdown-content menu bg-base-100 rounded-box w-52"
+                        tabIndex={0}
                       >
                         <li>
                           <a
-                            onClick={() => handleDeleteHistoryRecord(record.id)}
                             className="font-bold text-error"
+                            onClick={() => handleDeleteHistoryRecord(record.id)}
                           >
                             {t('Delete this record')}
                           </a>
@@ -147,10 +146,10 @@ function HistoryRecord() {
                 <div className="chat-bubble whitespace-pre-line break-words">
                   {record.text}
                   <TTSButton
-                    language={record.fromLanguage === 'auto' ? i18n.language : record.fromLanguage}
-                    text={record.text}
-                    size="xs"
                     className="ml-1"
+                    language={record.fromLanguage === 'auto' ? i18n.language : record.fromLanguage}
+                    size="xs"
+                    text={record.text}
                   />
                 </div>
               </div>
@@ -158,10 +157,10 @@ function HistoryRecord() {
                 <div className="chat-bubble chat-bubble-info whitespace-pre-line break-words">
                   {record.translation}
                   <TTSButton
-                    language={record.toLanguage === 'auto' ? i18n.language : record.toLanguage}
-                    text={record.translation}
-                    size="xs"
                     className="ml-1"
+                    language={record.toLanguage === 'auto' ? i18n.language : record.toLanguage}
+                    size="xs"
+                    text={record.translation}
                   />
                 </div>
               </div>

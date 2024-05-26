@@ -11,7 +11,7 @@ type Props = {
 
 export function TTSButton(props: Props) {
   const { language, text, ...restProps } = props;
-  const { t } = useTranslation();
+  const { t } = useTranslation('translate');
   const [recording, setRecording] = useState(false);
   const utterance = useMemo(() => new SpeechSynthesisUtterance(), []);
 
@@ -50,11 +50,11 @@ export function TTSButton(props: Props) {
 
   return (
     <Button
-      shape="circle"
       color={recording ? 'error' : 'ghost'}
+      onClick={onClickTTSBtn}
+      shape="circle"
       size="sm"
       title={recording ? t('Stop reading') : t('Start reading')}
-      onClick={onClickTTSBtn}
       {...restProps}
     >
       {recording ? <MdStop size="16" /> : <MdOutlineVolumeUp size="16" />}

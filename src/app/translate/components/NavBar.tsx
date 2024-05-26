@@ -9,29 +9,29 @@ import NAV_ITEMS from '../constants/NavItems';
 
 function NavBar() {
   const pathname = usePathname();
-  const { t } = useTranslation();
+  const { t } = useTranslation('translate');
 
   const selectedKey = NAV_ITEMS.find(({ to }) => pathname === to)?.key;
 
   return (
     <section
-      id="bottom-navigation"
       className="fixed inset-x-0 bottom-0 z-50 items-center block h-[calc(48px+env(safe-area-inset-bottom))] rounded-tabs glass"
+      id="bottom-navigation"
     >
-      <ul id="tabs" className="flex justify-around max-w-screen-md p-0 m-0 mx-auto">
+      <ul className="flex justify-around max-w-screen-md p-0 m-0 mx-auto" id="tabs">
         {NAV_ITEMS.map(({ key, label, to, icon }) => (
           <li
-            key={key}
             className={clsx(
               'flex-col w-24 duration-300',
               selectedKey === key ? 'text-primary' : 'text-base-content',
             )}
+            key={key}
           >
             <Link
+              className="flex flex-col items-center"
+              draggable="false"
               href={to}
               title={t(`navbar.${label}`)}
-              draggable="false"
-              className="flex flex-col items-center"
             >
               <div
                 className={clsx(

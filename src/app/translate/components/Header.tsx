@@ -9,29 +9,29 @@ import { ToggleThemeButton } from './ToggleThemeButton';
 function AboutModal() {
   return (
     <>
-      <input type="checkbox" id="about-modal" className="modal-toggle" />
-      <label htmlFor="about-modal" className="cursor-pointer modal">
+      <input className="modal-toggle" id="about-modal" type="checkbox" />
+      <label className="cursor-pointer modal" htmlFor="about-modal">
         <label className="relative modal-box" htmlFor="">
           <h3 className="text-lg font-bold">About OpenAI Translator</h3>
           <p className="py-4">Author: Lance.Moe</p>
           <p className="grid grid-cols-2 gap-2 py-4">
             <a
-              href="https://github.com/LanceMoe/openai-translator"
-              target="_blank"
-              rel="noreferrer noopener"
               className="btn btn-outline"
+              href="https://github.com/LanceMoe/openai-translator"
+              rel="noreferrer noopener"
+              target="_blank"
             >
-              <BsGithub size={20} className="mr-2" />
+              <BsGithub className="mr-2" size={20} />
               GitHub
             </a>
 
             <a
-              href="https://twitter.com/lance_moe"
-              target="_blank"
-              rel="noreferrer noopener"
               className="btn btn-outline btn-primary"
+              href="https://twitter.com/lance_moe"
+              rel="noreferrer noopener"
+              target="_blank"
             >
-              <BsTwitter size={20} className="mr-2" />
+              <BsTwitter className="mr-2" size={20} />
               Twitter
             </a>
           </p>
@@ -42,7 +42,7 @@ function AboutModal() {
 }
 
 function Header() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translate');
   return (
     <>
       <AboutModal />

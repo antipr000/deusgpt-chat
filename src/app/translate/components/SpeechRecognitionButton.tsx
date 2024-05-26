@@ -15,7 +15,7 @@ type Props = {
 
 export function SpeechRecognitionButton(props: Props) {
   const { language, onChangeTranscript, ...restProps } = props;
-  const { t } = useTranslation();
+  const { t } = useTranslation('translate');
 
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
@@ -28,8 +28,8 @@ export function SpeechRecognitionButton(props: Props) {
     if (!listening) {
       resetTranscript();
       SpeechRecognition.startListening({
-        language: language === 'wyw' ? 'zh-TW' : language,
         continuous: true,
+        language: language === 'wyw' ? 'zh-TW' : language,
       });
       toast.success(t('Recording started.'));
     } else {
@@ -47,11 +47,11 @@ export function SpeechRecognitionButton(props: Props) {
 
   return (
     <Button
-      shape="circle"
       color={listening ? 'error' : 'ghost'}
+      onClick={onClickSpeechRecognitionBtn}
+      shape="circle"
       size="sm"
       title={listening ? t('Stop speaking') : t('Start speaking')}
-      onClick={onClickSpeechRecognitionBtn}
       {...restProps}
     >
       {listening ? <MdStop size="16" /> : <MdOutlineMicNone size="16" />}

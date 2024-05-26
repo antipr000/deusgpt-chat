@@ -2,7 +2,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Provider } from 'jotai';
 import { ResolvingViewport } from 'next';
 import { cookies } from 'next/headers';
-import Script from 'next/script';
 import { ReactNode } from 'react';
 import 'regenerator-runtime/runtime';
 import { isRtlLang } from 'rtl-detect';
@@ -31,7 +30,6 @@ const RootLayout = async ({ children, modal }: RootLayoutProps) => {
   return (
     <html dir={direction} lang={lang?.value || DEFAULT_LANG} suppressHydrationWarning>
       <body>
-        <Script src="https://cdn.tailwindcss.com" />
         <GlobalProvider>
           <AuthProvider>
             <Provider store={store}>

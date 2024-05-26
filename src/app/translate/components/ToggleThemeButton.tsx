@@ -4,7 +4,7 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 import { useDarkMode } from '../hooks/theme';
 
 export function ToggleThemeButton() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translate');
   const [darkMode, setDarkMode] = useDarkMode();
   return (
     <label
@@ -12,11 +12,11 @@ export function ToggleThemeButton() {
       title={t('topBar.darkModeSwitcherTitle')}
     >
       <input
-        type="checkbox"
-        onClick={() => setDarkMode(!darkMode)}
         checked={!darkMode}
-        title="Dark Mode Switcher"
+        onClick={() => setDarkMode(!darkMode)}
         readOnly
+        title="Dark Mode Switcher"
+        type="checkbox"
       />
       <FaSun className="w-5 h-5 fill-current swap-on" size={20} />
       <FaMoon className="w-5 h-5 fill-current swap-off" size={20} />
