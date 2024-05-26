@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "tokenUsage": {
+      "thisMonth": "지난 30일",
+      "thisWeek": "지난 7일",
+      "title": "토큰 사용량",
+      "today": "오늘"
+    },
+    "users": {
+      "thisMonth": "지난 30일",
+      "thisWeek": "지난 7일",
+      "title": "가입한 사용자",
+      "today": "오늘"
+    }
+  },
+  "sidebar": {
+    "dashboard": "대시보드",
+    "languageModels": "언어 모델",
+    "members": "회원",
+    "payments": "지불"
+  }
+}

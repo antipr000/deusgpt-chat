@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "tokenUsage": {
+      "thisMonth": "الشهر الحالي",
+      "thisWeek": "هذا الأسبوع",
+      "title": "استخدام الرموز",
+      "today": "اليوم"
+    },
+    "users": {
+      "thisMonth": "الشهر الحالي",
+      "thisWeek": "هذا الأسبوع",
+      "title": "المستخدمون المنضمون",
+      "today": "اليوم"
+    }
+  },
+  "sidebar": {
+    "dashboard": "لوحة القيادة",
+    "languageModels": "نماذج اللغة",
+    "members": "أعضاء",
+    "payments": "المدفوعات"
+  }
+}

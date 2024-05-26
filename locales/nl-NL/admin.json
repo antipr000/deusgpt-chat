@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "tokenUsage": {
+      "thisMonth": "Deze maand",
+      "thisWeek": "Deze week",
+      "title": "Tokengebruik",
+      "today": "Vandaag"
+    },
+    "users": {
+      "thisMonth": "Deze maand",
+      "thisWeek": "Deze week",
+      "title": "Gebruikers",
+      "today": "Vandaag"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "languageModels": "Taalmodellen",
+    "members": "Leden",
+    "payments": "Betalingen"
+  }
+}

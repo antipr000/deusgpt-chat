@@ -1,22 +1,22 @@
 {
   "dashboard": {
     "tokenUsage": {
-      "title": "Query Usage",
-      "today": "Today",
+      "thisMonth": "Last 30 days",
       "thisWeek": "Last 7 days",
-      "thisMonth": "Last 30 days"
+      "title": "Query Usage",
+      "today": "Today"
     },
     "users": {
-      "title": "Users Joined",
-      "today": "Today",
+      "thisMonth": "Last 30 days",
       "thisWeek": "Last 7 days",
-      "thisMonth": "Last 30 days"
+      "title": "Users Joined",
+      "today": "Today"
     }
   },
   "sidebar": {
-    "languageModels": "Language Models",
     "dashboard": "Dashboard",
-    "payments": "Payments",
-    "members": "Members"
+    "languageModels": "Language Models",
+    "members": "Members",
+    "payments": "Payments"
   }
 }

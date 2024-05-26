@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "tokenUsage": {
+      "thisMonth": "過去30日",
+      "thisWeek": "過去7日",
+      "title": "トークンの使用",
+      "today": "今日"
+    },
+    "users": {
+      "thisMonth": "過去30日",
+      "thisWeek": "過去7日",
+      "title": "ユーザー",
+      "today": "今日"
+    }
+  },
+  "sidebar": {
+    "dashboard": "ダッシュボード",
+    "languageModels": "言語モデル",
+    "members": "メンバー",
+    "payments": "支払い"
+  }
+}

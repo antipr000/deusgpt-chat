@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "tokenUsage": {
+      "thisMonth": "Tháng này",
+      "thisWeek": "Tuần này",
+      "title": "Sử dụng Token",
+      "today": "Hôm nay"
+    },
+    "users": {
+      "thisMonth": "Tháng này",
+      "thisWeek": "Tuần này",
+      "title": "Người dùng đã tham gia",
+      "today": "Hôm nay"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Bảng điều khiển",
+    "languageModels": "Mô hình Ngôn ngữ",
+    "members": "Thành viên",
+    "payments": "Thanh toán"
+  }
+}

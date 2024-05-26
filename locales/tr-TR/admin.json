@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "tokenUsage": {
+      "thisMonth": "Bu Ay",
+      "thisWeek": "Bu Hafta",
+      "title": "Token Kullanımı",
+      "today": "Bugün"
+    },
+    "users": {
+      "thisMonth": "Bu Ay",
+      "thisWeek": "Bu Hafta",
+      "title": "Kullanıcılar",
+      "today": "Bugün"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Pano",
+    "languageModels": "Dil Modelleri",
+    "members": "Üyeler",
+    "payments": "Ödemeler"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "tokenUsage": {
+      "thisMonth": "Ce mois-ci",
+      "thisWeek": "Cette semaine",
+      "title": "Utilisation des jetons",
+      "today": "Aujourd'hui"
+    },
+    "users": {
+      "thisMonth": "Ce mois-ci",
+      "thisWeek": "Cette semaine",
+      "title": "Utilisateurs inscrits",
+      "today": "Aujourd'hui"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "languageModels": "Modèles de langage",
+    "members": "Membres",
+    "payments": "Paiements"
+  }
+}

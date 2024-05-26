@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "tokenUsage": {
+      "thisMonth": "Ostatnie 30 dni",
+      "thisWeek": "Ostatnie 7 dni",
+      "title": "Użycie tokenów",
+      "today": "Dzisiaj"
+    },
+    "users": {
+      "thisMonth": "Ostatnie 30 dni",
+      "thisWeek": "Ostatnie 7 dni",
+      "title": "Użytkownicy",
+      "today": "Dzisiaj"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Tablica rozdzielcza",
+    "languageModels": "Modele językowe",
+    "members": "Członkowie",
+    "payments": "Płatności"
+  }
+}

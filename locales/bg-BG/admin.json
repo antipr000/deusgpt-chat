@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "tokenUsage": {
+      "thisMonth": "През последните 30 дни",
+      "thisWeek": "През последните 7 дни",
+      "title": "Използване на токени",
+      "today": "Днес"
+    },
+    "users": {
+      "thisMonth": "През последните 30 дни",
+      "thisWeek": "През последните 7 дни",
+      "title": "Потребители",
+      "today": "Днес"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Табло",
+    "languageModels": "Езикови модели",
+    "members": "Членове",
+    "payments": "Плащания"
+  }
+}
