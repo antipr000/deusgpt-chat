@@ -2,7 +2,9 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Provider } from 'jotai';
 import { ResolvingViewport } from 'next';
 import { cookies } from 'next/headers';
+import Script from 'next/script';
 import { ReactNode } from 'react';
+import 'regenerator-runtime/runtime';
 import { isRtlLang } from 'rtl-detect';
 
 import Analytics from '@/components/Analytics';
@@ -10,6 +12,7 @@ import { DEFAULT_LANG, LOBE_LOCALE_COOKIE } from '@/const/locale';
 import AuthProvider from '@/layout/AuthProvider';
 import GlobalProvider from '@/layout/GlobalProvider';
 import { store } from '@/store/atoms/store.atom';
+import '@/styles/global.css';
 import { isMobileDevice } from '@/utils/responsive';
 
 const inVercel = process.env.VERCEL === '1';
@@ -28,6 +31,7 @@ const RootLayout = async ({ children, modal }: RootLayoutProps) => {
   return (
     <html dir={direction} lang={lang?.value || DEFAULT_LANG} suppressHydrationWarning>
       <body>
+        <Script src="https://cdn.tailwindcss.com" />
         <GlobalProvider>
           <AuthProvider>
             <Provider store={store}>
