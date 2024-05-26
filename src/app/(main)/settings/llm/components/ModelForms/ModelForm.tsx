@@ -84,11 +84,13 @@ const ModelForm: FC<ModelFormProps> = ({ model, form, provider }) => {
     {
       children: <Input disabled={checkedStandard} style={{ width: 100 }} required />,
       label: 'Standard',
+      desc: "Enter a number of 'unlimited'",
       name: [LLMProviderConfigKey, provider, 'models', model, 'standard'],
     },
     {
       children: <Input required disabled={checkedPremium} style={{ width: 100 }} />,
       label: 'Premium',
+      desc: "Enter a number or 'unlimited'",
       name: [LLMProviderConfigKey, provider, 'models', model, 'premium'],
     },
   ];
