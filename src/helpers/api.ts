@@ -86,6 +86,11 @@ const updateUser = async (userData: Partial<User>): Promise<User> => {
   return data;
 };
 
+const getAllUsers = async (): Promise<User[]> => {
+  const { data } = await instance.get('/user');
+  return data;
+};
+
 const getCountOfUsersInDateRange = async (startDate: Date, endDate?: Date): Promise<number> => {
   const { data } = await instance.get<number>(
     `/user?startDate=${startDate.toISOString()}&endDate=${(endDate || new Date()).toISOString()}`,
@@ -99,6 +104,7 @@ export {
   deleteChatSession,
   getAllChatSessions,
   getAllIntegrations,
+  getAllUsers,
   getCountOfUsersInDateRange,
   getUsage,
   getUsageForDateRange,
