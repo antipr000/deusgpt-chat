@@ -1,7 +1,7 @@
 {
   "dashboard": {
     "tokenUsage": {
-      "title": "Token Usage",
+      "title": "Query Usage",
       "today": "Today",
       "thisWeek": "Last 7 days",
       "thisMonth": "Last 30 days"
@@ -16,6 +16,7 @@
   "sidebar": {
     "languageModels": "Language Models",
     "dashboard": "Dashboard",
-    "payments": "Payments"
+    "payments": "Payments",
+    "members": "Members"
   }
 }

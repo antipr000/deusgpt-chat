@@ -70,9 +70,13 @@ const getUsage = async (model: string): Promise<number> => {
   return data.count;
 };
 
-const getUsageForDateRange = async (startDate: Date, endDate?: Date): Promise<number> => {
+const getUsageForDateRange = async (
+  models: string,
+  startDate: Date,
+  endDate?: Date,
+): Promise<number> => {
   const { data }: { data: { count: number } } = await instance.get(
-    `/usage/date?startDate=${startDate.toISOString()}&endDate=${(endDate || new Date()).toISOString()}`,
+    `/usage/date?models=${models}&startDate=${startDate.toISOString()}&endDate=${(endDate || new Date()).toISOString()}`,
   );
   return data.count;
 };

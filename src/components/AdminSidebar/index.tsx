@@ -1,7 +1,7 @@
 'use client';
 
 import { Icon } from '@lobehub/ui';
-import { BarChartIcon, Brain, DollarSign } from 'lucide-react';
+import { BarChartIcon, Brain, DollarSign, Users } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
@@ -23,6 +23,11 @@ const AdminSidebar = () => {
       icon: <Icon icon={BarChartIcon} />,
       key: 'dashboard',
       label: t('sidebar.dashboard'),
+    },
+    {
+      icon: <Icon icon={Users} />,
+      key: 'members',
+      label: t('sidebar.members'),
     },
     {
       icon: <Icon icon={DollarSign} />,

@@ -16,6 +16,7 @@ export default {
   sidebar: {
     dashboard: '擋泥板',
     languageModels: '語言模型',
+    members: '会员',
     payments: '付款',
   },
 };
