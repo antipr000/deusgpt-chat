@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import { Select } from 'antd';
+import React, { useCallback, useState } from 'react';
 import { Button, Toggle } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -17,12 +18,15 @@ function ConfigPage() {
     setConfigValues,
   } = useGlobalStore();
 
+  const [selectedModel, setSelectedModel] = useState<OpenAIModel>(currentModel as OpenAIModel);
+
   const handleSave = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
-      const { openaiApiUrl, openaiApiKey, streamEnabled, selectedModel, temperatureParam } =
-        Object.fromEntries(formData.entries());
+      const { openaiApiUrl, openaiApiKey, streamEnabled, temperatureParam } = Object.fromEntries(
+        formData.entries(),
+      );
       if (!openaiApiUrl) {
         toast.error(t('Please enter API Url.'));
         return;
@@ -51,9 +55,9 @@ function ConfigPage() {
   return (
     <div className="p-4 w-[28.75rem] max-w-[100vw] bg-base-100 overflow-y-auto overflow-x-hidden h-full">
       <h1 className="sticky top-0 z-50 flex justify-between w-full text-2xl font-bold align-middle bg-base-100">
-        <span className="leading-[48px]">{t('Config')}</span>
+        <span className="leading-[48px] white-text">{t('Config')}</span>
         <label
-          className="drawer-button btn btn-primary btn-ghost btn-circle"
+          className="drawer-button btn btn-primary btn-ghost btn-circle white-text"
           htmlFor="history-record-drawer"
           title={t('Close')}
         >
@@ -67,23 +71,22 @@ function ConfigPage() {
             <Toggle color="primary" defaultChecked={streamEnabled} name="streamEnabled" />
           </label>
         </div>
-        
+
         <div className="mb-2 form-control">
           <label className="label">
             <span className="text-lg font-bold label-text">{t('Model (engine)')}</span>
           </label>
-          <select
-            className="w-full select select-primary"
+          <Select
+            className="w-full white-text h-[55px]"
             defaultValue={currentModel}
-            name="selectedModel"
-            title="Selected model"
-          >
-            {Object.keys(OPENAI_MODELS_TITLES).map((model) => (
-              <option key={model} value={model}>
-                {OPENAI_MODELS_TITLES[model as OpenAIModel]}
-              </option>
-            ))}
-          </select>
+            onChange={(value) => setSelectedModel(value as OpenAIModel)}
+            options={Object.entries(OPENAI_MODELS_TITLES).map(([value, label]) => ({
+              label,
+              value,
+            }))}
+            title="Selected Model"
+            value={selectedModel}
+          />
         </div>
         <div className="mb-4 form-control">
           <label className="label">
@@ -99,7 +102,7 @@ function ConfigPage() {
             step="0.1"
             type="range"
           />
-          <div className="flex justify-between w-full pl-0 pr-1 text-xs">
+          <div className="flex white-text justify-between w-full pl-0 pr-1 text-xs">
             <span>rad</span>
             <span>0.5</span>
             <span>0.6</span>

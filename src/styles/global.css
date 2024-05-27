@@ -39,3 +39,12 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+html[data-theme="mcpdark"] .white-text {
+  color: oklch(0.857646 0.004421 277.509);
+}
+
+html[data-theme="mcpdark"] .white-text:focus {
+  color: oklch(0.857646 0.004421 277.509);
+  background-color: inherit;
+}

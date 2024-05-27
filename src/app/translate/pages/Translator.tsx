@@ -1,13 +1,14 @@
 'use client';
 
+import { TextArea } from '@lobehub/ui';
+import { Select } from 'antd';
 import clsx from 'clsx';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgArrowsExchange } from 'react-icons/cg';
 import { MdClose, MdContentCopy } from 'react-icons/md';
-import TextareaAutoSize from 'react-textarea-autosize';
 import 'regenerator-runtime/runtime';
 
 import { useGlobalStore } from '../components/GlobalStore';
@@ -19,6 +20,7 @@ import { getTranslatePrompt } from '../utils/prompt';
 function TranslatorPage() {
   const { t, i18n } = useTranslation('translate');
   const translateTextAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [isClient, setIsClient] = useState(false);
 
   const {
     configValues: { openaiApiKey, currentModel, temperatureParam },
@@ -55,6 +57,10 @@ function TranslatorPage() {
         toast.error(t('Failed to copy!'));
       });
   }, [t, translatedText]);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const onExchangeLanguageBtnClick = useCallback(
     () =>
@@ -135,21 +141,20 @@ function TranslatorPage() {
   );
 
   const onClearBtnClick = useCallback(() => {
-    if (!translateTextAreaRef.current) {
-      return;
-    }
-    translateTextAreaRef.current.value = '';
+    setTranslateText('');
   }, []);
 
   // ↑ Hooks before, keep hooks order
 
+  if (!isClient) return null;
+
   return (
     <form method="post" onSubmit={handleTranslate}>
-      <div className="container max-w-screen-2xl xl:mx-auto md:grid md:grid-cols-2 md:gap-4">
+      <div className="container max-w-screen-2xl xl:mx-auto md:grid md:grid-cols-2 md:gap-4 bg-base-100">
         <div className="w-full md:min-h-[calc(100vh_-_112px)] max-w-full p-4 m-0 shadow-md top-16 bg-base-100">
-          <div className="flex flex-row mb-4">
-            <select
-              className="w-5/12 select"
+          <div className="flex items-center flex-row mb-4">
+            {/* <select
+              className="w-5/12 select white-text"
               name="fromLang"
               onChange={(e) =>
                 setLastTranslateData((prev) => ({ ...prev, fromLang: e.target.value }))
@@ -163,10 +168,21 @@ function TranslatorPage() {
                   {LANGUAGES[lang as Language]}
                 </option>
               ))}
-            </select>
+            </select> */}
+            <Select
+              className="w-5/12 h-[55px]"
+              onChange={(value) => setLastTranslateData((prev) => ({ ...prev, fromLang: value }))}
+              options={Object.entries(LANGUAGES).map(([value, label]) => ({
+                label,
+                value,
+              }))}
+              title="Language From"
+              value={lastTranslateData.fromLang}
+            />
 
             <div className="flex justify-center w-2/12">
               <Button
+                className="white-text"
                 color="ghost"
                 onClick={onExchangeLanguageBtnClick}
                 shape="circle"
@@ -177,36 +193,31 @@ function TranslatorPage() {
               </Button>
             </div>
 
-            <select
-              className="w-5/12 select"
-              name="toLang"
-              onChange={(e) =>
-                setLastTranslateData((prev) => ({ ...prev, toLang: e.target.value }))
-              }
-              required
+            <Select
+              className="w-5/12 h-[55px]"
+              onChange={(value) => setLastTranslateData((prev) => ({ ...prev, toLang: value }))}
+              options={Object.entries(LANGUAGES).map(([value, label]) => ({
+                label,
+                value,
+              }))}
               title="To language"
               value={lastTranslateData.toLang}
-            >
-              {Object.keys(LANGUAGES).map((lang) => (
-                <option key={lang} value={lang}>
-                  {LANGUAGES[lang as Language]}
-                </option>
-              ))}
-            </select>
+            />
           </div>
 
           <div className="form-control">
             <div className="relative">
-              <TextareaAutoSize
-                className="w-full mb-2 whitespace-pre-line break-words resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-10"
-                defaultValue={translateText}
+              <TextArea
+                className="w-full mt-4 mb-2 whitespace-pre-line break-words resize-none 
+                rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-10 white-text"
                 disabled={isTranslating}
                 name="translateText"
                 onChange={(e) => setTranslateText(e.target.value)}
                 placeholder={t('Please enter the text you want to translate here.')}
                 ref={translateTextAreaRef}
                 required
-              ></TextareaAutoSize>
+                value={translateText}
+              />
               <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
                 <div className="flex flex-row justify-start gap-2">
                   {/* <SpeechRecognitionButton
@@ -220,6 +231,7 @@ function TranslatorPage() {
                   /> */}
                   {!!translateText && (
                     <TTSButton
+                      className="white-text"
                       language={
                         lastTranslateData.fromLang === 'auto'
                           ? i18n.language
@@ -231,6 +243,7 @@ function TranslatorPage() {
                 </div>
                 {!!translateText && (
                   <Button
+                    className="white-text"
                     color="ghost"
                     onClick={onClearBtnClick}
                     shape="circle"
@@ -265,9 +278,9 @@ function TranslatorPage() {
             {isTranslating ? t('Translating...') : t('Translate')}
           </Button>
           <div className="relative">
-            <TextareaAutoSize
+            <TextArea
               className={clsx(
-                'w-full mb-2 whitespace-pre-line break-words resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]',
+                'w-full mb-2 mt-5 white-text whitespace-pre-line break-words resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]',
                 !!translatedText && !isTranslating && 'pb-10',
               )}
               name="translatedText"
@@ -277,7 +290,7 @@ function TranslatorPage() {
               readOnly
               required
               value={translatedText || ''}
-            ></TextareaAutoSize>
+            />
             <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
               {!!translatedText && (
                 <TTSButton

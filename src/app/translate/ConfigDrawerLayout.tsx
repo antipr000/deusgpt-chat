@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import ConfigPage from './pages/Config';
 
@@ -11,10 +11,10 @@ function ConfigDrawerLayout(props: Props) {
 
   return (
     <>
-      <input id="history-record-drawer" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content">{children}</div>
+      <input className="drawer-toggle" id="history-record-drawer" type="checkbox" />
+      <div className="drawer-content w-full bg-base-100">{children}</div>
       <div className="drawer-side z-50 overflow-hidden">
-        <label htmlFor="history-record-drawer" className="drawer-overlay"></label>
+        <label className="drawer-overlay" htmlFor="history-record-drawer"></label>
         <ConfigPage />
       </div>
     </>
