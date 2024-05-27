@@ -61,7 +61,7 @@ function ConfigPage() {
       }));
       message.success(t('Config Saved!'));
     },
-    [setConfigValues, t],
+    [setConfigValues, t, selectedModel, tempParam, isStreamEnabled],
   );
 
   return (
