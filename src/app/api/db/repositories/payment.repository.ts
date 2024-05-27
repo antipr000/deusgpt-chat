@@ -55,6 +55,12 @@ class PaymentRepository {
     }));
     return payments;
   }
+
+  async updatePayment(sessionId: string, payment: Partial<Payment>): Promise<Payment> {
+    const paymentModel = await this.dbProvider.getPaymentModel();
+    const paymentData = await paymentModel.findOneAndUpdate({ sessionId }, payment, { new: true });
+    return paymentData;
+  }
 }
 
 export default PaymentRepository;

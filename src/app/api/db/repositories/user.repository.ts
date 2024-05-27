@@ -62,6 +62,11 @@ class UserRepository {
     });
     return data.length;
   }
+
+  async deleteUser(firebaseId: string) {
+    const userModel = await this.dbProvider.getUserModel();
+    await userModel.findOneAndDelete({ firebaseId });
+  }
 }
 
 export default UserRepository;

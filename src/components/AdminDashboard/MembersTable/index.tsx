@@ -1,47 +1,126 @@
 'use client';
 
-import { Table } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+import { App, Button, Input, Select, Table } from 'antd';
 import type { TableProps } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { debounce } from 'lodash';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 
-import { getAllUsers } from '@/helpers/api';
+import { adminDeleteUser, adminUpdateUser, getAllUsers, updateUser } from '@/helpers/api';
 import { User } from '@/types/common/User.type';
 
 type ColumnsType<T extends object> = TableProps<T>['columns'];
 
-const columns: ColumnsType<User> = [
-  {
-    dataIndex: 'firstName',
-    key: 'firstName',
-    title: 'First Name',
-  },
-  {
-    dataIndex: 'lastName',
-    key: 'lastName',
-    title: 'Last Name',
-  },
-  {
-    dataIndex: 'email',
-    key: 'email',
-    title: 'Email',
-  },
-  {
-    dataIndex: 'plan',
-    key: 'plan',
-    title: 'Plan',
-  },
-  {
-    dataIndex: 'createdAt',
-    key: 'createdAt',
-    render: (date: string) => new Date(date).toISOString().split('T')[0],
-    title: 'Registered On',
-  },
+const planOptions = [
+  { value: 'standard', label: 'Standard' },
+  { value: 'premium', label: 'Premium' },
 ];
 
 const MembersTable = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [refreshTimer, setRefreshTimer] = useState(10);
+  const [refreshTimer, setRefreshTimer] = useState(20);
+
+  const { modal } = App.useApp();
+
+  const columns: ColumnsType<User> = useMemo(() => {
+    return [
+      {
+        dataIndex: 'firstName',
+        key: 'firstName',
+        title: 'First Name',
+        render: (text: string, record: User) => {
+          const changeName = async (event: ChangeEvent<HTMLInputElement>) => {
+            await adminUpdateUser({
+              firebaseId: record.firebaseId,
+              firstName: event.target.value,
+            });
+          };
+          return (
+            <Input name="firstName" defaultValue={text} onChange={debounce(changeName, 2000)} />
+          );
+        },
+      },
+      {
+        dataIndex: 'lastName',
+        key: 'lastName',
+        title: 'Last Name',
+        render: (text: string, record: User) => {
+          const changeName = async (event: ChangeEvent<HTMLInputElement>) => {
+            await adminUpdateUser({
+              firebaseId: record.firebaseId,
+              lastName: event.target.value,
+            });
+          };
+          return (
+            <Input name="lastName" defaultValue={text} onChange={debounce(changeName, 2000)} />
+          );
+        },
+      },
+      {
+        dataIndex: 'email',
+        key: 'email',
+        title: 'Email',
+      },
+      {
+        dataIndex: 'plan',
+        key: 'plan',
+        title: 'Plan',
+        render: (text: string, record: User) => {
+          const changePlan = async (value: string) => {
+            await adminUpdateUser({
+              firebaseId: record.firebaseId,
+              plan: value,
+            });
+          };
+          return (
+            <Select
+              options={planOptions}
+              defaultValue={text}
+              onChange={debounce(changePlan, 2000)}
+            />
+          );
+        },
+      },
+      {
+        dataIndex: 'createdAt',
+        key: 'createdAt',
+        render: (date: string) => new Date(date).toISOString().split('T')[0],
+        title: 'Registered On',
+      },
+      {
+        key: 'delete',
+        render: (_, record: User) => {
+          const handleDelete = async () => {
+            modal.confirm({
+              centered: true,
+              okButtonProps: { danger: true },
+              onOk: async () => {
+                await adminDeleteUser(record.firebaseId);
+
+                setUsers((prevState) => {
+                  const filteredUsers = prevState.filter(
+                    (user) => user.firebaseId !== record.firebaseId,
+                  );
+                  return filteredUsers;
+                });
+              },
+              title: 'Sure you want to delete?',
+            });
+          };
+          return (
+            <Button
+              shape="round"
+              size={'small'}
+              icon={<DeleteOutlined />}
+              danger
+              onClick={handleDelete}
+            />
+          );
+        },
+      },
+    ];
+  }, []);
 
   useEffect(() => {
     getAllUsers()
@@ -62,12 +141,12 @@ const MembersTable = () => {
         .then((data) => {
           setUsers(data);
           setLoading(false);
-          setRefreshTimer(10);
+          setRefreshTimer(20);
         })
         .catch((err) => {
           setLoading(false);
         });
-    }, 10000);
+    }, 20000);
 
     return () => {
       clearInterval(timer2);

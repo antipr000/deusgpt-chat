@@ -114,6 +114,20 @@ const getAllPayments = async (): Promise<PaymentWithUser[]> => {
   return data;
 };
 
+const adminUpdatePayment = async (payment: Partial<Payment>): Promise<Payment> => {
+  const { data } = await instance.patch('/payment', payment);
+  return data;
+};
+
+const adminUpdateUser = async (user: Partial<User>): Promise<User> => {
+  const { data } = await instance.patch('/user/admin', user);
+  return data;
+};
+
+const adminDeleteUser = async (firebaseId: string): Promise<void> => {
+  await instance.delete(`/user/admin?fbId=${firebaseId}`);
+};
+
 export {
   addUsage,
   createChatSession,
@@ -129,4 +143,7 @@ export {
   updateIntegration,
   getAllAdminIntegrations,
   getAllPayments,
+  adminUpdatePayment,
+  adminUpdateUser,
+  adminDeleteUser,
 };
