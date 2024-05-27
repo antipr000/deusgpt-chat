@@ -1,56 +1,22 @@
 'use client';
 
-import { ActionIcon, ChatHeader } from '@lobehub/ui';
-import { Flex, Image } from 'antd';
+import { ChatHeader } from '@lobehub/ui';
+import { Flex } from 'antd';
 import { createStyles } from 'antd-style';
-import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
-import Link from 'next/link';
-import { Navbar } from 'react-daisyui';
-import { useTranslation } from 'react-i18next';
-import { BsGithub, BsTwitter } from 'react-icons/bs';
-import { Flexbox } from 'react-layout-kit';
+// import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+// import Link from 'next/link';
+import Image from 'next/image';
 
-import { DESKTOP_HEADER_ICON_SIZE } from '@/const/layoutTokens';
-import { useGlobalStore } from '@/store/global';
-
+// import { Navbar } from 'react-daisyui';
+// import { useTranslation } from 'react-i18next';
+// import { BsGithub, BsTwitter } from 'react-icons/bs';
+// import { Flexbox } from 'react-layout-kit';
+// import { DESKTOP_HEADER_ICON_SIZE } from '@/const/layoutTokens';
+// import { useGlobalStore } from '@/store/global';
 import { ConfigButton } from './ConfigButton';
-import { SwitchLanguageButton } from './SwitchLanguageButton';
-import { ToggleThemeButton } from './ToggleThemeButton';
 
-function AboutModal() {
-  return (
-    <>
-      <input className="modal-toggle" id="about-modal" type="checkbox" />
-      <label className="cursor-pointer modal" htmlFor="about-modal">
-        <label className="relative modal-box" htmlFor="">
-          <h3 className="text-lg font-bold">About OpenAI Translator</h3>
-          <p className="py-4">Author: Lance.Moe</p>
-          <p className="grid grid-cols-2 gap-2 py-4">
-            <a
-              className="btn btn-outline"
-              href="https://github.com/LanceMoe/openai-translator"
-              rel="noreferrer noopener"
-              target="_blank"
-            >
-              <BsGithub className="mr-2" size={20} />
-              GitHub
-            </a>
-
-            <a
-              className="btn btn-outline btn-primary"
-              href="https://twitter.com/lance_moe"
-              rel="noreferrer noopener"
-              target="_blank"
-            >
-              <BsTwitter className="mr-2" size={20} />
-              Twitter
-            </a>
-          </p>
-        </label>
-      </label>
-    </>
-  );
-}
+// import { SwitchLanguageButton } from './SwitchLanguageButton';
+// import { ToggleThemeButton } from './ToggleThemeButton';
 
 const useStyles = createStyles(({ css }) => ({
   left: css`
@@ -58,22 +24,12 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-const HeaderAction = () => {
-  return (
-    <div className="flex flex-row align-center">
-      <ConfigButton />
-      {/* <ToggleThemeButton /> */}
-      {/* <SwitchLanguageButton /> */}
-    </div>
-  );
-};
-
 const Main = () => {
   return (
-    <Flex align={'center'} gap={8} dir="row">
+    <Flex align={'center'} dir="row" gap={8}>
       <ConfigButton />
-      <img src="logo.png" width={50} height={50} />
-      <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'rgb(102, 102, 102)' }}>
+      <Image alt="logo" height={50} src="/logo.png" width={50} />
+      <div style={{ color: 'rgb(102, 102, 102)', fontSize: '24px', fontWeight: 'bold' }}>
         DeusGPT
       </div>
     </Flex>
@@ -82,18 +38,14 @@ const Main = () => {
 
 const Header = () => {
   const { styles } = useStyles();
-  const showSessionPanel: boolean | undefined = useGlobalStore(
-    (s) => s.preference.showSessionPanel,
-  );
-  const { t } = useTranslation('chat');
 
   return (
     <ChatHeader
       classNames={{ left: styles.left }}
       left={<Main />}
       style={{
-        position: 'unset',
         height: '80px',
+        position: 'unset',
       }}
     />
   );

@@ -28,7 +28,7 @@ function NavBar() {
             key={key}
           >
             <Link
-              className="flex flex-col items-center"
+              className={`flex flex-col ${selectedKey === key ? 'text-[#ec5e41]' : 'text-[#080808]'} items-center`}
               draggable="false"
               href={to}
               title={t(`navbar.${label}`)}
@@ -36,7 +36,7 @@ function NavBar() {
               <div
                 className={clsx(
                   'w-10 h-1 mb-2 duration-300 rounded-full',
-                  selectedKey === key ? 'bg-primary' : 'bg-transparent',
+                  selectedKey === key ? 'bg-[#ec5e41]' : 'bg-transparent',
                 )}
               ></div>
               {icon}
