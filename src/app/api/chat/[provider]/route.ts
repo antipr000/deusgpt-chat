@@ -5,8 +5,6 @@ import { ChatErrorType } from '@/types/fetch';
 import { ChatStreamPayload } from '@/types/openai/chat';
 import { getTracePayload } from '@/utils/trace';
 
-import { Integration } from '../../../../types/common/Integration.type';
-import IntegrationRepository from '../../db/repositories/integration.repository';
 import { checkAuth } from '../../middleware/auth';
 import { createTraceOptions, initAgentRuntimeWithUserPayload } from '../agentRuntime';
 
@@ -16,13 +14,9 @@ export const POST = checkAuth(async (req: Request, { params, jwtPayload }) => {
   const { provider } = params;
 
   try {
-    const integrationRepository = new IntegrationRepository();
-    const secrets: Integration = await integrationRepository.getIntegrationByName(provider);
+    console.log('Called for ', provider, 'Secrets: ', jwtPayload);
     // ============  1. init chat model   ============ //
-    const agentRuntime = await initAgentRuntimeWithUserPayload(provider, {
-      accessCode: secrets.secret as string,
-      apiKey: secrets.secret as string,
-    });
+    const agentRuntime = await initAgentRuntimeWithUserPayload(provider, jwtPayload);
 
     // ============  2. create chat completion   ============ //
 

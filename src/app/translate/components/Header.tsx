@@ -28,8 +28,8 @@ const Main = () => {
   return (
     <Flex align={'center'} dir="row" gap={8}>
       <ConfigButton />
-      <Image alt="logo" height={50} src="/logo.png" width={50} />
-      <div style={{ color: 'rgb(102, 102, 102)', fontSize: '24px', fontWeight: 'bold' }}>
+      <img src="/logo.png" width={50} height={50} />
+      <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'rgb(102, 102, 102)' }}>
         DeusGPT
       </div>
     </Flex>

@@ -15,24 +15,18 @@ export function useChatGPTStream() {
 
   const mutate = useCallback(
     (params: {
-      token: string;
       engine: OpenAIModel;
       prompt: string;
       temperatureParam: number;
       queryText: string;
     }) => {
-      const { token, engine, prompt, queryText, temperatureParam } = params;
+      const { engine, prompt, queryText, temperatureParam } = params;
       if (loading) {
         console.warn('Already loading!');
         return;
       }
       setData('');
       setLoading(true);
-      if (!token) {
-        setError('No API Key found!');
-        setLoading(false);
-        return;
-      }
       if (!prompt) {
         setError('No prompt found!');
         setLoading(false);
@@ -48,7 +42,6 @@ export function useChatGPTStream() {
 
       OpenAIClient.chatCompletionsStream(
         {
-          token,
           prompt,
           query: queryText,
           model: isGptModel ? (engine as GPTModel) : 'gpt-3.5-turbo',
@@ -58,6 +51,8 @@ export function useChatGPTStream() {
           async onopen(res) {
             setData('');
             setLoading(true);
+            console.log('Res is: ', res.ok, res.status);
+            console.log('Detailed res', res);
             if (res.ok && res.status === 200) {
               console.log('Connection made ', res.status);
               setError('');
@@ -68,21 +63,13 @@ export function useChatGPTStream() {
             }
           },
           onmessage(event) {
-            if (event.data === '[DONE]') {
+            if (event.data === 'stop') {
               setError('');
               setLoading(false);
               return;
             }
             const parsedData = JSON.parse(event.data) as ChatCompletionsResponse;
-            const text = parsedData.choices
-              .map((choice) => {
-                if (choice.delta) {
-                  return choice.delta.content;
-                }
-                return '';
-              })
-              .join('');
-            setData((prev) => prev + text);
+            setData((prev) => prev + parsedData);
           },
           onclose() {
             setError('');

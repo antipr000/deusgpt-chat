@@ -4,16 +4,13 @@ import { trimText } from '../utils';
 import OpenAIClient from './index';
 
 export const fetchTranslation = async (params: {
-  token: string;
   engine: OpenAIModel;
   prompt: string;
   temperatureParam: number;
   queryText: string;
 }) => {
-  const { token, engine, prompt, queryText, temperatureParam } = params;
-  if (!token) {
-    throw new Error('No API Key found!');
-  }
+  console.log('Here fetch translation');
+  const { engine, prompt, queryText, temperatureParam } = params;
   if (!prompt) {
     throw new Error('No prompt found!');
   }
@@ -31,7 +28,6 @@ export const fetchTranslation = async (params: {
 
   if (isGptModel) {
     const resp = await OpenAIClient.chatCompletions(
-      token,
       prompt,
       queryText,
       engine as GPTModel,
@@ -44,7 +40,7 @@ export const fetchTranslation = async (params: {
     return trimText(text);
   }
 
-  const resp = await OpenAIClient.completions(token, prompt, queryText, engine, tmpParam);
+  const resp = await OpenAIClient.completions(prompt, queryText, engine, tmpParam);
   const text = resp.data.choices
     .map((choice) => choice.text.trim())
     .join('\n')

@@ -24,7 +24,7 @@ function TranslatorPage() {
   const [isClient, setIsClient] = useState(false);
 
   const {
-    configValues: { openaiApiKey, currentModel, temperatureParam },
+    configValues: { currentModel, temperatureParam },
     translator: {
       lastTranslateData,
       setLastTranslateData,
@@ -88,14 +88,12 @@ function TranslatorPage() {
   const handleTranslate = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-
-      if (!openaiApiKey) {
-        toast.error(t('Please enter your API Key in config page first!'));
-        return;
-      }
-
+      console.log('Hereee');
       const formData = new FormData(event.currentTarget);
-      const { translateText, fromLang, toLang } = Object.fromEntries(formData.entries());
+      let { translateText, fromLang, toLang } = Object.fromEntries(formData.entries());
+      fromLang = 'en-US';
+      toLang = 'bn';
+      console.log('Here 2', translateText, fromLang, toLang);
       if (!translateText || !fromLang || !toLang) {
         return;
       }
@@ -121,19 +119,19 @@ function TranslatorPage() {
         toLang: toLang as Language,
       }));
 
+      console.log('Here', currentModel, prompt, translateText, temperatureParam);
+
       mutateTranslateText({
         engine: currentModel,
         prompt,
         queryText: translateText as string,
         temperatureParam,
-        token: openaiApiKey,
       });
     },
     [
       currentModel,
       i18n.language,
       mutateTranslateText,
-      openaiApiKey,
       setLastTranslateData,
       setTranslateText,
       t,
@@ -260,6 +258,7 @@ function TranslatorPage() {
               type="primary"
               disabled={isTranslating}
               loading={isTranslating}
+              htmlType="submit"
             >
               {isTranslating ? t('Translating...') : t('Translate')}
             </AntButton>
@@ -273,6 +272,7 @@ function TranslatorPage() {
             style={{
               width: '150px',
             }}
+            htmlType="submit"
           >
             {isTranslating ? t('Translating...') : t('Translate')}
           </AntButton>

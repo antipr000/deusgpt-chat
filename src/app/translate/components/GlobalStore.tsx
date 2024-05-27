@@ -11,7 +11,6 @@ import {
 } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
-import { setApiBaseUrl } from '../client';
 import { fetchTranslation } from '../client/fetcher';
 import { useQueryApi } from '../hooks/useQueryApi';
 import { ConfigValues, HistoryRecord, LastTranslateData } from '../types';
@@ -37,8 +36,6 @@ type GlobalContextValue = {
 
 const GlobalContext = createContext<GlobalContextValue>({
   configValues: {
-    openaiApiUrl: 'https://api.openai.com',
-    openaiApiKey: '',
     streamEnabled: true,
     currentModel: 'gpt-3.5-turbo',
     temperatureParam: 0.7,
@@ -82,15 +79,11 @@ export function GlobalProvider(props: Props) {
     },
   );
   const [configValues, setConfigValues] = useLocalStorage<ConfigValues>('extra-config', {
-    openaiApiUrl: 'https://api.openai.com',
-    openaiApiKey: '',
     streamEnabled: true,
     currentModel: 'gpt-3.5-turbo',
     temperatureParam: 0.7,
   });
   const {
-    openaiApiUrl = 'https://api.openai.com',
-    openaiApiKey = '',
     streamEnabled = true,
     currentModel = 'gpt-3.5-turbo',
     temperatureParam = 0.7,
@@ -102,8 +95,6 @@ export function GlobalProvider(props: Props) {
     isLoading: isTranslating,
     isError: isTranslateError,
   } = useQueryApi(streamEnabled);
-
-  useEffect(() => setApiBaseUrl(configValues.openaiApiUrl), [configValues.openaiApiUrl]);
 
   useEffect(() => {
     if (!translatedText || isTranslating) {
@@ -126,7 +117,7 @@ export function GlobalProvider(props: Props) {
 
   const contextValue = useMemo(
     () => ({
-      configValues: { openaiApiUrl, openaiApiKey, streamEnabled, currentModel, temperatureParam },
+      configValues: { streamEnabled, currentModel, temperatureParam },
       setConfigValues,
       translator: {
         lastTranslateData,
@@ -144,8 +135,6 @@ export function GlobalProvider(props: Props) {
       },
     }),
     [
-      openaiApiUrl,
-      openaiApiKey,
       streamEnabled,
       currentModel,
       temperatureParam,

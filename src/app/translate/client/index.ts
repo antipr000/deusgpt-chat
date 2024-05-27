@@ -6,7 +6,6 @@ import { ChatCompletionsResponse, CompletionsResponse, GPTModel, OpenAIModel } f
 import apis from './apis';
 
 let baseUrl = apis.baseUrl;
-const { endpoints } = apis;
 
 const client = axios.create({ baseURL: baseUrl });
 
@@ -47,7 +46,6 @@ export function useAxios(config: AxiosRequestConfig) {
 }
 
 export async function completions(
-  token: string,
   prompt: string,
   query: string,
   model: Omit<OpenAIModel, GPTModel> = 'text-davinci-003',
@@ -57,13 +55,8 @@ export async function completions(
   frequencyPenalty = 1,
   presencePenalty = 1,
 ) {
-  const { url, headers } = endpoints.v1.completions;
-  const config = {
-    headers: {
-      ...headers,
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  const url = '/openai';
+  const config = {};
 
   const body = {
     prompt: `${prompt}:\n\n"${query}" =>`,
@@ -84,7 +77,6 @@ export async function completions(
 }
 
 export async function chatCompletions(
-  token: string,
   prompt: string,
   query: string,
   model: GPTModel = 'gpt-3.5-turbo',
@@ -94,13 +86,8 @@ export async function chatCompletions(
   frequencyPenalty = 1,
   presencePenalty = 1,
 ) {
-  const { url, headers } = endpoints.v1.chat.completions;
-  const config = {
-    headers: {
-      ...headers,
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  const url = '/openai';
+  const config = {};
 
   const body = {
     model,
@@ -125,7 +112,6 @@ export async function chatCompletions(
 
 export async function chatCompletionsStream(
   params: {
-    token: string;
     prompt: string;
     query: string;
     model?: GPTModel;
@@ -138,7 +124,6 @@ export async function chatCompletionsStream(
   options: FetchEventSourceInit,
 ) {
   const {
-    token,
     prompt,
     query,
     model = 'gpt-3.5-turbo',
@@ -148,7 +133,7 @@ export async function chatCompletionsStream(
     frequencyPenalty = 1,
     presencePenalty = 1,
   } = params;
-  const { url, headers } = endpoints.v1.chat.completions;
+  const url = '/openai';
 
   const body = {
     model,
@@ -171,8 +156,8 @@ export async function chatCompletionsStream(
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      ...headers,
-      Authorization: `Bearer ${token}`,
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
     },
     openWhenHidden: true,
     ...options,

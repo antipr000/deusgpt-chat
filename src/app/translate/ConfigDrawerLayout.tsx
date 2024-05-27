@@ -19,6 +19,7 @@ function ConfigDrawerLayout(props: Props) {
         className="drawer-toggle"
         id="history-record-drawer"
         type="checkbox"
+        readOnly
         checked={showSidebar}
       />
       <div className="drawer-content w-full bg-base-100">{children}</div>

@@ -1,4 +1,4 @@
-import type { GPTModel, OpenAIModel } from '@/constants';
+import type { GPTModel, OpenAIModel } from '@/app/translate/constants';
 
 export type { GPTModel, OpenAIModel };
 
@@ -58,8 +58,6 @@ export type LastTranslateData = {
 };
 
 export type ConfigValues = {
-  openaiApiUrl: string;
-  openaiApiKey: string;
   streamEnabled: boolean;
   currentModel: OpenAIModel;
   temperatureParam: number;
