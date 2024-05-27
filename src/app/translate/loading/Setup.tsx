@@ -4,9 +4,7 @@ import { useAtom, useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { memo, useEffect } from 'react';
 
-import {
-  getAllAdminIntegrations,
-} from '@/helpers/api';
+import { getAllAdminIntegrations, getAllIntegrations } from '@/helpers/api';
 import { handleEvent, postMessageToParent } from '@/helpers/iframe.notification';
 // import { messageService } from '@/services/message';
 // import { sessionService } from '@/services/session';
@@ -35,7 +33,7 @@ const Setup = memo(() => {
   }, []);
 
   const loadAllData = async () => {
-    const promiseArr = [getAllAdminIntegrations()];
+    const promiseArr = [getAllIntegrations()];
 
     const [integrations] = await Promise.all<[Integration[]]>(
       // @ts-ignore
@@ -48,7 +46,7 @@ const Setup = memo(() => {
     console.log('Inside iframe', idToken, user);
     if (idToken && user) {
       loadAllData().then(() => {
-        router.push('/admin/models');
+        router.push('/translate/translate');
       });
     }
   }, [idToken, user]);

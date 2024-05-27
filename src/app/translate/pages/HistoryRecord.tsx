@@ -147,7 +147,7 @@ function HistoryRecord() {
                   {record.text}
                   <TTSButton
                     className="ml-1"
-                    language={record.fromLanguage === 'auto' ? i18n.language : record.fromLanguage}
+                    language={record.fromLanguage === 'auto' ? 'en-US' : record.fromLanguage}
                     size="xs"
                     text={record.text}
                   />
@@ -158,7 +158,7 @@ function HistoryRecord() {
                   {record.translation}
                   <TTSButton
                     className="ml-1"
-                    language={record.toLanguage === 'auto' ? i18n.language : record.toLanguage}
+                    language={record.toLanguage === 'auto' ? 'en-US' : record.toLanguage}
                     size="xs"
                     text={record.translation}
                   />

@@ -1,11 +1,16 @@
 'use client';
 
 import { Select } from 'antd';
-import React, { useCallback, useState } from 'react';
-import { Button, Toggle } from 'react-daisyui';
+import { Button } from 'antd';
+import { useAtom, useAtomValue } from 'jotai';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Toggle } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FaTimes } from 'react-icons/fa';
+
+import { integrationsAtom } from '@/store/atoms/integrations.atom';
+import { translateSidebarAtom } from '@/store/atoms/translate.sidebar.atom';
 
 import { useGlobalStore } from '../components/GlobalStore';
 import { OPENAI_MODELS_TITLES } from '../constants';
@@ -13,10 +18,19 @@ import { OpenAIModel } from '../types';
 
 function ConfigPage() {
   const { t } = useTranslation('translate');
+  const [_, setShowSidebar] = useAtom(translateSidebarAtom);
   const {
     configValues: { streamEnabled, currentModel, temperatureParam },
     setConfigValues,
   } = useGlobalStore();
+
+  const integrations = useAtomValue(integrationsAtom);
+
+  const models: string[] = useMemo(() => {
+    return (
+      integrations?.flatMap((integration) => integration.models.map((model) => model.name)) || []
+    );
+  }, [integrations]);
 
   const [selectedModel, setSelectedModel] = useState<OpenAIModel>(currentModel as OpenAIModel);
 
@@ -24,30 +38,19 @@ function ConfigPage() {
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
-      const { openaiApiUrl, openaiApiKey, streamEnabled, temperatureParam } = Object.fromEntries(
-        formData.entries(),
-      );
-      if (!openaiApiUrl) {
-        toast.error(t('Please enter API Url.'));
-        return;
-      }
-      if (!openaiApiKey) {
-        toast.error(t('Please enter your API Key.'));
-        return;
-      }
+      const { streamEnabled, temperatureParam } = Object.fromEntries(formData.entries());
       if (!selectedModel) {
         toast.error(t('Please select a model.'));
         return;
       }
       setConfigValues((prev) => ({
         ...prev,
-        currentModel: selectedModel as OpenAIModel,
-        openaiApiKey: `${openaiApiKey}`,
-        openaiApiUrl: `${openaiApiUrl}`,
+        currentModel: selectedModel,
         streamEnabled: streamEnabled === 'on',
         temperatureParam: +temperatureParam,
       }));
       toast.success(t('Config Saved!'));
+      setShowSidebar(false);
     },
     [setConfigValues, t],
   );
@@ -60,6 +63,7 @@ function ConfigPage() {
           className="drawer-button btn btn-primary btn-ghost btn-circle white-text"
           htmlFor="history-record-drawer"
           title={t('Close')}
+          onClick={() => setShowSidebar((prevState) => !prevState)}
         >
           <FaTimes size={20} />
         </label>
@@ -80,8 +84,8 @@ function ConfigPage() {
             className="w-full white-text h-[55px]"
             defaultValue={currentModel}
             onChange={(value) => setSelectedModel(value as OpenAIModel)}
-            options={Object.entries(OPENAI_MODELS_TITLES).map(([value, label]) => ({
-              label,
+            options={models.map((value) => ({
+              label: value,
               value,
             }))}
             title="Selected Model"
@@ -112,8 +116,8 @@ function ConfigPage() {
             <span>1.0</span>
           </div>
         </div>
-        <div className="form-control">
-          <Button color="primary" type="submit">
+        <div className="form-control w-100 flex justify-center">
+          <Button type="primary" style={{ width: '150px', alignSelf: 'center' }} htmlType="submit">
             {t('Save')}
           </Button>
         </div>

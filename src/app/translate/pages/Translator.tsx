@@ -2,6 +2,7 @@
 
 import { TextArea } from '@lobehub/ui';
 import { Select } from 'antd';
+import { Button as AntButton } from 'antd';
 import clsx from 'clsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from 'react-daisyui';
@@ -233,9 +234,7 @@ function TranslatorPage() {
                     <TTSButton
                       className="white-text"
                       language={
-                        lastTranslateData.fromLang === 'auto'
-                          ? i18n.language
-                          : lastTranslateData.fromLang
+                        lastTranslateData.fromLang === 'auto' ? 'en-US' : lastTranslateData.fromLang
                       }
                       text={translateText}
                     />
@@ -256,27 +255,27 @@ function TranslatorPage() {
                 )}
               </div>
             </div>
-            <Button
+            <AntButton
               className="md:hidden"
-              color="primary"
+              type="primary"
               disabled={isTranslating}
               loading={isTranslating}
-              type="submit"
             >
               {isTranslating ? t('Translating...') : t('Translate')}
-            </Button>
+            </AntButton>
           </div>
         </div>
         <div className="p-4 pb-14 m-0 form-control">
-          <Button
-            className="hidden mb-4 md:inline-flex"
-            color="primary"
+          <AntButton
+            type="primary"
             disabled={isTranslating}
             loading={isTranslating}
-            type="submit"
+            style={{
+              width: '150px',
+            }}
           >
             {isTranslating ? t('Translating...') : t('Translate')}
-          </Button>
+          </AntButton>
           <div className="relative">
             <TextArea
               className={clsx(
@@ -295,7 +294,7 @@ function TranslatorPage() {
               {!!translatedText && (
                 <TTSButton
                   language={
-                    lastTranslateData.toLang === 'auto' ? i18n.language : lastTranslateData.toLang
+                    lastTranslateData.toLang === 'auto' ? 'en-US' : lastTranslateData.toLang
                   }
                   text={translatedText || ''}
                 />

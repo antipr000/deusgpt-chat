@@ -1,9 +1,15 @@
 import React from 'react';
 
-import TranslatorPageComponent from './pages/Translator';
+import Loading from './loading/Client';
+import Setup from './loading/Setup';
 
-const TranslatePage = () => {
-  return <TranslatorPageComponent />;
+const HomePage = () => {
+  return (
+    <>
+      <Loading />
+      <Setup />
+    </>
+  );
 };
 
-export default TranslatePage;
+export default HomePage;
