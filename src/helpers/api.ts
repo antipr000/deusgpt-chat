@@ -8,7 +8,7 @@ import { Payment, PaymentWithUser } from '@/types/common/Payment.type';
 import { User } from '@/types/common/User.type';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3010/api',
+  baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/api`,
 });
 
 instance.interceptors.request.use((config) => {

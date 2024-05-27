@@ -1,3 +1,3 @@
 export default {
-  baseUrl: 'http://localhost:3010/api/chat',
+  baseUrl: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chat`,
 };
