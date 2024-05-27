@@ -37,6 +37,8 @@ function TranslatorPage() {
     },
   } = useGlobalStore();
 
+  const [toTranslateText, setToTranslateText] = useState('');
+
   useEffect(() => {
     if (!isTranslateError) {
       return;
@@ -88,17 +90,14 @@ function TranslatorPage() {
   const handleTranslate = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      console.log('Hereee');
-      const formData = new FormData(event.currentTarget);
-      let { translateText, fromLang, toLang } = Object.fromEntries(formData.entries());
-      fromLang = 'en-US';
-      toLang = 'bn';
-      console.log('Here 2', translateText, fromLang, toLang);
-      if (!translateText || !fromLang || !toLang) {
+      const { fromLang, toLang } = lastTranslateData;
+      console.log('Here 2', toTranslateText, fromLang, toLang);
+      if (!toTranslateText || !fromLang || !toLang) {
+        toast.error('From and to languages are mandatory!');
         return;
       }
 
-      setTranslateText(translateText as string);
+      setToTranslateText(toTranslateText);
 
       let prompt: string;
 
@@ -119,12 +118,10 @@ function TranslatorPage() {
         toLang: toLang as Language,
       }));
 
-      console.log('Here', currentModel, prompt, translateText, temperatureParam);
-
       mutateTranslateText({
         engine: currentModel,
         prompt,
-        queryText: translateText as string,
+        queryText: toTranslateText as string,
         temperatureParam,
       });
     },
@@ -134,6 +131,7 @@ function TranslatorPage() {
       mutateTranslateText,
       setLastTranslateData,
       setTranslateText,
+      toTranslateText,
       t,
       temperatureParam,
     ],
@@ -211,11 +209,11 @@ function TranslatorPage() {
                 rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-10 white-text"
                 disabled={isTranslating}
                 name="translateText"
-                onChange={(e) => setTranslateText(e.target.value)}
+                onChange={(e) => setToTranslateText(e.target.value)}
                 placeholder={t('Please enter the text you want to translate here.')}
                 ref={translateTextAreaRef}
                 required
-                value={translateText}
+                value={toTranslateText}
               />
               <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
                 <div className="flex flex-row justify-start gap-2">

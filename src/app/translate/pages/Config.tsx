@@ -57,7 +57,7 @@ function ConfigPage() {
         ...prev,
         currentModel: selectedModel,
         streamEnabled: isStreamEnabled,
-        temperatureParam: +tempParam,
+        temperatureParam: tempParam,
       }));
       message.success(t('Config Saved!'));
     },

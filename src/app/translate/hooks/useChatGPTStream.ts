@@ -34,8 +34,8 @@ export function useChatGPTStream() {
       }
 
       const tmpParam =
-        +temperatureParam > 0.4 && +temperatureParam <= 1.0
-          ? +temperatureParam
+        temperatureParam > 0.4 && temperatureParam <= 1.0
+          ? temperatureParam
           : getRadomNumber(0.5, 1.0);
 
       const isGptModel = GPT_MODELS.includes(engine as GPTModel);
@@ -63,12 +63,12 @@ export function useChatGPTStream() {
             }
           },
           onmessage(event) {
-            if (event.data === 'stop') {
+            const parsedData = JSON.parse(event.data) as string;
+            if (parsedData === 'stop') {
               setError('');
               setLoading(false);
               return;
             }
-            const parsedData = JSON.parse(event.data) as ChatCompletionsResponse;
             setData((prev) => prev + parsedData);
           },
           onclose() {

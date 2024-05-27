@@ -152,17 +152,20 @@ export async function chatCompletionsStream(
       { role: 'user', content: `"${query}"` },
     ],
   };
-  const response = await fetchEventSource(baseUrl + url, {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-    },
-    openWhenHidden: true,
-    ...options,
-  });
-  return response;
+
+  console.log(body);
+
+  // const response = await fetchEventSource(baseUrl + url, {
+  //   method: 'POST',
+  //   body: JSON.stringify(body),
+  //   headers: {
+  //     'Content-Type': 'text/event-stream',
+  //     'Cache-Control': 'no-cache',
+  //   },
+  //   openWhenHidden: true,
+  //   ...options,
+  // });
+  // return response;
 }
 
 export default {
