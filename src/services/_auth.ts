@@ -1,5 +1,7 @@
 import { JWTPayload, LOBE_CHAT_AUTH_HEADER } from '@/const/auth';
 import { ModelProvider } from '@/libs/agent-runtime';
+import { store } from '@/store/atoms/store.atom';
+import { idTokenAtom } from '@/store/atoms/token.atom';
 import { useUserStore } from '@/store/user';
 import { modelConfigSelectors, settingsSelectors } from '@/store/user/selectors';
 import { createJWT } from '@/utils/jwt';
@@ -56,15 +58,10 @@ interface AuthParams {
 }
 
 // eslint-disable-next-line no-undef
-export const createHeaderWithAuth = async (params?: AuthParams): Promise<HeadersInit> => {
+export const createHeaderWithAuth = (params?: AuthParams): HeadersInit => {
   let payload = params?.payload || {};
-
-  if (params?.provider) {
-    payload = { ...payload, ...getProviderAuthPayload(params?.provider) };
-  }
-
-  const token = await createAuthTokenWithPayload(payload);
+  const idToken = store.get(idTokenAtom);
 
   // eslint-disable-next-line no-undef
-  return { ...params?.headers, [LOBE_CHAT_AUTH_HEADER]: token };
+  return { ...params?.headers, [LOBE_CHAT_AUTH_HEADER]: idToken!! };
 };

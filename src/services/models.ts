@@ -8,7 +8,7 @@ import { initializeWithClientStore } from './chat';
 
 class ModelsService {
   getChatModels = async (provider: string): Promise<ChatModelCard[] | undefined> => {
-    const headers = await createHeaderWithAuth({
+    const headers = createHeaderWithAuth({
       headers: { 'Content-Type': 'application/json' },
       provider,
     });

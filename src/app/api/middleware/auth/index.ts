@@ -1,6 +1,6 @@
 import { AuthObject } from '@clerk/backend/internal';
 import { getAuth } from '@clerk/nextjs/server';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 import { createErrorResponse } from '@/app/api/errorResponse';
 import { JWTPayload, LOBE_CHAT_AUTH_HEADER, OAUTH_AUTHORIZED, enableClerk } from '@/const/auth';
@@ -9,6 +9,7 @@ import { Integration } from '@/types/common/Integration.type';
 import { ChatErrorType } from '@/types/fetch';
 
 import IntegrationRepository from '../../db/repositories/integration.repository';
+import { getUidFromIdToken } from '../../firebase/utils';
 import { checkAuthMethod, getJWTPayload } from './utils';
 
 type RequestOptions = { params: { provider: string } };
@@ -54,6 +55,11 @@ export const checkAuth =
     //   return createErrorResponse(errorType, { error, ...res, provider: options.params?.provider });
     // }
     // Check auth first
+    const idToken = req.headers.get(LOBE_CHAT_AUTH_HEADER);
+    const uid = await getUidFromIdToken(idToken!!);
+    if (!uid) {
+      return NextResponse.json({}, { status: 401 });
+    }
     const { provider } = options.params;
     const integrationRepository = new IntegrationRepository();
     const secrets: Integration = await integrationRepository.getIntegrationByName(provider);

@@ -289,7 +289,7 @@ class ChatService {
 
     const traceHeader = createTraceHeader({ ...options?.trace });
 
-    const headers = await createHeaderWithAuth({
+    const headers = createHeaderWithAuth({
       headers: { 'Content-Type': 'application/json', ...traceHeader },
       provider,
     });
@@ -320,7 +320,7 @@ class ChatService {
 
     const traceHeader = createTraceHeader(this.mapTrace(options?.trace, TraceTagMap.ToolCalling));
 
-    const headers = await createHeaderWithAuth({
+    const headers = createHeaderWithAuth({
       headers: { ...createHeadersWithPluginSettings(settings), ...traceHeader },
     });
 

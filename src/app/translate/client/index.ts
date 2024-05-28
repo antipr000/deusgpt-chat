@@ -2,12 +2,25 @@ import { FetchEventSourceInit, fetchEventSource } from '@microsoft/fetch-event-s
 import axios, { AxiosRequestConfig } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
+import { LOBE_CHAT_AUTH_HEADER } from '@/const/auth';
+import { integrationsAtom } from '@/store/atoms/integrations.atom';
+import { store } from '@/store/atoms/store.atom';
+import { idTokenAtom } from '@/store/atoms/token.atom';
+
 import { ChatCompletionsResponse, CompletionsResponse, GPTModel, OpenAIModel } from '../types';
 import apis from './apis';
 
 let baseUrl = apis.baseUrl;
 
 const client = axios.create({ baseURL: baseUrl });
+
+client.interceptors.request.use((config) => {
+  const idToken = store.get(idTokenAtom);
+  if (idToken) {
+    config.headers[LOBE_CHAT_AUTH_HEADER] = idToken;
+  }
+  return config;
+});
 
 export function setApiBaseUrl(url: string) {
   client.defaults.baseURL = url;
@@ -45,6 +58,13 @@ export function useAxios(config: AxiosRequestConfig) {
   return { data, error, loaded, cancel };
 }
 
+const getProviderName = (modelName: string) => {
+  const integrations = store.get(integrationsAtom);
+  return integrations?.find((integration) =>
+    integration.models.find((model) => model.name === modelName),
+  )?.name;
+};
+
 export async function completions(
   prompt: string,
   query: string,
@@ -55,7 +75,13 @@ export async function completions(
   frequencyPenalty = 1,
   presencePenalty = 1,
 ) {
-  const url = '/openai';
+  const providerName: string | undefined = getProviderName(model as string);
+
+  if (!providerName) {
+    throw Error('Model is not valid: ' + model);
+  }
+
+  const url = `/${providerName}`;
   const config = {};
 
   const body = {
@@ -153,12 +179,15 @@ export async function chatCompletionsStream(
     ],
   };
 
+  const idToken: string | null = store.get(idTokenAtom);
+
   const response = await fetchEventSource(baseUrl + url, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
+      [LOBE_CHAT_AUTH_HEADER]: idToken!!,
     },
     openWhenHidden: true,
     ...options,

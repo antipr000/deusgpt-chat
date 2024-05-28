@@ -12,7 +12,7 @@ class ImageGenerationService {
   async generateImage(params: Omit<OpenAIImagePayload, 'model' | 'n'>, options?: FetchOptions) {
     const payload: OpenAIImagePayload = { ...params, model: 'dall-e-3', n: 1 };
 
-    const headers = await createHeaderWithAuth({
+    const headers = createHeaderWithAuth({
       headers: { 'Content-Type': 'application/json' },
       provider: ModelProvider.OpenAI,
     });

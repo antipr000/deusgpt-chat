@@ -7,7 +7,7 @@ import { createHeaderWithAuth } from '@/services/_auth';
 export const edgeClient = createTRPCClient<EdgeRouter>({
   links: [
     httpBatchLink({
-      headers: async () => createHeaderWithAuth(),
+      headers: () => createHeaderWithAuth(),
       transformer: superjson,
       url: '/trpc/edge',
     }),
