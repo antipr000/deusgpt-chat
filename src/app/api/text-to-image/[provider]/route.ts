@@ -9,7 +9,6 @@ import { ChatErrorType } from '@/types/fetch';
 import { initAgentRuntimeWithUserPayload } from '../../chat/agentRuntime';
 import { checkAuth } from '../../middleware/auth';
 
-export const runtime = 'edge';
 
 export const preferredRegion = getPreferredRegion();
 

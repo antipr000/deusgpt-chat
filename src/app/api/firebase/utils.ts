@@ -1,18 +1,14 @@
-import * as admin from 'firebase-admin';
-import { App, getApps } from 'firebase-admin/app';
+import axios from 'axios';
 
-import { serviceAccount } from '../../../../firebase-admin.config';
-
-const firebase_admin: admin.app.App =
-  getApps().length === 0
-    ? admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-      })
-    : (getApps()[0] as admin.app.App);
 
 async function getUidFromIdToken(idToken: string) {
-  const decodedToken = await firebase_admin.auth().verifyIdToken(idToken);
-  return decodedToken.uid;
+  const { data } = await axios.post(process.env.AUTH_SERVER_URL!!, {
+    idToken
+  });
+
+  return data.uid;
 }
 
-export { firebase_admin, getUidFromIdToken };
+
+
+export { getUidFromIdToken };

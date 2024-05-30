@@ -2,7 +2,7 @@ import { DEFAULT_LANG } from '@/const/locale';
 
 import { PluginStore } from './Store';
 
-export const runtime = 'edge';
+
 
 export const GET = async (req: Request) => {
   const locale = new URL(req.url).searchParams.get('locale');
