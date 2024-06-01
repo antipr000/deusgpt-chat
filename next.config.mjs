@@ -1,4 +1,4 @@
-import nextPWA from '@ducanh2912/next-pwa';
+// import nextPWA from '@ducanh2912/next-pwa';
 import analyzer from '@next/bundle-analyzer';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -73,14 +73,14 @@ const noWrapper = (config) => config;
 
 const withBundleAnalyzer = process.env.ANALYZE === 'true' ? analyzer() : noWrapper;
 
-const withPWA = isProd
-  ? nextPWA({
-      dest: 'public',
-      register: true,
-      workboxOptions: {
-        skipWaiting: true,
-      },
-    })
-  : noWrapper;
+// const withPWA = isProd
+//   ? nextPWA({
+//       dest: 'public',
+//       register: true,
+//       workboxOptions: {
+//         skipWaiting: true,
+//       },
+//     })
+//   : noWrapper;
 
-export default withBundleAnalyzer(withPWA(nextConfig));
+export default withBundleAnalyzer(nextConfig);
