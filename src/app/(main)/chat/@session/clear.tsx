@@ -3,14 +3,17 @@
 import { App, Button } from 'antd';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/navigation'
 
 import { useChatStore } from '@/store/chat';
 import { useFileStore } from '@/store/file';
 import { useSessionStore } from '@/store/session';
 import { useToolStore } from '@/store/tool';
+import { deleteChatSessions } from '@/helpers/api';
 
 const Clear = () => {
   const { t } = useTranslation('setting');
+  const router = useRouter();
 
   const [clearSessions, clearSessionGroups] = useSessionStore((s) => [
     s.clearSessions,
@@ -36,6 +39,8 @@ const Clear = () => {
         await removeAllFiles();
         await clearAllMessages();
         await clearSessionGroups();
+        await deleteChatSessions();
+        router.replace('/chat');
 
         message.success(t('danger.clear.success'));
       },

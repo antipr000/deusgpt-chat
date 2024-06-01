@@ -6,6 +6,7 @@ import { ChatSession } from '@/types/common/ChatSession.type';
 import { Integration } from '@/types/common/Integration.type';
 import { Payment, PaymentWithUser } from '@/types/common/Payment.type';
 import { User } from '@/types/common/User.type';
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 
 const instance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/api`,
@@ -55,6 +56,12 @@ const updateChatSession = async (
 
 const deleteChatSession = async (sessionId: string): Promise<ChatSession[]> => {
   const { data } = await instance.delete(`/chat-session/${sessionId}`);
+  return data;
+};
+
+const deleteChatSessions = async (): Promise<boolean> => {
+  const { data } = await instance.delete<boolean>(`/chat-session`);
+  store.set(chatSessionsAtom, () => []);
   return data;
 };
 
@@ -132,6 +139,7 @@ export {
   addUsage,
   createChatSession,
   deleteChatSession,
+  deleteChatSessions,
   getAllChatSessions,
   getAllIntegrations,
   getAllUsers,

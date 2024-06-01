@@ -52,7 +52,7 @@ const Actions = memo<ActionProps>(({ id, setOpen, onRenameChatSessionOpen }) => 
       {
         icon: <Icon icon={PencilLine} />,
         key: 'pin',
-        label: t('rename'),
+        label: t('sessionGroup.rename'),
         onClick: () => {
           onRenameChatSessionOpen()
         },

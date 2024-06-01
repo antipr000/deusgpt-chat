@@ -1,16 +1,16 @@
-import { AuthObject } from '@clerk/backend/internal';
-import { getAuth } from '@clerk/nextjs/server';
-import { NextRequest, NextResponse } from 'next/server';
+// import { AuthObject } from '@clerk/backend/internal';
+// import { getAuth } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
 
-import { createErrorResponse } from '@/app/api/errorResponse';
-import { JWTPayload, LOBE_CHAT_AUTH_HEADER, OAUTH_AUTHORIZED, enableClerk } from '@/const/auth';
-import { AgentRuntimeError, ChatCompletionErrorPayload } from '@/libs/agent-runtime';
+// import { createErrorResponse } from '@/app/api/errorResponse';
+import { JWTPayload, LOBE_CHAT_AUTH_HEADER, } from '@/const/auth';
+// import { AgentRuntimeError, ChatCompletionErrorPayload } from '@/libs/agent-runtime';
 import { Integration } from '@/types/common/Integration.type';
-import { ChatErrorType } from '@/types/fetch';
+// import { ChatErrorType } from '@/types/fetch';
 
 import IntegrationRepository from '../../db/repositories/integration.repository';
 import { getUidFromIdToken } from '../../firebase/utils';
-import { checkAuthMethod, getJWTPayload } from './utils';
+// import { checkAuthMethod, getJWTPayload } from './utils';
 
 type RequestOptions = { params: { provider: string } };
 

@@ -32,6 +32,12 @@ class ChatRepository {
     const chatSession = await chatSessionModel.findOneAndDelete({ sessionId });
     return chatSession;
   }
+
+  async deleteChatSessions(firebaseId: string): Promise<boolean> {
+    const chatSessionModel = await this.dbProvider.getChatSessionModel();
+    await chatSessionModel.deleteMany({ firebaseId });
+    return true;
+  }
 }
 
 export default ChatRepository;

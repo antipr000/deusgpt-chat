@@ -37,7 +37,7 @@ const Header = memo(() => {
     <Flexbox className={styles.top} gap={16} padding={16}>
       <Flexbox distribution={'space-between'} horizontal>
         <Flexbox align={'center'} gap={4} horizontal>
-          <img src="logo.png" width={50} height={50} />
+          <img alt="logo" src="logo.png" width={50} height={50} />
           <div style={{ fontSize: '24px', fontWeight: 'bold' }}>DeusGPT</div>
         </Flexbox>
         {showCreateSession && (
@@ -47,7 +47,7 @@ const Header = memo(() => {
             onClick={() => mutate()}
             size={DESKTOP_HEADER_ICON_SIZE}
             style={{ flex: 'none' }}
-            title={t('newChat')}
+            title={t('sessionGroup.newGroup')}
           />
         )}
       </Flexbox>

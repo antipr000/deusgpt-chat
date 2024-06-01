@@ -19,7 +19,7 @@ const AddButton = memo<{ groupId?: string }>(({ groupId }) => {
   return (
     <Flexbox style={{ margin: '12px 16px' }}>
       <Button block icon={<Icon icon={Plus} />} loading={isValidating} onClick={() => mutate()}>
-        {t('newChat')}
+        {t('sessionGroup.newGroup')}
       </Button>
     </Flexbox>
   );

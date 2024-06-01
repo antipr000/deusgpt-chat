@@ -35,3 +35,17 @@ export async function POST(request: NextRequest) {
   const session = await chatRepository.createChatSession(body);
   return NextResponse.json(session);
 }
+
+export async function DELETE() {
+  const headerList = headers();
+  const idToken: string | null = headerList.get('authorization');
+
+  if (!idToken) {
+    return NextResponse.json({}, { status: 401 });
+  }
+  const firebaseId = await getUidFromIdToken(idToken);
+
+  const chatRepository = new ChatRepository();
+  const session = await chatRepository.deleteChatSessions(firebaseId);
+  return NextResponse.json(session);
+}
