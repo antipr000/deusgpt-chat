@@ -12,6 +12,12 @@ export default {
       title: '已加入的使用者',
       today: '今天',
     },
+    usersSubscribed: {
+      thisMonth: '過去30天',
+      thisWeek: '過去 7 天',
+      title: '已加入的使用者',
+      today: '今天',
+    },
   },
   sidebar: {
     dashboard: '擋泥板',

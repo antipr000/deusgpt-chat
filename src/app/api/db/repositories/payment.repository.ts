@@ -61,6 +61,17 @@ class PaymentRepository {
     const paymentData = await paymentModel.findOneAndUpdate({ sessionId }, payment, { new: true });
     return paymentData;
   }
+
+  async getSubscribedUsersForDateRange(startDate: Date, endDate?: Date): Promise<number> {
+    const paymentModel = await this.dbProvider.getPaymentModel();
+    const data = await paymentModel.find({
+      completedAt: {
+        $gte: startDate,
+        $lte: endDate || new Date(),
+      },
+    });
+    return data.length;
+  }
 }
 
 export default PaymentRepository;

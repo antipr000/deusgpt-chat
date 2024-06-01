@@ -12,6 +12,12 @@
       "thisWeek": "Last 7 days",
       "title": "Users Joined",
       "today": "Today"
+    },
+    "usersSubscribed": {
+      "thisMonth": "Last 30 days",
+      "thisWeek": "Last 7 days",
+      "title": "Users Subscribed",
+      "today": "Today"
     }
   },
   "sidebar": {

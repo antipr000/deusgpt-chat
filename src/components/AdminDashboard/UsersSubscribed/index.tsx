@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
 
 import SkeletonLoading from '@/components/SkeletonLoading';
-import { getCountOfUsersInDateRange } from '@/helpers/api';
+import { getCountOfSubscribedUsersInDateRange } from '@/helpers/api';
 
 const useStyles = createStyles(({ css }) => ({
   paragraph: css`
@@ -25,12 +25,12 @@ const dateBeforeThirtyDays = new Date();
 dateBeforeThirtyDays.setDate(dateBeforeThirtyDays.getDate() - 30);
 
 const promiseArr = [
-  getCountOfUsersInDateRange(startOfToady),
-  getCountOfUsersInDateRange(dateBeforeSevenDays),
-  getCountOfUsersInDateRange(dateBeforeThirtyDays),
+  getCountOfSubscribedUsersInDateRange(startOfToady),
+  getCountOfSubscribedUsersInDateRange(dateBeforeSevenDays),
+  getCountOfSubscribedUsersInDateRange(dateBeforeThirtyDays),
 ];
 
-const UsersJoined = () => {
+const UsersSubscribed = () => {
   const { t } = useTranslation('admin');
   const { styles } = useStyles();
 
@@ -49,11 +49,11 @@ const UsersJoined = () => {
 
   return (
     <Flexbox style={{ width: '100%' }}>
-      <h1 style={{ fontSize: '30px', fontWeight: 'bold' }}>{t('dashboard.users.title')}</h1>
+      <h1 style={{ fontSize: '30px', fontWeight: 'bold' }}>{t('dashboard.usersSubscribed.title')}</h1>
 
       <Row gutter={30} style={{ marginTop: '25px' }}>
         <Col span={5}>
-          <Card title={t('dashboard.users.today')}>
+          <Card title={t('dashboard.usersSubscribed.today')}>
             {loading ? (
               <SkeletonLoading className={styles.paragraph} paragraph={{ rows: 1 }} title={false} />
             ) : (
@@ -62,7 +62,7 @@ const UsersJoined = () => {
           </Card>
         </Col>
         <Col span={5}>
-          <Card title={t('dashboard.users.thisWeek')}>
+          <Card title={t('dashboard.usersSubscribed.thisWeek')}>
             {loading ? (
               <SkeletonLoading className={styles.paragraph} paragraph={{ rows: 1 }} title={false} />
             ) : (
@@ -71,7 +71,7 @@ const UsersJoined = () => {
           </Card>
         </Col>
         <Col span={5}>
-          <Card title={t('dashboard.users.thisMonth')}>
+          <Card title={t('dashboard.usersSubscribed.thisMonth')}>
             {loading ? (
               <SkeletonLoading className={styles.paragraph} paragraph={{ rows: 1 }} title={false} />
             ) : (
@@ -84,4 +84,4 @@ const UsersJoined = () => {
   );
 };
 
-export default UsersJoined;
+export default UsersSubscribed;

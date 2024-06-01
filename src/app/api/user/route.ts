@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import UserRepository from '../db/repositories/user.repository';
 import { getUidFromIdToken } from '../firebase/utils';
+import PaymentRepository from '../db/repositories/payment.repository';
 
 export async function PATCH(request: NextRequest) {
   const headerList = headers();
@@ -28,8 +29,15 @@ export async function GET(request: NextRequest) {
   await getUidFromIdToken(idToken);
   const startDate = request.nextUrl.searchParams.get('startDate') as string;
   const endDate = request.nextUrl.searchParams.get('endDate') || '';
+  const subscribed = request.nextUrl.searchParams.get('subscribed') || '';
 
+  const paymentRepository = new PaymentRepository();
   const userRepository = new UserRepository();
+
+  if (subscribed) {
+    const users = await paymentRepository.getSubscribedUsersForDateRange(new Date(startDate), new Date(endDate));
+    return NextResponse.json(users);
+  }
 
   if (startDate) {
     const users = await userRepository.getUsersForDateRange(new Date(startDate), new Date(endDate));

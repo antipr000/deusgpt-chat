@@ -116,6 +116,13 @@ const getCountOfUsersInDateRange = async (startDate: Date, endDate?: Date): Prom
   return data;
 };
 
+const getCountOfSubscribedUsersInDateRange = async (startDate: Date, endDate?: Date): Promise<number> => {
+  const { data } = await instance.get<number>(
+    `/user?subscribed=true&startDate=${startDate.toISOString()}&endDate=${(endDate || new Date()).toISOString()}`,
+  );
+  return data;
+};
+
 const getAllPayments = async (): Promise<PaymentWithUser[]> => {
   const { data } = await instance.get('/payment');
   return data;
@@ -144,6 +151,7 @@ export {
   getAllIntegrations,
   getAllUsers,
   getCountOfUsersInDateRange,
+  getCountOfSubscribedUsersInDateRange,
   getUsage,
   getUsageForDateRange,
   updateChatSession,
