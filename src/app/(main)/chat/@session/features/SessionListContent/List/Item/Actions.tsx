@@ -1,17 +1,17 @@
 import { ActionIcon, Icon } from '@lobehub/ui';
 import { App, Dropdown, type MenuProps } from 'antd';
 import { createStyles } from 'antd-style';
+import { useAtom } from 'jotai';
 import { MoreVertical, PencilLine, Trash } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { deleteChatSession } from '@/helpers/api';
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 import { useSessionStore } from '@/store/session';
 import { sessionHelpers } from '@/store/session/helpers';
 import { sessionSelectors } from '@/store/session/selectors';
-import { deleteChatSession } from '@/helpers/api';
-import { useAtom } from 'jotai';
-import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 
 const useStyles = createStyles(({ css }) => ({
   modalRoot: css`
@@ -30,7 +30,8 @@ const Actions = memo<ActionProps>(({ id, setOpen, onRenameChatSessionOpen }) => 
   const { styles } = useStyles();
   const { t } = useTranslation('chat');
   const router = useRouter();
-  const [chatSessions, setChatSessions] = useAtom(chatSessionsAtom)
+  const [chatSessions, setChatSessions] = useAtom(chatSessionsAtom);
+  const sessionId = useSearchParams().get('session');
 
   const [pin, removeSession] = useSessionStore((s) => {
     const session = sessionSelectors.getSessionById(id)(s);
@@ -54,7 +55,7 @@ const Actions = memo<ActionProps>(({ id, setOpen, onRenameChatSessionOpen }) => 
         key: 'pin',
         label: t('sessionGroup.rename'),
         onClick: () => {
-          onRenameChatSessionOpen()
+          onRenameChatSessionOpen();
         },
       },
       {
@@ -75,7 +76,9 @@ const Actions = memo<ActionProps>(({ id, setOpen, onRenameChatSessionOpen }) => 
               await removeSession(id);
               const sessions = chatSessions.filter((session) => session.sessionId !== id);
               setChatSessions(sessions);
-              router.replace('/chat');
+              if (sessionId === id) {
+                router.replace('/chat');
+              }
               message.success(t('confirmRemoveSessionSuccess'));
             },
             rootClassName: styles.modalRoot,

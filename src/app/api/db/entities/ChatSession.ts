@@ -1,8 +1,13 @@
 import mongoose, { Schema } from 'mongoose';
 
 import { ChatSession } from '@/types/common/ChatSession.type';
-import { ChatMessage, ChatMessageError, ChatTTS , ChatPluginPayload, ChatToolPayload } from '@/types/message';
-
+import {
+  ChatMessage,
+  ChatMessageError,
+  ChatPluginPayload,
+  ChatTTS,
+  ChatToolPayload,
+} from '@/types/message';
 import { MetaData } from '@/types/meta';
 
 const chatToolPayloadSchema = new mongoose.Schema<ChatToolPayload>({
@@ -229,6 +234,11 @@ const chatSessionSchema = new mongoose.Schema<ChatSession>({
     trim: true,
     type: String,
     unique: true,
+  },
+  plugins: {
+    default: [],
+    required: false,
+    type: [String],
   },
 });
 

@@ -4,5 +4,6 @@ export type ChatSession = {
   firebaseId: string;
   messages?: Array<any>;
   name?: string;
+  plugins?: string[]
   sessionId: string;
 };
