@@ -2,13 +2,12 @@
 
 import { useTranslation } from 'react-i18next';
 
-// import FullscreenLoading from '@/components/FullscreenLoading';
-import Loader from '@/components/Loader';
+import FullscreenLoading from '@/components/FullscreenLoading';
 
 const Loading = () => {
   const { t } = useTranslation('translate');
 
-  return <Loader message={t('translateInitializing')} show />;
+  return <FullscreenLoading title={t('translateInitializing')} />;
 };
 
 export default Loading;

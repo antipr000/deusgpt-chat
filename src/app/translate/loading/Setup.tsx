@@ -1,17 +1,15 @@
 'use client';
 
-import { useAtom, useAtomValue } from 'jotai';
+import {  useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { memo, useEffect } from 'react';
 
-import { getAllAdminIntegrations, getAllIntegrations } from '@/helpers/api';
 import { handleEvent, postMessageToParent } from '@/helpers/iframe.notification';
 // import { messageService } from '@/services/message';
 // import { sessionService } from '@/services/session';
 import { integrationsAtom } from '@/store/atoms/integrations.atom';
 import { idTokenAtom } from '@/store/atoms/token.atom';
 import { userAtom } from '@/store/atoms/user.atom';
-import { Integration } from '@/types/common/Integration.type';
 
 // const checkHasConversation = async () => {
 //   const hasMessages = await messageService.hasMessages();
@@ -24,7 +22,7 @@ const Setup = memo(() => {
 
   const idToken = useAtomValue(idTokenAtom);
   const user = useAtomValue(userAtom);
-  const [_1, setIntegrations] = useAtom(integrationsAtom);
+  const integrations = useAtomValue(integrationsAtom);
 
   useEffect(() => {
     postMessageToParent('translate-load', true);
@@ -32,24 +30,13 @@ const Setup = memo(() => {
     window.addEventListener('message', handleEvent);
   }, []);
 
-  const loadAllData = async () => {
-    const promiseArr = [getAllIntegrations()];
-
-    const [integrations] = await Promise.all<[Integration[]]>(
-      // @ts-ignore
-      promiseArr,
-    );
-    setIntegrations(integrations);
-  };
 
   useEffect(() => {
     console.log('Inside iframe', idToken, user);
-    if (idToken && user) {
-      loadAllData().then(() => {
-        router.push('/translate/translate');
-      });
+    if (idToken && user && integrations?.length) {
+      router.push('/translate/translate');
     }
-  }, [idToken, user]);
+  }, [idToken, user, integrations]);
 
   return null;
 });

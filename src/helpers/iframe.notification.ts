@@ -1,10 +1,14 @@
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
+import { integrationsAtom } from '@/store/atoms/integrations.atom';
 import { store } from '@/store/atoms/store.atom';
 import { idTokenAtom } from '@/store/atoms/token.atom';
 import { userAtom } from '@/store/atoms/user.atom';
+import { ChatSession } from '@/types/common/ChatSession.type';
+import { Integration } from '@/types/common/Integration.type';
 import { User } from '@/types/common/User.type';
 
 export const postMessageToParent = (type: string, payload: any) => {
-  window.parent.postMessage({ type, payload }, '*');
+  window.parent.postMessage({ payload, type }, '*');
 };
 
 export const handleEvent = ({ data }: { data: { payload: any; type: string } }) => {
@@ -13,8 +17,10 @@ export const handleEvent = ({ data }: { data: { payload: any; type: string } }) 
 
   if (type === 'id-token') {
     // set state
-    const { idToken, user }: { idToken: string; user: User } = payload;
+    const { chatSessions, idToken, integrations, user }: {  chatSessions: ChatSession[]; idToken: string; integrations: Integration[]; user: User } = payload;
     store.set(idTokenAtom, idToken);
     store.set(userAtom, user);
+    store.set(integrationsAtom, integrations);
+    store.set(chatSessionsAtom, chatSessions);
   }
 };
