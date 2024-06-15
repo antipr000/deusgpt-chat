@@ -23,6 +23,18 @@ const DefaultMode = memo(() => {
 
   const defaultSessions = useAtomValue(chatSessionsAtom);
 
+  const [keywords] = useSessionStore((s) => [s.sessionSearchKeywords]);
+
+  const chatSessions = useMemo(() => {
+    if (!keywords) return defaultSessions;
+
+    return (
+      defaultSessions?.filter((session) => {
+        return session.name?.toLowerCase().includes(keywords.toLowerCase());
+      }) || []
+    );
+  }, [defaultSessions, keywords]);
+
   const [sessionGroupKeys, updatePreference] = useGlobalStore((s) => [
     preferenceSelectors.sessionGroupKeys(s),
     s.updatePreference,
@@ -32,13 +44,13 @@ const DefaultMode = memo(() => {
     () =>
       [
         {
-          children: <SessionList dataSource={defaultSessions || []} />,
+          children: <SessionList dataSource={chatSessions || []} />,
           extra: <Actions />,
           key: SessionDefaultGroup.Default,
           label: t('defaultList'),
         },
       ].filter(Boolean) as CollapseProps['items'],
-    [defaultSessions],
+    [chatSessions],
   );
 
   return (

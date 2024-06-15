@@ -1,7 +1,6 @@
 'use client';
 
 import React, { ReactNode } from 'react';
-import { Flexbox } from 'react-layout-kit';
 
 import '@/styles/global.css';
 
@@ -14,11 +13,9 @@ const TranslateLayout = ({ children }: { children: ReactNode }) => {
     <ReactQueryProvider>
       <GlobalProvider>
         <GlobalToaster />
-        <Flexbox direction="horizontal" style={{ width: '100% ' }}>
-          <Flexbox style={{ flex: '1 0 auto' }}>
-            {children}
-          </Flexbox>
-        </Flexbox>
+        <div className="flex" style={{ width: '100% ' }}>
+          <div style={{ flex: '1 0 auto' }}>{children}</div>
+        </div>
       </GlobalProvider>
     </ReactQueryProvider>
   );

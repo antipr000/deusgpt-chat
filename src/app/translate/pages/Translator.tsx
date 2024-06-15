@@ -1,7 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
 import { App, Button } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineSwapHoriz } from 'react-icons/md';
 import { TbCopy } from 'react-icons/tb';
@@ -56,7 +56,7 @@ function TranslatorPage() {
     setIsClient(true);
   }, []);
 
-  const onExchangeLanguageBtnClick = useCallback(
+  const onExchangeLanguageBtnClick: any = useCallback(
     () =>
       setLastTranslateData((prev) => ({
         ...prev,
@@ -66,7 +66,7 @@ function TranslatorPage() {
     [setLastTranslateData],
   );
 
-  const handleTranslate = useCallback(
+  const handleTranslate: any = useCallback(
     (event: any) => {
       event.preventDefault();
       const { fromLang, toLang } = lastTranslateData;
@@ -96,13 +96,7 @@ function TranslatorPage() {
         temperatureParam,
       });
     },
-    [
-      currentModel,
-      i18n.language,
-      mutateTranslateText,
-      toTranslateText,
-      lastTranslateData
-    ],
+    [currentModel, i18n.language, mutateTranslateText, toTranslateText, lastTranslateData],
   );
 
   if (!isClient) return null;
@@ -110,7 +104,7 @@ function TranslatorPage() {
   return (
     <div className="min-h-screen flex items-start justify-center bg-[#f5f5f5]">
       <div className="rounded-lg w-full">
-        <h1 className="text-2xl font-semibold mb-4 text-center">Translator</h1>
+        <h1 className="text-2xl font-semibold mb-4 text-center text-black">Translator</h1>
 
         <div className="flex space-x-4 mb-4">
           <div className="flex-1">
@@ -118,7 +112,7 @@ function TranslatorPage() {
               Source Language
             </label>
             <select
-              className="block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm p-2 outline-none"
+              className="block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm p-2 outline-none text-black"
               id="sourceLang"
               onChange={(e) =>
                 setLastTranslateData((prev) => ({ ...prev, fromLang: e.target.value }))
@@ -132,7 +126,10 @@ function TranslatorPage() {
               ))}
             </select>
           </div>
-          <Button className="mt-6" onClick={onExchangeLanguageBtnClick}>
+          <Button
+            className="bg-white mt-6 border-gray-300 text-black"
+            onClick={onExchangeLanguageBtnClick}
+          >
             <MdOutlineSwapHoriz className="w-5 h-5" />
           </Button>
           <div className="flex-1">
@@ -140,7 +137,7 @@ function TranslatorPage() {
               Target Language
             </label>
             <select
-              className="block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm p-2 outline-none"
+              className="block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm p-2 outline-none text-black"
               id="targetLang"
               onChange={(e) =>
                 setLastTranslateData((prev) => ({ ...prev, toLang: e.target.value }))
@@ -162,7 +159,7 @@ function TranslatorPage() {
               Source Text
             </label>
             <textarea
-              className="block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm p-2 outline-none"
+              className="block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm p-2 outline-none text-black"
               cols={20}
               id="sourceText"
               onChange={(e) => setToTranslateText(e.target.value)}
@@ -179,7 +176,7 @@ function TranslatorPage() {
               Translated Text
             </label>
             <textarea
-              className="block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm p-2 outline-none bg-gray-100"
+              className="block w-full border border-gray-300 rounded-md shadow-sm sm:text-sm p-2 outline-none bg-gray-100 text-black"
               cols={10}
               id="translatedText"
               placeholder="Translated text will appear here."
@@ -198,7 +195,11 @@ function TranslatorPage() {
         </div>
 
         <div className="text-end">
-          <Button className='bg-black text-white' disabled={isTranslating} onClick={handleTranslate}>
+          <Button
+            className="bg-black text-white"
+            disabled={isTranslating}
+            onClick={handleTranslate}
+          >
             Translate
           </Button>
         </div>

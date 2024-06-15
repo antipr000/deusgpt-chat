@@ -1,15 +1,14 @@
 'use client';
 
 import { useTheme } from 'antd-style';
-import { useAtom } from 'jotai';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { Flexbox } from 'react-layout-kit';
 
 import { useIsPWA } from '@/hooks/useIsPWA';
 
 import { LayoutProps } from './type';
 
-const Layout = memo<LayoutProps>(({ children, nav }) => {
+const Layout = memo<LayoutProps>(({ children }) => {
   const isPWA = useIsPWA();
   const theme = useTheme();
 
