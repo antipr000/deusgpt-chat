@@ -185,7 +185,7 @@ function TranslatorPage() {
               value={translatedText}
             />
             <Button
-              className="absolute bottom-4 right-3"
+              className="absolute bottom-4 right-3 bg-white text-black"
               disabled={!translatedText}
               onClick={onCopyBtnClick}
             >
