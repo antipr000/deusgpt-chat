@@ -1,12 +1,12 @@
 import axios from 'axios';
 
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 import { store } from '@/store/atoms/store.atom';
 import { idTokenAtom } from '@/store/atoms/token.atom';
 import { ChatSession } from '@/types/common/ChatSession.type';
 import { Integration } from '@/types/common/Integration.type';
 import { Payment, PaymentWithUser } from '@/types/common/Payment.type';
 import { User } from '@/types/common/User.type';
-import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 
 const instance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/api`,
@@ -14,7 +14,6 @@ const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
   const idToken = store.get(idTokenAtom);
-  console.log('ID token', idToken);
   if (idToken) {
     config.headers.Authorization = idToken;
   }
@@ -49,7 +48,7 @@ const getAllChatSessions = async (): Promise<ChatSession[]> => {
 const updateChatSession = async (
   sessionId: string,
   request: Partial<ChatSession>,
-): Promise<ChatSession[]> => {
+): Promise<ChatSession> => {
   const { data } = await instance.patch(`/chat-session/${sessionId}`, request);
   return data;
 };
@@ -116,7 +115,10 @@ const getCountOfUsersInDateRange = async (startDate: Date, endDate?: Date): Prom
   return data;
 };
 
-const getCountOfSubscribedUsersInDateRange = async (startDate: Date, endDate?: Date): Promise<number> => {
+const getCountOfSubscribedUsersInDateRange = async (
+  startDate: Date,
+  endDate?: Date,
+): Promise<number> => {
   const { data } = await instance.get<number>(
     `/user?subscribed=true&startDate=${startDate.toISOString()}&endDate=${(endDate || new Date()).toISOString()}`,
   );

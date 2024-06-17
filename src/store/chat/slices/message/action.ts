@@ -70,6 +70,8 @@ export interface ChatMessageAction {
   updateInputMessage: (message: string) => void;
   modifyMessageContent: (id: string, content: string) => Promise<void>;
   // query
+  updateInitialMessagesMap: (map: Record<string, ChatMessage[]>) => void;
+  toggleIsLoading: (isLoading: boolean) => void;
   useFetchMessages: (sessionId: string, topicId?: string) => SWRResponse<ChatMessage[]>;
   stopGenerateMessage: () => void;
   copyMessage: (id: string, content: string) => Promise<void>;
@@ -215,6 +217,10 @@ export const chatMessage: StateCreator<
 
     // after remove topic , go back to default topic
     switchTopic();
+
+    const initialMessagesMap = get().initialMessagesMap;
+    const newMaps = { ...initialMessagesMap, [activeId]: [] };
+    set({ initialMessagesMap: newMaps }, false);
   },
   clearAllMessages: async () => {
     const { refreshMessages } = get();
@@ -308,7 +314,20 @@ export const chatMessage: StateCreator<
     }
 
     // Get the current messages to generate AI response
-    const messages = chatSelectors.currentChats(get());
+    const messages = [...chatSelectors.currentChats(get())];
+    if (!messages.length) {
+      messages.push({
+        content: message,
+        createdAt: new Date().getUTCMilliseconds(),
+        files: fileIdList,
+        id,
+        meta: {},
+        role: 'user',
+        sessionId: activeId,
+        topicId: activeTopicId,
+        updatedAt: new Date().getUTCMilliseconds(),
+      });
+    }
 
     await internal_coreProcessMessage(messages, id, { isWelcomeQuestion });
 
@@ -379,6 +398,12 @@ export const chatMessage: StateCreator<
     });
 
     await get().internal_updateMessageContent(id, content);
+  },
+  updateInitialMessagesMap: (map: Record<string, ChatMessage[]>) => {
+    set({ initialMessagesMap: map }, false);
+  },
+  toggleIsLoading: (isLoading: boolean) => {
+    set({ isLoading }, false);
   },
   useFetchMessages: (sessionId, activeTopicId) =>
     useClientDataSWR<ChatMessage[]>(

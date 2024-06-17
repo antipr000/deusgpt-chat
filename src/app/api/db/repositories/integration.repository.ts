@@ -13,7 +13,7 @@ class IntegrationRepository {
     return data;
   }
 
-  async getIntegrationByName(name: String): Promise<Integration> {
+  async getIntegrationByName(name: string): Promise<Integration> {
     const integrationModel = await this.dbProvider.getIntegrationModel();
     const data = await integrationModel.findOne({ name });
     return data;
@@ -22,12 +22,11 @@ class IntegrationRepository {
   async getAllIntegrations(): Promise<Partial<Integration>> {
     const integrationModel = await this.dbProvider.getIntegrationModel();
     const data: Integration[] = await integrationModel.find({ enabled: true });
-    console.log('Got', data);
     const finalData = data.map(({ displayName, enabled, name, models }) => ({
       displayName,
       enabled,
-      name,
       models,
+      name,
     }));
     return finalData as Partial<Integration>;
   }

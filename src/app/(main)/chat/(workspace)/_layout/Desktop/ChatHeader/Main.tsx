@@ -36,7 +36,6 @@ const Main = memo(() => {
   const selectedChatSession = chatSessions.find(
     (session) => session.sessionId === selectedChatSessionId,
   );
-  console.log(selectedChatSession);
 
   const displayTitle = isInbox ? t('inbox.title') : selectedChatSession?.name;
   const displayDesc = isInbox ? t('inbox.desc') : description;

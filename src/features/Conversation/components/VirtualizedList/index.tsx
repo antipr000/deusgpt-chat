@@ -27,7 +27,7 @@ const VirtualizedList = memo<VirtualizedListProps>(({ mobile }) => {
   const [atBottom, setAtBottom] = useState(true);
   const [isScrolling, setIsScrolling] = useState(false);
 
-  const [id] = useChatStore((s) => [chatSelectors.currentChatKey(s)]);
+  const [id, isLoading] = useChatStore((s) => [chatSelectors.currentChatKey(s), s.isLoading]);
 
   const [activeTopicId, useFetchMessages, isFirstLoading, isCurrentChatLoaded] = useChatStore(
     (s) => [
@@ -81,7 +81,7 @@ const VirtualizedList = memo<VirtualizedListProps>(({ mobile }) => {
   );
 
   // first time loading or not loaded
-  if (isFirstLoading) return <SkeletonList mobile={mobile} />;
+  if (isFirstLoading || isLoading) return <SkeletonList mobile={mobile} />;
 
   if (!isCurrentChatLoaded)
     // use skeleton list when not loaded in server mode due to the loading duration is much longer than client mode

@@ -45,6 +45,8 @@ const currentChats = (s: ChatStore): ChatMessage[] => {
   return messages.map((i) => ({ ...i, meta: getMeta(i) }));
 };
 
+const currentMessagesMap = (s: ChatStore) => s.messagesMap;
+
 const initTime = Date.now();
 
 const showInboxWelcome = (s: ChatStore): boolean => {
@@ -61,13 +63,13 @@ const showInboxWelcome = (s: ChatStore): boolean => {
 const currentChatsWithGuideMessage =
   (meta: MetaData) =>
   (s: ChatStore): ChatMessage[] => {
-    const data = currentChats(s);
+    const [activeId, isInbox] = [s.activeId, s.activeId === INBOX_SESSION_ID];
+    const initialMessagesMap = s.initialMessagesMap;
+    const data = [...initialMessagesMap[activeId], ...currentChats(s)];
 
     const isBrandNewChat = data.length === 0;
 
     if (!isBrandNewChat) return data;
-
-    const [activeId, isInbox] = [s.activeId, s.activeId === INBOX_SESSION_ID];
 
     const inboxMsg = '';
     const agentSystemRoleMsg = t('agentDefaultMessageWithSystemRole', {
@@ -143,6 +145,7 @@ export const chatSelectors = {
   currentChats,
   currentChatsWithGuideMessage,
   currentChatsWithHistoryConfig,
+  currentMessagesMap,
   getMessageById,
   getTraceIdByMessageId,
   isAIGenerating,

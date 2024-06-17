@@ -35,7 +35,6 @@ const Redirect = memo(() => {
   }, []);
 
   useEffect(() => {
-    console.log('Inside iframe', idToken, user);
     if (idToken && user && chatSessions.length && integrations?.length) {
       const sessionId = chatSessions[0].sessionId;
       setSelectedChatSession(sessionId);

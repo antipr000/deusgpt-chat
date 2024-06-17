@@ -1,6 +1,6 @@
 'use client';
 
-import {  useAtomValue } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { memo, useEffect } from 'react';
 
@@ -30,9 +30,7 @@ const Setup = memo(() => {
     window.addEventListener('message', handleEvent);
   }, []);
 
-
   useEffect(() => {
-    console.log('Inside iframe', idToken, user);
     if (idToken && user && integrations?.length) {
       router.push('/translate/translate');
     }

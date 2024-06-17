@@ -6,8 +6,13 @@ import { StateCreator } from 'zustand/vanilla';
 
 import { message } from '@/components/AntdStaticMethods';
 import { DEFAULT_AGENT_LOBE_SESSION, INBOX_SESSION_ID } from '@/const/session';
+import { createChatSession } from '@/helpers/api';
 import { useClientDataSWR } from '@/libs/swr';
 import { sessionService } from '@/services/session';
+import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
+import { selectedChatSessionAtom } from '@/store/atoms/selectedChatSession.atom';
+import { store } from '@/store/atoms/store.atom';
+import { userAtom } from '@/store/atoms/user.atom';
 import { SessionStore } from '@/store/session';
 import { useUserStore } from '@/store/user';
 import { settingsSelectors } from '@/store/user/selectors';
@@ -26,10 +31,6 @@ import { setNamespace } from '@/utils/storeDebug';
 import { SessionDispatch, sessionsReducer } from './reducers';
 import { sessionSelectors } from './selectors';
 import { sessionMetaSelectors } from './selectors/meta';
-import { createChatSession } from '@/helpers/api';
-import { store } from '@/store/atoms/store.atom';
-import { userAtom } from '@/store/atoms/user.atom';
-import { chatSessionsAtom } from '@/store/atoms/chatSessions.atom';
 
 const n = setNamespace('session');
 
@@ -120,21 +121,25 @@ export const createSessionSlice: StateCreator<
 
     const newSession: LobeAgentSession = merge(defaultAgent, agent);
     const id = await sessionService.createSession(LobeSessionType.Agent, newSession);
-    
+
     const newChatSession = await createChatSession({
       agent: 'gpt',
+      createdAt: new Date(),
       firebaseId: store.get(userAtom)!.firebaseId!,
       name: 'DeusGPT',
       sessionId: id,
-    })
-    const chatSessions = store.get(chatSessionsAtom)
+    });
+    const chatSessions = store.get(chatSessionsAtom);
     chatSessions.push(newChatSession);
     store.set(chatSessionsAtom, () => [...chatSessions]);
 
     await refreshSessions();
 
     // Whether to goto  to the new session after creation, the default is to switch to
-    if (isSwitchSession) activeSession(id);
+    if (isSwitchSession) {
+      activeSession(id);
+      store.set(selectedChatSessionAtom, () => id);
+    }
 
     return id;
   },

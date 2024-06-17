@@ -11,7 +11,9 @@ export interface ChatMessageState {
    * is the AI message is generating
    */
   chatLoadingIds: string[];
+  initialMessagesMap: Record<string, ChatMessage[]>;
   inputMessage: string;
+  isLoading: boolean;
   /**
    * is the message is editing
    */
@@ -34,7 +36,9 @@ export interface ChatMessageState {
 export const initialMessageState: ChatMessageState = {
   activeId: 'inbox',
   chatLoadingIds: [],
+  initialMessagesMap: {},
   inputMessage: '',
+  isLoading: false,
   messageEditingIds: [],
   messageLoadingIds: [],
   messagesInit: false,

@@ -225,20 +225,25 @@ const chatSessionSchema = new mongoose.Schema<ChatSession>({
     required: true,
     type: String,
   },
+  messages: {
+    default: [],
+    required: false,
+    type: [String],
+  },
   name: {
     required: false,
     type: String,
+  },
+  plugins: {
+    default: [],
+    required: false,
+    type: [String],
   },
   sessionId: {
     required: true,
     trim: true,
     type: String,
     unique: true,
-  },
-  plugins: {
-    default: [],
-    required: false,
-    type: [String],
   },
 });
 

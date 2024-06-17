@@ -70,7 +70,7 @@ function TranslatorPage() {
     (event: any) => {
       event.preventDefault();
       const { fromLang, toLang } = lastTranslateData;
-      console.log('Here 2', toTranslateText, fromLang, toLang);
+      console.log(toTranslateText, fromLang, toLang);
       if (!toTranslateText || !fromLang || !toLang) {
         message.error('From and to languages are mandatory!');
         return;
