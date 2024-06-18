@@ -25,6 +25,10 @@ export const useStyles = createStyles(({ css, token }) => ({
   `,
 }));
 
+const redirectToHome = () => {
+  window.parent.postMessage({ type: 'redirect' }, '*');
+};
+
 const Header = memo(() => {
   const { styles } = useStyles();
   const { t } = useTranslation('chat');
@@ -36,8 +40,14 @@ const Header = memo(() => {
   return (
     <Flexbox className={styles.top} gap={16} padding={16}>
       <Flexbox distribution={'space-between'} horizontal>
-        <Flexbox align={'center'} gap={4} horizontal>
-          <img alt="logo" src="logo.png" width={50} height={50} />
+        <Flexbox
+          align={'center'}
+          gap={4}
+          horizontal
+          onClick={redirectToHome}
+          style={{ cursor: 'pointer' }}
+        >
+          <img alt="logo" height={50} src="/logo.png" width={50} />
           <div style={{ fontSize: '24px', fontWeight: 'bold' }}>DeusGPT</div>
         </Flexbox>
         {showCreateSession && (
