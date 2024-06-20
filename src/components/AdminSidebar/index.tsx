@@ -8,6 +8,10 @@ import { Flexbox } from 'react-layout-kit';
 
 import Menu from '../Menu';
 
+const redirectToHome = () => {
+  window.parent.postMessage({ type: 'redirect' }, '*');
+};
+
 const AdminSidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -41,7 +45,12 @@ const AdminSidebar = () => {
   return (
     <Flexbox style={{ height: '100%', padding: '15px 0 15px 15px', width: 220 }}>
       <Flexbox align={'center'} gap={4} horizontal>
-        <div style={{ fontSize: '24px', fontWeight: 'bold' }}>DeusGPT</div>
+        <div
+          onClick={redirectToHome}
+          style={{ cursor: 'pointer', fontSize: '24px', fontWeight: 'bold' }}
+        >
+          DeusGPT
+        </div>
       </Flexbox>
 
       <Menu
