@@ -3,6 +3,7 @@ import {
   LobeChatPluginsMarketIndex,
   pluginManifestSchema,
 } from '@lobehub/chat-plugin-sdk';
+import axios from 'axios';
 
 import { globalHelpers } from '@/store/user/helpers';
 import { OpenAIPluginManifest } from '@/types/openai/plugin';
@@ -47,9 +48,9 @@ class ToolService {
   getPluginList = async (): Promise<LobeChatPluginsMarketIndex> => {
     const locale = globalHelpers.getCurrentLanguage();
 
-    const res = await fetch(`${API_ENDPOINTS.pluginStore}?locale=${locale}`);
+    const res = await axios.get(`${API_ENDPOINTS.pluginStore}?locale=${locale}`);
 
-    return res.json();
+    return res.data;
   };
 
   getPluginManifest = async (

@@ -65,7 +65,10 @@ const currentChatsWithGuideMessage =
   (s: ChatStore): ChatMessage[] => {
     const [activeId, isInbox] = [s.activeId, s.activeId === INBOX_SESSION_ID];
     const initialMessagesMap = s.initialMessagesMap;
-    const data = [...initialMessagesMap[activeId], ...currentChats(s)];
+    const data = [
+      ...(initialMessagesMap[activeId] ? initialMessagesMap[activeId] : []),
+      ...currentChats(s),
+    ];
 
     const isBrandNewChat = data.length === 0;
 

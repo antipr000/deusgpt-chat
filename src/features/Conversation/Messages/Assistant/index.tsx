@@ -1,4 +1,4 @@
-import { ReactNode, memo } from 'react';
+import { ReactNode, memo, useMemo } from 'react';
 import { Flexbox } from 'react-layout-kit';
 
 import { LOADING_FLAT } from '@/const/message';
@@ -8,6 +8,7 @@ import { ChatMessage } from '@/types/message';
 
 import { DefaultMessage } from '../Default';
 import ToolCall from './ToolCalls';
+import WeatherMessage from './WeatherMessage';
 
 export const AssistantMessage = memo<
   ChatMessage & {
@@ -18,6 +19,18 @@ export const AssistantMessage = memo<
   const generating = useChatStore(chatSelectors.isMessageGenerating(id));
 
   const isToolCallGenerating = generating && (content === LOADING_FLAT || !content) && !!tools;
+
+  const parsedContent = useMemo(() => {
+    try {
+      return JSON.parse(content);
+    } catch {
+      return null;
+    }
+  }, [content]);
+
+  if (parsedContent?.fromPlugin === 'weathergpt') {
+    return <WeatherMessage content={parsedContent} />;
+  }
 
   return (
     <Flexbox gap={8} id={id}>

@@ -15,7 +15,7 @@ import { useToolStore } from '@/store/tool';
 import { customPluginSelectors } from '@/store/tool/selectors';
 
 const ToolItem = memo<{ identifier: string; label: string }>(({ identifier, label }) => {
-  const [chatSessions, setChatSessions] = useAtom(chatSessionsAtom);
+  const [chatSessions] = useAtom(chatSessionsAtom);
   const [checked, togglePlugin] = useAgentStore((s) => [
     agentSelectors.currentAgentPlugins(s).includes(identifier),
     s.togglePlugin,
@@ -45,7 +45,6 @@ const ToolItem = memo<{ identifier: string; label: string }>(({ identifier, labe
     togglePlugin(identifier);
     if (sessionId !== 'inbox') {
       chatSession!.plugins = plugins;
-      setChatSessions([...chatSessions]);
       updateChatSession(sessionId!, { plugins });
     }
   };

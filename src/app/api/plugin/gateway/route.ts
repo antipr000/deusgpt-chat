@@ -40,17 +40,17 @@ const handler = createGatewayOnEdgeRuntime({ defaultPluginSettings, pluginsIndex
 
 export const POST = async (req: Request) => {
   // get Authorization from header
-  const authorization = req.headers.get(LOBE_CHAT_AUTH_HEADER);
-  if (!authorization) throw AgentRuntimeError.createError(ChatErrorType.Unauthorized);
+  // const authorization = req.headers.get(LOBE_CHAT_AUTH_HEADER);
+  // if (!authorization) throw AgentRuntimeError.createError(ChatErrorType.Unauthorized);
 
-  const oauthAuthorized = !!req.headers.get(OAUTH_AUTHORIZED);
-  const payload = await getJWTPayload(authorization);
+  // const oauthAuthorized = !!req.headers.get(OAUTH_AUTHORIZED);
+  // const payload = await getJWTPayload(authorization);
 
-  const result = checkAuth(payload.accessCode!, oauthAuthorized);
+  // const result = checkAuth(payload.accessCode!, oauthAuthorized);
 
-  if (!result.auth) {
-    return createErrorResponse(result.error as ErrorType);
-  }
+  // if (!result.auth) {
+  //   return createErrorResponse(result.error as ErrorType);
+  // }
 
   // add trace
   const tracePayload = getTracePayload(req);

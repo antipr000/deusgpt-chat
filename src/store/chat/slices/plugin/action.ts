@@ -7,6 +7,8 @@ import { LOADING_FLAT } from '@/const/message';
 import { PLUGIN_SCHEMA_API_MD5_PREFIX, PLUGIN_SCHEMA_SEPARATOR } from '@/const/plugin';
 import { chatService } from '@/services/chat';
 import { CreateMessageParams, messageService } from '@/services/message';
+import { useAgentStore } from '@/store/agent';
+import { agentSelectors } from '@/store/agent/selectors';
 import { ChatStore } from '@/store/chat/store';
 import { useToolStore } from '@/store/tool';
 import { pluginSelectors } from '@/store/tool/selectors';
@@ -42,6 +44,8 @@ export interface ChatPluginAction {
   triggerToolCalls: (id: string) => Promise<void>;
   updatePluginState: (id: string, key: string, value: any) => Promise<void>;
 }
+
+const getAgentConfig = () => agentSelectors.currentAgentConfig(useAgentStore.getState());
 
 export const chatPlugin: StateCreator<
   ChatStore,
@@ -256,6 +260,28 @@ export const chatPlugin: StateCreator<
   triggerAIMessage: async ({ parentId, traceId }) => {
     const { internal_coreProcessMessage } = get();
     const chats = chatSelectors.currentChats(get());
+
+    const lastChat = chats.at(-1);
+    if (lastChat?.plugin?.identifier === 'WeatherGPT') {
+      const { model, provider } = getAgentConfig();
+
+      let content = JSON.parse(lastChat.content);
+      content = { ...content, fromPlugin: 'weathergpt' };
+      const assistantMessage: CreateMessageParams = {
+        content: JSON.stringify(content),
+        fromModel: model,
+        fromProvider: provider,
+        parentId: parentId ?? chats.at(-1)!.id,
+        role: 'assistant',
+        sessionId: get().activeId,
+        topicId: get().activeTopicId, // if there is activeTopicId，then add it to topicId
+      };
+
+      await get().internal_createMessage(assistantMessage);
+      await get().refreshMessages();
+
+      return;
+    }
     await internal_coreProcessMessage(chats, parentId ?? chats.at(-1)!.id, { traceId });
   },
   triggerToolCalls: async (assistantId) => {
