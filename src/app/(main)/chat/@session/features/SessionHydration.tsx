@@ -1,5 +1,6 @@
 'use client';
 
+import isEqual from 'fast-deep-equal';
 import { useAtom } from 'jotai';
 import { debounce } from 'lodash';
 import { useQueryState } from 'nuqs';
@@ -14,6 +15,8 @@ import { store } from '@/store/atoms/store.atom';
 import { useChatStore } from '@/store/chat';
 import { chatSelectors } from '@/store/chat/selectors';
 import { useSessionStore } from '@/store/session';
+import { useToolStore } from '@/store/tool';
+import { pluginSelectors, pluginStoreSelectors } from '@/store/tool/selectors';
 import { ChatMessage } from '@/types/message';
 
 // sync outside state to useSessionStore
@@ -40,6 +43,12 @@ const SessionHydration = memo(() => {
     chatSelectors.currentChats(s),
     s.initialMessagesMap,
   ]);
+  const [isWeatherGPTInstalled, installPlugin] = useToolStore((s) => [
+    pluginSelectors.isPluginInstalled('WeatherGPT')(s),
+    s.installPlugin,
+  ]);
+
+  const pluginStoreList = useToolStore((s) => pluginStoreSelectors.onlinePluginStore(s), isEqual);
 
   useEffect(() => {
     const unsubscribe = useSessionStore.subscribe(
@@ -85,6 +94,12 @@ const SessionHydration = memo(() => {
       toggleIsLoading(false);
     });
   }, [session]);
+
+  useEffect(() => {
+    if (pluginStoreList?.length && !isWeatherGPTInstalled) {
+      installPlugin('WeatherGPT');
+    }
+  }, [pluginStoreList]);
 
   return null;
 });

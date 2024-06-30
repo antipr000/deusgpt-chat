@@ -9,10 +9,6 @@ interface WeatherMessageProps {
 }
 
 const WeatherMessage: FC<WeatherMessageProps> = ({ content }) => {
-  const openURL = () => {
-    window.parent.postMessage({ payload: content.infoLink, type: 'open-url' }, '*');
-  };
-
   return (
     <FormAction
       avatar={
@@ -21,7 +17,7 @@ const WeatherMessage: FC<WeatherMessageProps> = ({ content }) => {
       description=""
       title="WeatherGPT"
     >
-      <Flexbox style={{ width: 300 }}>
+      <Flexbox style={{ paddingBottom: 15, width: 300 }}>
         <Flexbox align="center">
           <Flexbox>Location</Flexbox>
           <Flexbox style={{ fontSize: '20px', fontWeight: 'bold' }}>
@@ -34,9 +30,6 @@ const WeatherMessage: FC<WeatherMessageProps> = ({ content }) => {
             {content.current?.temp_c}°C / {content.current?.temp_f}°F
           </Flexbox>
         </Flexbox>
-        <a onClick={openURL} style={{ marginTop: 20, textAlign: 'center' }}>
-          Visit this link for more details
-        </a>
       </Flexbox>
     </FormAction>
   );

@@ -1,7 +1,8 @@
-import { Icon } from '@lobehub/ui';
+import { ActionIcon, Icon } from '@lobehub/ui';
 import { Button, Space } from 'antd';
 import { createStyles } from 'antd-style';
-import { ChevronUp, CornerDownLeft, LucideCommand } from 'lucide-react';
+import { useAtomValue } from 'jotai';
+import { ChevronUp, CornerDownLeft, LucideCommand, MapPin } from 'lucide-react';
 import { rgba } from 'polished';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +13,7 @@ import StopLoadingIcon from '@/components/StopLoading';
 import { useSendMessage } from '@/features/ChatInput/useSend';
 import { useAgentStore } from '@/store/agent';
 import { agentSelectors } from '@/store/agent/slices/chat';
+import { locationAtom } from '@/store/atoms/location.atom';
 import { useChatStore } from '@/store/chat';
 import { chatSelectors } from '@/store/chat/selectors';
 import { useUserStore } from '@/store/user';
@@ -60,14 +62,17 @@ const Footer = memo<FooterProps>(({ setExpand }) => {
 
   const { theme, styles } = useStyles();
 
+  const location = useAtomValue(locationAtom);
+  const [isWeatherGPTChecked] = useAgentStore((s) => [
+    agentSelectors.currentAgentPlugins(s).includes('WeatherGPT'),
+  ]);
+
   const [loading, stopGenerateMessage] = useChatStore((s) => [
     chatSelectors.isAIGenerating(s),
     s.stopGenerateMessage,
   ]);
 
-  const [model] = useAgentStore((s) => [
-    agentSelectors.currentAgentModel(s) as string,
-  ]);
+  const [model] = useAgentStore((s) => [agentSelectors.currentAgentModel(s) as string]);
 
   const [useCmdEnterToSend, canUpload] = useUserStore((s) => [
     preferenceSelectors.useCmdEnterToSend(s),
@@ -112,6 +117,17 @@ const Footer = memo<FooterProps>(({ setExpand }) => {
         )}
       </Flexbox>
       <Flexbox align={'center'} gap={8} horizontal>
+        {isWeatherGPTChecked && (
+          <ActionIcon
+            disable={loading}
+            icon={MapPin}
+            onClick={() => {
+              sendMessage({}, `Get current weather for ${location}`);
+            }}
+            placement={'top'}
+            title="Get weather for your location"
+          />
+        )}
         <Flexbox
           gap={4}
           horizontal
@@ -137,7 +153,7 @@ const Footer = memo<FooterProps>(({ setExpand }) => {
             <Space.Compact>
               <Button
                 onClick={() => {
-                  sendMessage(model);
+                  sendMessage({});
                   setExpand?.(false);
                 }}
                 type={'primary'}

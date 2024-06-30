@@ -1,14 +1,14 @@
+import { useAtom } from 'jotai';
 import { useCallback } from 'react';
 
 import { addUsage } from '@/helpers/api';
+import { useAgentStore } from '@/store/agent';
+import { agentSelectors } from '@/store/agent/selectors';
+import { usageAtom } from '@/store/atoms/usage.atom';
 import { useChatStore } from '@/store/chat';
 import { chatSelectors } from '@/store/chat/selectors';
 import { SendMessageParams } from '@/store/chat/slices/message/action';
 import { filesSelectors, useFileStore } from '@/store/file';
-import { useAtom } from 'jotai';
-import { usageAtom } from '@/store/atoms/usage.atom';
-import { useAgentStore } from '@/store/agent';
-import { agentSelectors } from '@/store/agent/selectors';
 
 export type UseSendMessageParams = Pick<
   SendMessageParams,
@@ -21,28 +21,30 @@ export const useSendMessage = () => {
     s.updateInputMessage,
   ]);
   const [_, setUsage] = useAtom(usageAtom);
-  const [model] = useAgentStore((s) => [
-    agentSelectors.currentAgentModel(s) as string,
-  ]);
+  const [model] = useAgentStore((s) => [agentSelectors.currentAgentModel(s) as string]);
 
-  return useCallback((params: UseSendMessageParams = {}) => {
-    const store = useChatStore.getState();
-    if (chatSelectors.isAIGenerating(store)) return;
-    if (!store.inputMessage) return;
+  return useCallback(
+    (params: UseSendMessageParams = {}, message?: string) => {
+      console.log('MESSAGE', message);
+      const store = useChatStore.getState();
+      if (chatSelectors.isAIGenerating(store)) return;
+      if (!store.inputMessage && !message) return;
 
-    const imageList = filesSelectors.imageUrlOrBase64List(useFileStore.getState());
+      const imageList = filesSelectors.imageUrlOrBase64List(useFileStore.getState());
 
-    sendMessage({
-      files: imageList,
-      message: store.inputMessage,
-      ...params,
-    }).then(() => {
-      addUsage({ model }).then((usage) => {
-        setUsage(usage)
-      })
-    });
+      sendMessage({
+        files: imageList,
+        message: message || store.inputMessage,
+        ...params,
+      }).then(() => {
+        addUsage({ model }).then((usage) => {
+          setUsage(usage);
+        });
+      });
 
-    updateInputMessage('');
-    useFileStore.getState().clearImageList();
-  }, [model]);
+      updateInputMessage('');
+      useFileStore.getState().clearImageList();
+    },
+    [model],
+  );
 };

@@ -65,6 +65,7 @@ const Actions = memo<ActionsProps>(({ identifier, type }) => {
                   },
                   {
                     danger: true,
+                    disabled: identifier === 'WeatherGPT',
                     icon: <Icon icon={Trash2} />,
                     key: 'uninstall',
                     label: t('store.actions.uninstall'),
