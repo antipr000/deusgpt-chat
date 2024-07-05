@@ -170,16 +170,12 @@ const ProviderConfig = memo<ProviderConfigProps>(
         models: modelConfigs,
       };
 
-      if (enabled && !finalData.secret) {
-        window.alert('Secret is required for enabling the model');
-      } else {
-        setLoading(true);
-        const updatedIntegration = await updateIntegration(finalData);
-        const others = integrations?.filter((integration) => integration.name !== provider) || [];
+      setLoading(true);
+      const updatedIntegration = await updateIntegration(finalData);
+      const others = integrations?.filter((integration) => integration.name !== provider) || [];
 
-        setIntegrations((_) => [...others, updatedIntegration]);
-        setLoading(false);
-      }
+      setIntegrations((_) => [...others, updatedIntegration]);
+      setLoading(false);
     };
 
     // const toggleProviderEnabled = async (enabled: boolean) => {
